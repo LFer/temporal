@@ -9,6 +9,7 @@
         <field name="model">estate</field>
         <field eval="1" name="priority"/>
         <field name="arch" type="xml">
+        	
             <form string="Propiedades" version="7.0">
             <header>
             	<button name="action_estado_alquilado" type="object" states="enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>

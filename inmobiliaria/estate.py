@@ -31,7 +31,7 @@ class estate(osv.osv):
     def _get_image(self, cr, uid, ids, name, args, context=None):
         result = dict.fromkeys(ids, False)
         for obj in self.browse(cr, uid, ids, context=context):
-            result[obj.id] = tools.image_get_resized_images(obj.image)
+            result[obj.id] = tools.image_get_resized_images(obj.image) 
         return result
 
     def _get_tz_offset(self, cr, uid, ids, name, args, context=None):
