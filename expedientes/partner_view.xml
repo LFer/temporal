@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+	<record id="inherited_view_expexpcar_exp_form" model="ir.ui.view">
+        <field name="name">res.partner.estate.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="expedientescarpetas.inherited_view_expcarpetas_form"/>
+        <field name="arch" type="xml">
+                   
+			<xpath expr="//page[@string='Otras direcciones']" position="after">
+				<page string="Expedientes">
+                    <group string="participa como Propios">
+                        <field name="expp_ids" colspan="4" nolabel="1" mode="tree" >
+                            <tree string="Propios" editable="bottom">
+                                <field name="fecha" />
+                                <field name="numero" />
+                                <field name="nombre" />
+                            </tree>
+                        </field>	
+                    </group> 
+                    <group string="participa como Contrarios">
+                        <field name="expc_ids" colspan="4" nolabel="1" mode="tree" >
+                            <tree string="Contrarios" editable="bottom">
+                                <field name="fecha" />
+                                <field name="numero" />
+                                <field name="nombre" />
+                            </tree>
+                        </field>	
+                    </group>                      
+                    <group string="participa como Comunes">
+                        <field name="expco_ids" colspan="4" nolabel="1" mode="tree" >
+                            <tree string="Comunes" editable="bottom">
+                                <field name="fecha" />
+                                <field name="numero" />
+                                <field name="nombre" />
+                            </tree>
+                        </field>	                            
+                    </group>  	    
+                </page>
+                <page string="Gastos">
+                    <group string="Gastos asociados">
+                        <button name="action_nueva_factura_gastos_cli" type="object" string="Facturar" confirm="¿Confirma facturar el concepto?" class="oe_highlight"/>
+						<!-- Aca le digo que pase al contexto el id activo, que es el del cliente actual (Porque estoy en cliente!!!!) -->
+						<!-- Yo estoy en una vista del modelo Partner, asi que digo que la id activa(la del cliente) la pase al contexto-->
+                        <field name="gastos_ids" colspan="4" nolabel="1" mode="tree" context="{'partner_id': active_id}">
+                            <tree string="Concepto" version="7.0" context="{'mostrar':False}">
+                                <field name="fecha" />
+                                <field name="name"/>                                
+                                <field name="product_id"/>
+                                <field name="cantidad" />
+                                <field name="iva" placeholder="IVA"/>
+                                <field name="preciounidad" />  
+                                <field name="facturar" /> 
+                                <field name="facturado"/>                                
+                            </tree>
+                        </field>
+                        <group>
+                            <field name="totalgral"/>                       
+                            <field name="totalfacturado"/>
+                            <field name="totalsinfacturar"/>
+                        </group>                        
+                    </group>                     
+                </page>
+                <page string="Facturas">
+                <field name="invoice_ids" widget="one2many_list">
+                    <tree string="Facturas" create="0">
+                        <field name="date_invoice" />  
+                        <field name="partner_id" />  
+                        <field name="origin" />
+                        <field name="amount_total"/>
+                        <field name="state" invisible="True" />                                 
+                    </tree>
+                </field>                    
+                </page>                        
+                
+            </xpath> 
+
+            
+        </field>
+    </record>
+    
+</data>
+</openerp>
+

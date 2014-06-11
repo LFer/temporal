@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_carpeta_nota_form">
+        <field name="name">carpeta.nota.form</field>
+        <field name="model">carpeta.nota</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Nota">
+            
+                <group colspan="4" col="4">
+                	<separator colspan="4" />
+                    <field name="texto" colspan="4"/>
+                    <separator colspan="4"/>
+					<field name="user_id" widget="selection"/>
+	                <field name="fecha"/>
+                 </group>
+
+            </form>
+        </field>
+    </record>
+       
+</data>
+</openerp>

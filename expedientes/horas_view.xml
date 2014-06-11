@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_horas_form">
+        <field name="name">horas.form</field>
+        <field name="model">horas</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Horas" version="7.0">
+                <sheet>
+                    <group colspan="2" col="2">      
+                        <field name="fecha" />
+                        <field name="canthoras"/>
+                        <field name="product_id"/>
+                        <field name="descripcion"/>                        
+                        <field name="conceptuar" />
+                        <!--<field name="facturar" />-->                                                                        
+                    </group>                
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="view_horas_tree" model="ir.ui.view">  
+        <field name="name">horas.tree</field>
+        <field name="model">horas</field>
+        <field eval="1" name="priority"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">            
+            <tree string="Horas">
+                <field name="fecha" />
+                <field name="canthoras"/>
+                <field name="product_id"/>
+                <field name="descripcion"/>
+                <field name="conceptuar"/> 
+			</tree>
+        </field>    
+    </record>
+</data>
+</openerp>

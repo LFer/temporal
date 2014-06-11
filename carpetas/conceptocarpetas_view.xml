@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_conceptocarpetas_form">
+        <field name="name">conceptocarpetas.form</field>
+        <field name="model">conceptocarpetas</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Concepto" version="7.0">
+                <sheet>
+                    <group colspan="2" col="2">      
+                        <field name="name"/>
+                        <field name="fecha" />
+                        <field name="product_id"/>
+                        <field name="cantidad" />
+                        <field name="dtounidad" />                        
+                        <field name="iva" placeholder="IVA"/>
+                        <field name="preciounidad" />  
+                        <field name="facturar" />                        
+                    </group>                
+                </sheet>
+            </form>
+        </field>
+    </record>
+       
+</data>
+</openerp>

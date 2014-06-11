@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <!--<menuitem id="base.menu_config_abogados" name="Abogados"
+            parent="base.menu_base_config" sequence="1" groups="base.group_sale_manager"/>-->
+    <!--<menuitem name="Abogados"
+        id="base.menu_base_abogados"
+        groups="base.group_sale_salesman,base.group_sale_manager"/>-->
+
+    <!--<menuitem id="base.menu_abogados" name="Abogados" parent="base.menu_administration" sequence="9"/>-->
+    <!--<menuitem id="base.menu_config_abogados" name="Abogados" parent="base.menu_base_config" sequence="9"/>-->
+            
+    <record id="view_poderjudicial_form" model="ir.ui.view">
+        <field name="name">poderjudicial.form</field>
+        <field name="model">poderjudicial</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Poderes" version="7.0">    
+            <header>
+            	<button name="action_estado_abierto" type="object" states="abierto,cerrado,pausado" string="Abierto" confirm="¿Confirma marcar como abierto?" class="oe_highlight"/>
+            	<button name="action_estado_cerrado" type="object" states="abierto,cerrado,pausado" string="Cerrado" confirm="¿Confirma marcar como cerrado?" class="oe_highlight"/>
+                <button name="action_estado_pausado" type="object" states="abierto,cerrado,pausado" string="Pausado" confirm="¿Confirma marcar para pausado?" class="oe_highlight"/>
+                <field name="state" widget="statusbar" statusbar_visible="abierto,cerrado,pausado" statusbar_colors='{"cerrado":"blue"}'/>
+            </header>            
+            <sheet>
+                <label for="fecha" string="PODERES"/>
+                <group >                    
+                    <field name="fecha" style="width: 60%%"/>
+                    <field name="number" style="width: 60%%"/>
+                    <field name="nroprotocolo" style="width: 60%%"/>                     
+                </group>
+                <group col="4">
+                    <field name="formato" style="width: 60%%"/>
+                    <field name="apoderado" style="width: 60%%"/>
+                    <field name="tipo" style="width: 60%%"/>
+                    <field name="notario" style="width: 60%%"/>
+                </group>                
+                <label for="active" string="Activo"/>
+                <field name="active"/>                                                
+                <notebook colspan="4">
+                    <page string="Participantes">
+                        <field name="participantes_ids" colspan="4" nolabel="1" mode="tree">
+                            <tree string="Participantes"  editable="bottom">
+                                <field name="partner_id"/>
+                                <field name="categoria"/>
+                            </tree>
+                        </field>
+                    </page>                
+                    <page string="Observaciones" >
+                        <group colspan="4" col="1">
+                            <separator string="Notas ingresadas" />
+                            <field name="notas_ids" nolabel="1" >
+                                <tree string="" delete="0">
+                                    <field name="texto" string="Texto de la nota"/>
+                                    <field name="fecha" string="Fecha"/>
+                                    <field name="user_id" string="Usuario"/>
+                                </tree>
+                            </field>
+                        </group>
+                     </page>   
+                    <page string="Documentos Adjuntos" >
+                        <field name="attachments" colspan="4" nolabel="1" mode="tree" >
+
+                            <form string="Archivo" version="7.0">
+                                <field name="datas" widget='image' nolabel="1" class="oe_avatar" options='{"preview_image": "datas", "size": [820, 360]}'/>
+                                <group col="8">
+                                    <group col="4">
+                                        <field name="name" string="Nombre del documento adjunto" />
+                                        <field name="tipodocumento" />
+                                    </group>			                
+                            
+                                </group>
+                            </form>
+                            <tree string="Archivos" toolbar="0" delete="0" create="0">
+                                <field name="name" attrs="{'readonly': True}" />
+                                <field name="tipodocumento" />
+                            </tree>
+                        </field>
+                    </page>                     
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- fichero Kanban View -->
+    <record model="ir.ui.view" id="poderjudicial_kanban_view">
+        <field name="name">poderjudicial.kanban</field>
+        <field name="model">poderjudicial</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="number"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div class="oe_kanban_details">
+                            <h4 class="oe_partner_heading"><a type="open"><field name="number"/></a></h4>
+                            <div class="oe_kanban_partner_categories"/>
+                            <div class="oe_kanban_partner_links"/>
+                            <ul>
+                                <li ><field name="nroprotocolo"/></li>
+                                <li ><field name="apoderado"/></li>
+                             </ul>    
+                        </div>
+					</t>						
+				</templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_poderjudicial_filter" model="ir.ui.view">
+         <field name="name">poderjudicial.select</field>
+         <field name="model">poderjudicial</field>
+         <field name="arch" type="xml">
+             <search string="Search Expediente">
+             	<field name="number" filter_domain="[('number','ilike',self)]"/>
+                <separator/>
+
+                <group expand="0" string="Agrupar por...">
+                    <filter string="Numero" context="{'group_by': 'number'}"/>
+                </group>
+            </search>
+         </field>
+     </record>
+
+
+    <record id="view_poderjudicial_tree" model="ir.ui.view">
+        <field name="name">poderjudicial.tree</field>
+        <field name="model">poderjudicial</field>
+        <field eval="1" name="priority"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Expedientes">
+                <field name="number" />
+                <field name="nroprotocolo" />
+                <field name="apoderado" />
+			</tree>
+        </field>
+    </record>
+
+        
+    <record id="action_poderjudicial_form" model="ir.actions.act_window">
+        <field name="name">Poderes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">poderjudicial</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_poderjudicial_filter"/>
+        <field name="filter" eval="True"/>
+    </record>
+	
+    <record id="action_poderjudicial_form_view1" model="ir.actions.act_window.view">
+        <field eval="0" name="sequence"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="poderjudicial_kanban_view"/>
+        <field name="act_window_id" ref="action_poderjudicial_form"/>
+    </record>
+    <record id="action_poderjudicial_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_poderjudicial_form"/>
+        <field name="act_window_id" ref="action_poderjudicial_form"/>
+    </record>
+    <record id="action_poderjudicial_tree_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_poderjudicial_tree"/>
+        <field name="act_window_id" ref="action_poderjudicial_form"/>
+    </record>
+        
+
+    <menuitem id="menu_poder_form" parent="base.menu_sales" action="action_poderjudicial_form" sequence="5"/>
+
+     
+        
+</data>
+</openerp>
+
+    

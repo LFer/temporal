@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<openerp>
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+	<report auto="False" id="expedientes.ficha_de_expediente" model="expedientes" name="expedientes.ficha_de_expediente" string="ficha de expediente" usage="default" report_type="odt" file="expedientes/report/ficha de expediente.odt" menu="True"/>
+        <!--Email template -->
+        <record id="ficha" model="email.template">
+            <field name="name">Resumen de expediente</field>
+            <field name="email_from">${user.email or 'noreply@localhost'}</field>
+            <field name="subject">Ficha del expediente ${object.number}</field>
+            <field name="email_to">${object.emails_template}</field>
+            <field name="model_id" search="[('model','=','expedientes')]" model="ir.model" />
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="expedientes.ficha_de_expediente"/>
+            <field name="report_name">Ficha del expediente</field>
+            <field name="lang">${user.lang}</field>
+            <field name="body_html"><![CDATA[
+Por la presente compartimos con Ud. la información del expediente  ${object.name}, número ${object.number}, iniciado el ${object.fechaalta}.
+]]></field>
+        </record>
+    </data>
+</openerp>

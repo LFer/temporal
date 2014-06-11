@@ -1,0 +1,3 @@
+<openerp>
+  <data><report header="False" auto="False" id="expedientes_ficha_de_expediente" model="expedientes" name="expedientes.ficha_de_expediente" string="ficha de expediente" usage="default" report_type="odt" file="expedientes/report/ficha de expediente.odt" menu="True"/></data>
+</openerp>

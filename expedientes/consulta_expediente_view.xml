@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+<!-- ******************************************************************************* -->
+		<!-- VISTA DE LAS CONSULTAS WEB DE LOS EXPEDIENTES --> 
+		<record id="view_consulta_expediente_form" model="ir.ui.view">
+			<field name="name">consultaexpediente.expediente_form</field>
+			<field name="model">consultaexpediente</field>
+			<field eval="1" name="priority"/>
+			<field name="arch" type="xml">			
+				<form string="Expediente" version="7.0">
+					
+						<group col="1" colspan="1" >
+								<field name="resultado" readonly="1" />		
+								<field name="origen" readonly="1"/>						
+								<field name="expediente" readonly="1"/>						
+								<field name="caratula" readonly="1"/>						
+								<field name="abogado_actor" readonly="1"/>							
+								<field name="abogado_demandante" readonly="1"/>	
+						</group>
+						
+						<field name="movimientos_expedientes_ids" nolabel="1" mode="tree" readonly="1">
+								<tree string="Movimientos de Expedientes">
+									<field name="fecha" />
+									<field name="tipo_movimiento" />
+									<field name="decreto" />
+									<field name="vencimiento" />
+									<field name="sede" />
+								</tree>
+						</field> 
+				 </form>
+				 
+			 </field>
+		</record>
+		
+<!-- ******************************************************************************* -->
+		<!-- LA ACCION CORRESPONDIENTE A LA VISTA -->
+		<record id="action_consulta_expedientes_form" model="ir.actions.act_window">
+				<field name="name">consultaexpediente.expediente_action</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">consultaexpediente</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form</field>
+				<field name="view_id" ref="view_consulta_expediente_form"/>
+		</record>
+<!-- ******************************************************************************* -->		
+		
+	</data>
+</openerp>

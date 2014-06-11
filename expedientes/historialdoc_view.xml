@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_historialexp_form">
+        <field name="name">historialdoc.form</field>
+        <field name="model">historialdoc</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Agendar" version="7.0">
+                <sheet>
+                    <group colspan="2" col="2">      
+                        <field name="name"/>
+                        <field name="fechaalta" />
+                        <field name="fechavto" />
+                        <field name="duracion"/>
+                        <field name="partner_ids" widget="many2many_tags" placeholder="Asistentes..."/>
+                        <field name="prioridad" />
+                        <field name="estado" />                        
+                        <field name="notas"/>
+                    </group>
+                    <label for="agendar" string="Agendar"/>
+                    <field name="agendar"/>                     
+                </sheet>
+            </form>
+        </field>
+    </record>      
+</data>
+</openerp>

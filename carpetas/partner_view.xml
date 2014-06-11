@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+	<record id="inherited_view_carexpcar_carpeta_form" model="ir.ui.view">
+        <field name="name">res.partner.estate.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="expedientescarpetas.inherited_view_expcarpetas_form"/>
+        <field name="arch" type="xml">
+
+                   
+			<xpath expr="//page[@string='Otras direcciones']" position="after">
+				<page string="Carpetas">
+                    <field name="carpar_ids" colspan="4" nolabel="1" mode="tree" >
+                        <tree string="Carpetas" editable="bottom">
+                            <field name="fecha" />
+                            <field name="numero" />
+                            <field name="nombre" />
+                        </tree>
+                    </field>	
+                </page>
+                
+            </xpath> 
+            
+        </field>
+    </record>
+</data>
+</openerp>
+

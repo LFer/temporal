@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+
+        <!--TIPO EXPEDIENTE-->
+		<record forcecreate="1" id="tipodoc1" model="tipo.documento">
+			<field name="name">Cédula</field>
+		</record>
+		<record forcecreate="1" id="tipodoc2" model="tipo.documento">
+			<field name="name">Credencial</field>
+		</record>
+		<record forcecreate="1" id="tipodoc3" model="tipo.documento">
+			<field name="name">Pasaporte</field>
+		</record>
+		<record forcecreate="1" id="tipodoc5" model="tipo.documento">
+			<field name="name">Otros</field>
+		</record>     
+    
+        <!--TIPO EXPEDIENTE-->
+		<record forcecreate="1" id="tipo1" model="tipo.expediente">
+			<field name="name">Judicial</field>
+		</record>
+		<record forcecreate="1" id="tipo2" model="tipo.expediente">
+			<field name="name">Extra Judicial</field>
+		</record>
+		<record forcecreate="1" id="tipo3" model="tipo.expediente">
+			<field name="name">Consulta</field>
+		</record>
+		<record forcecreate="1" id="tipo4" model="tipo.expediente">
+			<field name="name">Arbitral</field>
+		</record>        
+		<record forcecreate="1" id="tipo5" model="tipo.expediente">
+			<field name="name">Otros</field>
+		</record>        
+
+        <!--CATEGORIA PROPIOS-->
+		<record forcecreate="1" id="tipop1" model="categoria.expediente">
+			<field name="name">Licenciado</field>
+			<field name="tipo">1</field>
+		</record>
+		<record forcecreate="1" id="tipop2" model="categoria.expediente">
+			<field name="name">Cliente</field>
+			<field name="tipo">1</field>
+		</record>
+		<record forcecreate="1" id="tipop3" model="categoria.expediente">
+			<field name="name">Administrativo</field>
+			<field name="tipo">1</field>
+		</record>
+		<record forcecreate="1" id="tipop5" model="categoria.expediente">
+			<field name="name">Otros</field>
+			<field name="tipo">1</field>
+		</record>          
+
+        <!--CATEGORIA CONTRARIOS-->
+		<record forcecreate="1" id="tipoco1" model="categoria.expediente">
+			<field name="name">Licenciado</field>
+			<field name="tipo">2</field>
+		</record>
+		<record forcecreate="1" id="tipoco2" model="categoria.expediente">
+			<field name="name">Cliente</field>
+			<field name="tipo">2</field>
+		</record>
+		<record forcecreate="1" id="tipoco3" model="categoria.expediente">
+			<field name="name">Procurador</field>
+			<field name="tipo">2</field>
+		</record>
+		<record forcecreate="1" id="tipoco5" model="categoria.expediente">
+			<field name="name">Otros</field>
+			<field name="tipo">2</field>
+		</record>          
+
+
+        <!--CATEGORIA COMUNES-->
+		<record forcecreate="1" id="tipocom1" model="categoria.expediente">
+			<field name="name">Juez</field>
+			<field name="tipo">3</field>
+		</record>
+		<record forcecreate="1" id="tipocom2" model="categoria.expediente">
+			<field name="name">Secretario</field>
+			<field name="tipo">3</field>
+		</record>
+		<record forcecreate="1" id="tipocom3" model="categoria.expediente">
+			<field name="name">Notario</field>
+			<field name="tipo">3</field>
+		</record>
+		<record forcecreate="1" id="tipocom4" model="categoria.expediente">
+			<field name="name">Testigo</field>
+			<field name="tipo">3</field>
+		</record>        
+		<record forcecreate="1" id="tipocom5" model="categoria.expediente">
+			<field name="name">Profesional</field>
+			<field name="tipo">3</field>
+		</record>        
+		<record forcecreate="1" id="tipocom6" model="categoria.expediente">
+			<field name="name">Perito</field>
+			<field name="tipo">3</field>
+		</record>        
+		<record forcecreate="1" id="tipocom7" model="categoria.expediente">
+			<field name="name">Causante</field>
+			<field name="tipo">3</field>
+		</record>                
+		<record forcecreate="1" id="tipocom8" model="categoria.expediente">
+			<field name="name">Otros</field>            
+			<field name="tipo">3</field>
+		</record>                  
+        
+        
+        <!--TIPO ACCION-->
+		<record forcecreate="1" id="tipoa1" model="tipo.accion">
+			<field name="name">Tarea</field>
+		</record>
+		<record forcecreate="1" id="tipoa2" model="tipo.accion">
+			<field name="name">Citación</field>
+		</record>
+		<record forcecreate="1" id="tipoa3" model="tipo.accion">
+			<field name="name">Plazo</field>
+		</record>
+		<record forcecreate="1" id="tipoa4" model="tipo.accion">
+			<field name="name">Notificación</field>
+		</record>        
+
+        <!--TIPO ASUNTO-->
+		<record forcecreate="1" id="tipoasu1" model="tipo.asunto">
+			<field name="name">Civil</field>
+		</record>
+		<record forcecreate="1" id="tipoasu2" model="tipo.asunto">
+			<field name="name">Penal</field>
+		</record>
+		<record forcecreate="1" id="tipoasu3" model="tipo.asunto">
+			<field name="name">Administrativo</field>
+		</record>
+		<record forcecreate="1" id="tipoasu4" model="tipo.asunto">
+			<field name="name">Laboral</field>
+		</record>        
+		<record forcecreate="1" id="tipoasu5" model="tipo.asunto">
+			<field name="name">Familiar</field>
+		</record>        
+		<record forcecreate="1" id="tipoasu6" model="tipo.asunto">
+			<field name="name">Otros</field>            
+		</record>          
+
+        <!--TIPO PROCEDIMIENTO-->
+		<record forcecreate="1" id="tipopro1" model="tipo.procedimiento">
+			<field name="name">Diligencias Previas</field>
+		</record>
+		<record forcecreate="1" id="tipopro2" model="tipo.procedimiento">
+			<field name="name">Medidas Cautelares</field>
+		</record>
+		<record forcecreate="1" id="tipopro3" model="tipo.procedimiento">
+			<field name="name">Divorcio</field>
+		</record>
+		<record forcecreate="1" id="tipopro4" model="tipo.procedimiento">
+			<field name="name">Separación</field>
+		</record>        
+		<record forcecreate="1" id="tipopro5" model="tipo.procedimiento">
+			<field name="name">Alcoholemia</field>
+		</record>        
+		<record forcecreate="1" id="tipopro6" model="tipo.procedimiento">
+			<field name="name">Estafa</field>
+		</record>                
+		<record forcecreate="1" id="tipopro7" model="tipo.procedimiento">
+			<field name="name">Otros</field>            
+		</record>  
+        <!--SEGURIDAD-->
+		<!--<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">expedientes</field>
+			<field name="model_id">expedientes</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">conceptosdocumentos</field>
+			<field name="model_id">conceptosdocumentos</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record> -->       
+		<!--<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">facturas_doc_rel</field>
+			<field name="model_id">facturas.doc.rel</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record> 
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">facturas_doc_rel_lineas</field>
+			<field name="model_id">facturas.doc.rel.lineas</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>        
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">poderjudicial</field>
+			<field name="model_id">poderjudicial</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>        
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">juzgado</field>
+			<field name="model_id">juzgado</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record> 
+        <record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">participantespoder</field>
+			<field name="model_id">participantespoder</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record> 
+        <record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">organismo</field>
+			<field name="model_id">organismo</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>
+        <record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">participantes</field>
+			<field name="model_id">participantes</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>
+        <record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">horas</field>
+			<field name="model_id">horas</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>  -->      
+        <!--DIARIO-->
+		<!--<record forcecreate="1" id="tipoaj1" model="account.journal">
+            <field name="code">VENTAS</field>            
+            <field name="sequence_id">1</field>            
+            <field name="name">Diario de ventas</field>            
+            <field name="company_id">1</field>  
+            <field name="type">sale</field>     
+		</record>-->
+        
+        <!--CUENTAS CONTABLES-->
+		<!--<record forcecreate="1" id="tipoaa1" model="account.account">
+            <field name="code">111111</field>            
+            <field name="user_type">3</field>            
+            <field name="name">111111</field>            
+            <field name="company_id">1</field>
+            <field name="currency_mode">current</field>            
+            <field name="type">receivable</field>            
+		</record>        
+		<record forcecreate="1" id="tipoaa2" model="account.account">
+            <field name="code">222222</field>            
+            <field name="user_type">2</field>            
+            <field name="name">222222</field>            
+            <field name="company_id">1</field>            
+            <field name="currency_mode">current</field>
+            <field name="type">payable</field>            
+		</record>-->
+
+        <!--SECUENCIA-->
+		<!--<record forcecreate="1" id="is1" model="ir.sequence">      
+            <field name="name">Diario de ventas</field>            
+            <field name="number_next">1</field>            
+            <field name="implementation">no_gap</field>             
+            <field name="company_id">1</field>  
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="prefix">VEN/%(year)s/</field>     
+		</record>-->
+
+        
+        <!--DIARIO-->
+		<!--<record forcecreate="1" id="tipoaj1" model="account.journal">
+            <field name="code">VEN</field>            
+            <field name="sequence_id">1</field>            
+            <field name="name">Diario de ventas</field>            
+            <field name="company_id">1</field>  
+            <field name="type">sale</field>     
+		</record>-->
+
+        
+		<!--AÑO FISCAL-->
+       <!-- <record forcecreate="1" id="tipoaf1" model="account.fiscalyear">
+            <field name="code">2013</field>            
+            <field name="date_stop">2013-07-31</field>            
+            <field name="name">2013</field>            
+            <field name="date_start">2012-06-01</field>  
+            <field name="company_id">1</field>            
+		</record>   -->     
+        
+        
+        <!--PERIODOS-->
+		<!--<record forcecreate="1" id="tipoap1" model="account.period">        
+            <field name="code">00/2012</field>            
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2012-07-1</field>            
+            <field name="name">Periodo de apertura 2012</field>            
+            <field name="date_start">2012-07-01</field>  
+            <field name="special">t</field>
+            <field name="company_id">1</field>            
+		</record>
+		<record forcecreate="1" id="tipoap2" model="account.period">
+            <field name="code">07/2012</field>            
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2012-09-03</field>            
+            <field name="name">07/2012</field>            
+            <field name="date_start">2012-07-01</field>  
+            <field name="company_id">1</field>            
+		</record>
+		<record forcecreate="1" id="tipoap3" model="account.period">
+            <field name="code">10/2012</field>            
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2012-12-31</field>            
+            <field name="name">10/2012</field>            
+            <field name="date_start">2012-10-01</field>  
+            <field name="company_id">1</field>            
+		</record>        
+		<record forcecreate="1" id="tipoap4" model="account.period">
+            <field name="code">01/2013</field>  
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2013-03-31</field>            
+            <field name="name">01/2013</field>            
+            <field name="date_start">2013-01-01</field>  
+            <field name="company_id">1</field>            
+		</record>
+		<record forcecreate="1" id="tipoap5" model="account.period">
+            <field name="code">04/2013</field>  
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2013-06-30</field>            
+            <field name="name">04/2013</field>            
+            <field name="date_start">2013-04-01</field>  
+            <field name="company_id">1</field>            
+		</record>        
+		<record forcecreate="1" id="tipoap6" model="account.period">
+            <field name="code">01/2013</field>  
+            <field name="fiscalyear_id">1</field>            
+            <field name="date_stop">2013-06-30</field>            
+            <field name="name">Periodo de cierre 2013</field>            
+            <field name="date_start">2013-06-30</field>  
+            <field name="company_id">1</field>            
+		</record>-->                
+    </data>
+
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="view_crm_case_meeting_filter2" model="ir.ui.view">
+         <field name="name">crm.meeting2.select</field>
+         <field name="model">crm.meeting</field>
+         <field name="inherit_id" ref="base_calendar.view_crm_meeting_search"/>
+         <field name="arch" type="xml">
+        	<field name="name" position="after">
+        		<field name="descripcion" string="Descripción expediente" filter_domain="['|',('descripcion','ilike',self),('id_exp','ilike',self)]"/>
+        	</field>          
+         </field>				
+     </record>
+ 
+</data>
+</openerp>
+
