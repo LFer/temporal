@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+            auto="False"
+            id="estate_report_urbana"
+            model="estate"
+            name="inmobiliaria.estate.urbana"
+            rml="inmobiliaria/report/estate_urbana.rml"
+            string="Ficha de propiedad urbana"
+            />
+
+        <report
+            auto="False"
+            id="estate_report_rural"
+            model="estate"
+            name="inmobiliaria.estate.rural"
+            rml="inmobiliaria/report/estate_rural.rml"
+            string="Ficha de propiedad rural"
+            />
+
+        <report
+            auto="False"
+            id="estate_report_satelital"
+            model="estate"
+            name="inmobiliaria.estate.satelital"
+            rml="inmobiliaria/report/estate_satelital.rml"
+            string="Ficha con imágenes satelitales"
+            />
+
+        <report
+            auto="False"
+            id="estate_report_simple"
+            model="estate"
+            name="inmobiliaria.estate.simple"
+            rml="inmobiliaria/report/estate_simple.rml"
+            string="Ficha sin imágenes"
+            />
+
+        <report
+            auto="False"
+            id="estate_report_terreno"
+            model="estate"
+            name="inmobiliaria.estate.terreno"
+            rml="inmobiliaria/report/estate_terreno.rml"
+            string="Ficha de terreno"
+            />
+            
+        <report
+            auto="False"
+            id="estate_report_urbana_completo"
+            model="estate"
+            name="inmobiliaria.estate.urbana.completo"
+            rml="inmobiliaria/report/estate_urbana_completo.rml"
+            string="Ficha de propiedad urbana completa"
+            />
+
+    </data>
+</openerp>

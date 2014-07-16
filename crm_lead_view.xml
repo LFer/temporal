@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+
+
+
+	<record id="inherited_view_crm_leads_tree" model="ir.ui.view">
+        <field name="name">crm.leads.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+        	<field name="planned_revenue" position="replace">
+        		<field name="price" />
+        	</field>
+        	<field name="probability" position="replace">
+        		<field name="precioXHa" />
+        	</field>
+        </field>				
+    </record>
+
+
+	<record id="inherited_view_crm_leads_form" model="ir.ui.view">
+        <field name="name">crm.leads.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+                
+			<xpath expr="//page[@string='Lead']" position="after">
+	        	<page string="Dimensiones" > 
+                    <group col="4">
+                        <field name="supTotal" />
+                        <field name="supEdificada" />
+                        <field name="largo" />
+                        <field name="ancho" />
+                    </group>
+	     		</page>
+
+
+	     		<page string="Urbanas/Comodidades" >
+
+
+                    <group col="4">
+	                	<field name="cantidadDormitorios" />
+						<field name="cantidadBanios" />
+                    
+                    	<field name="comodidades" colspan="4" />
+						<field name="ute" />
+						<field name="ose" />
+						<field name="calefaccion" />
+						<field name="oficina" />
+						<field name="garaje" />
+						<field name="piscina" />
+						<field name="barbacoa" />
+						<field name="equipamiento" />
+						<field name="produccion" />
+						
+					</group>
+
+	            </page>
+
+		        
+		        <page string="Condiciones de Compra" >
+                    <group>
+                    	<field name="currency" style="width: 20%% "/>
+                        <field name="price" />
+                        <field name="precioXHa" />
+                        <field name="conditions" />
+
+                    </group>
+	            
+	            </page>
+
+			
+				<page string="Rurales/Comodidades" >					
+	                <group col="4" >
+
+                		<field name="luz"  />
+                		<field name="agua" />
+	                    <field name="embarcadero"  />
+	                    <field name="banio" />
+	                    <field name="vacunos"  />
+	                    <field name="lanares"  />
+	                    <field name="piquetes"  />
+	                    <field name="potreros"  />
+	                    <field name="tubo"  />
+	                    <field name="cepo"  />
+	                    <field name="otras" />
+
+	                </group>  
+				</page>
+				
+	     		
+			</xpath>
+
+
+        </field>
+
+       
+        
+    </record>
+    
+
+	<record id="inherited_view_crm_leads_form2" model="ir.ui.view">
+        <field name="name">crm.leads.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+
+        <field name="arch" type="xml">
+        	<field name="categ_ids" position="replace">
+        		<field name="category_id" string="Categorías" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+        	</field>
+        	<field name="phone" position="after">
+        		<field name="number" string="Código" />
+        	</field>
+        </field>				
+        
+    </record>
+
+
+
+    <record id="view_crm_case_opportunities_filter2" model="ir.ui.view">
+         <field name="name">crm.lead.select</field>
+         <field name="model">crm.lead</field>
+         <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+         <field name="arch" type="xml">
+        	<field name="categ_ids" position="replace">
+        		<field name="category_id" string="Categoría" filter_domain="[('category_id','ilike', self)]"/>
+        	</field>
+         </field>				
+     </record>
+
+ 
+ 
+    <!-- Opportunities Tree View -->
+    <record model="ir.ui.view" id="crm_case_tree_view_oppor_ext">
+        <field name="name">Leads</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>        
+        <field name="arch" type="xml">
+        	<field name="create_date" position="replace">
+        		<field name="create_date" />
+        	</field>
+        	<field name="date_action" position="replace">
+        		<field name="category_id" string="Categoría" filter_domain="[('category_id','ilike', self)]"/>
+        	</field>
+
+        	<field name="title_action" position="replace" />
+        	<field name="stage_id" position="replace" />
+
+
+        </field>
+    </record>        
+</data>
+</openerp>
+
+    

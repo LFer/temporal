@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<openerp>
+    
+     
+    <data noupdate="1">
+<!--
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">estate</field>
+			<field name="model_id">estate</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>
+		<record forcecreate="1" id="ir_model_access" model="ir.model.access">
+			<field name="name">visit</field>
+			<field name="model_id">visit</field>			
+			<field name="perm_read">1</field>
+			<field name="perm_write">1</field>
+			<field name="perm_create">1</field>
+			<field name="perm_unlink">1</field>
+		</record>
+-->		
+    </data>
+
+</openerp>

@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+
+
+    <record id="view_estate_form" model="ir.ui.view">
+        <field name="name">estate.form</field>
+        <field name="model">estate</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Propiedades" version="7.0">
+            <header>
+            	<button name="action_estado_alquilado" type="object" states="enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>
+            	<button name="action_estado_vendido" type="object" states="enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
+                <button name="action_estado_enAlquiler" type="object" states="alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
+                <button name="action_estado_enVenta" type="object" states="alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
+				<!--
+                <button name="action_estado_desactivado" type="object" domain="[('active','=', True)]" string="Desactivar" confirm="¿Confirma marcar como desactivado?"/>
+                <button name="action_estado_activar" type="object" domain="[('active','=', False)]" string="Activar" confirm="¿Confirma marcar como activado?"/>
+ 				-->
+ 				<button name="action_invoice_sent" type="object" string="Enviar por Email" class="oe_highlight" />
+                <xpath expr="//div[@class='oe_right oe_button_box']" >
+                    <button name="button_estate_match" type="object" string="Buscar oportunidades" class="oe_highlight"/>
+                </xpath>
+                <field name="state" widget="statusbar" statusbar_visible="enalquiler,alquilado,enventa,vendido" statusbar_colors='{"vendido":"blue"}'/>
+            </header>
+            <sheet>
+				
+				
+               	<field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                <div class="oe_title">
+                    <div>
+		                <div >
+		                    <label for="name" style="color:red" /> (
+		                    <field name="is_rural" class="oe_inline"/> <label for="is_rural" string="¿Es propiedad rural?"/>) 
+		                </div>
+		            </div>
+                    <h1>
+                        
+                        <field name="name" default_focus="1" placeholder="Descripción de la propiedad" />
+                        
+                    </h1>
+                    <group colspan="4" >
+                        
+                  		<field name="date" placeholder="Fecha de ingreso" />
+                  		<label for="number" style="color:red" />
+                  		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
+                  		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
+                        <field name="duplicados" placeholder="Duplicados" />  
+                  	</group>
+<!--                  	
+                    <group colspan="2" >
+                  		<field name="user_id" widget="selection" />
+                  	</group>
+-->                  	
+                    <field name="partner_id" placeholder="Nombre del cliente..."/>
+                    <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+                    <label for="publicado" string="Publicar en la Web" />
+                    <field name="publicado" />
+                    <label for="active" string="Activo" attrs="{'invisible': [('state','=', 'vendido')]}"/>
+                    <field name="active" attrs="{'invisible': [('state','=', 'vendido')]}"/>
+                    <field name="webUrl" widget="url" attrs="{'invisible': [('publicado','=', False)]}"/>
+                    <!--<field name="webProp" widget="url"/>-->
+                    
+                </div>
+                <div attrs="{'invisible': [('is_rural','=', False)]}" align="right" >
+                
+                    <a target="_new" href="http://www.prenader.gub.uy/coneat/viewer.htm?Title=CONEAT Digital">www.prenader.gub.uy</a>
+                    <br></br>
+                    <a target="_new" href="http://www.catastro.gub.uy">www.catastro.gub.uy</a>
+                    <br></br>
+                    <a target="_new" href="http://www.sapucai.com/campos/">www.sapucai.com</a>  
+                    <br></br>                    
+                </div>
+                <group attrs="{'invisible': [('is_rural','=', False)]}">
+                	<group col="8">
+                		<field name="padron"  />
+	                    <field name="mapa"  />
+	                    <!--<field name="fotos"  />
+	                    <field name="ImagenesGoogle"  />-->
+                    	<field name="estudioSuelo" />
+                    	<!--<field name="distancias" />-->
+                    	<field name="fotos" />
+                    	<!--<field name="autWeb"  />-->
+                    </group>
+                </group>  
+	
+	
+                <notebook colspan="4">
+                <page string="Dirección">            
+
+	                <group>
+	
+                        <label for="street" string="Dirección"/>
+                        <div>
+                            <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
+                            <field name="street2" placeholder="y calle..." style="width: 60%%"/>
+                            <field name="barrio" placeholder="Barrio" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
+                            <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/> 
+                        </div>
+
+                        <label for="city" string="Ciudad/Departamento" style="color:red"/>
+                        <div>
+                            <div class="address_format">
+                                <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
+                                <field name="state_id" class="oe_no_button" placeholder="Departamento" style="width: 20%%;" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                                <field name="zip" placeholder="Código postal" style="width: 19%%"/>
+                            </div>
+                        </div>
+
+                        <label for="country_id" string="País" style="color:red"/>
+                        <div>
+                            <field name="country_id" placeholder="País" class="oe_no_button" options='{"no_open": True}' style="width: 20%%;"/>
+                        </div>
+
+                        <label for="ubicacion" string="Ubicación" />
+                        <div>
+                            <field name="ubicacion" placeholder="Como llegar..." />
+                        </div>
+
+                        <label for="googleLocation" string="Localización Google" />
+                        <div>
+                            <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
+                        </div>
+
+
+	                </group>
+
+					
+	            </page>
+
+
+
+	        	<page string="Dimensiones" attrs="{'invisible': [('is_rural','=', True)]}"> 
+                    <group col="4">
+                        <label for="supTotal" style="color:red" />
+                        <field name="supTotal" nolabel="1"/>
+                        <label for="supEdificada" style="color:red" />
+                        <field name="supEdificada" nolabel="1" />
+                        <label for="largo" style="color:red" />
+                        <field name="largo" nolabel="1" />
+                        <label for="ancho" style="color:red" />
+                        <field name="ancho" nolabel="1" />
+                    </group>
+	     		</page>
+
+	     		<page string="Comodidades" attrs="{'invisible': [('is_rural','=', True)]}">
+
+
+	                    <group col="4">
+	                        <label for="cantidadDormitorios" style="color:red" />
+		                	<field name="cantidadDormitorios" nolabel="1" />
+		                	<label for="cantidadBanios" style="color:red" />
+							<field name="cantidadBanios" nolabel="1" />
+
+							<label for="comodidades" style="color:red" />
+	                    	<field name="comodidades" colspan="4" nolabel="1" />
+	                    	<label for="ute" style="color:red" />
+							<field name="ute" nolabel="1" />
+							<label for="ose" style="color:red" />
+							<field name="ose" nolabel="1" />
+							<label for="calefaccion" style="color:red" />
+							<field name="calefaccion" nolabel="1" />
+							<label for="oficina" style="color:red" />
+							<field name="oficina" nolabel="1" />
+							<label for="garaje" style="color:red" />
+							<field name="garaje" nolabel="1" />
+							<label for="piscina" style="color:red" />
+							<field name="piscina" nolabel="1" />
+							<label for="barbacoa" style="color:red" />
+							<field name="barbacoa" nolabel="1" />
+							<label for="equipamiento" style="color:red" />
+							<field name="equipamiento" nolabel="1" />
+							<label for="produccion" style="color:red" />
+							<field name="produccion" nolabel="1" />
+							
+						</group>
+
+	            </page>
+
+	            <page string="Documentación">
+	                <group>
+	                    <field name="documentacion" />
+	                    <field name="escribano" placeholder="Nombre del escribano..." style="width: 300px " />
+	                </group>        
+				</page>
+		        
+		        <page string="Condiciones de Venta" >                    
+                    <!--<group col="5" colspan="3">-->
+                    <group>
+                    	<field name="currency" style="width: 20%% "  domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
+                    	<label for="price" style="color:red" attrs="{'invisible': [('is_rural','=', True)]}" />
+                        <field name="price" attrs="{'invisible': [('is_rural','=', True)]}" nolabel="1" />
+                        <field name="conditions" attrs="{'invisible': [('is_rural','=', True)]}"/>
+
+                		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
+                		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>
+                		<label for="precioXHaComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
+	                    <field name="precioXHaComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />        
+	                    <label for="precioTotalLiquidoComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
+                    	<field name="precioTotalLiquidoComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />
+
+                    </group>
+                    <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>                        	            
+	            </page>
+
+
+	            
+	            <page string="Características" attrs="{'invisible': [('is_rural','=', False)]}">
+	                <group col="4" >
+
+  	            
+                        <label for="distancia" style="color:red" />
+	                    <field name="distancia" nolabel="1" />
+	                    <label for="accesos" style="color:red" />
+	                   	<field name="accesos" nolabel="1" />
+	                   	<label for="superficie" style="color:red" />
+	                    <field name="superficie" nolabel="1" />
+	                    
+	                    <label for="indiceConeat" style="color:red" />
+	                    <field name="indiceConeat" nolabel="1" />
+						<!-- <field name="indiceProdFinal" /> -->
+						
+	                    <field name="indiceValorReal" />
+                        <label for="exploit" style="color:red" />
+	                    <field name="exploit" nolabel="1" />
+	                    <label for="montes" style="color:red" />
+	                    <field name="montes" nolabel="1" />
+	                    <label for="supForestada" style="color:red" />
+	                    <field name="supForestada" nolabel="1" />
+
+	                    <field name="padrones"  />
+
+	                </group>  
+				</page>
+				
+				
+				<page string="Personas relacionadas" >
+	                <field name="personas_ids" >
+                        <tree string="Nombre">
+                            <field name="name" />                            
+                            <field name="category_id" />                            
+                        </tree>
+                    </field>
+				</page>
+				
+
+				<page string="Comodidades" attrs="{'invisible': [('is_rural','=', False)]}">					
+	                <group col="4" >
+
+                        <label for="casaPrincipal" style="color:red" />
+                		<field name="casaPrincipal" nolabel="1" />
+                		<label for="casaPersonal" style="color:red" />
+                		<field name="casaPersonal" nolabel="1" />
+                		<label for="luz" style="color:red" />
+                		<field name="luz" nolabel="1" />
+                		<label for="agua" style="color:red" />
+                		<field name="agua" nolabel="1" />
+                		<label for="galpones" style="color:red" />
+                		<field name="galpones" nolabel="1" />
+                		<label for="embarcadero" style="color:red" />
+	                    <field name="embarcadero" nolabel="1" />
+	                    <field name="banio" />
+	                    <field name="vacunos"  />
+	                    <field name="lanares"  />
+	                    <label for="piquetes" style="color:red" />
+	                    <field name="piquetes" nolabel="1" />
+	                    <label for="potreros" style="color:red" />
+	                    <field name="potreros" nolabel="1" />
+	                    <label for="tubo" style="color:red" />
+	                    <field name="tubo" nolabel="1" />
+	                    <label for="cepo" style="color:red" />
+	                    <field name="cepo" nolabel="1" />
+	                    <label for="otras" style="color:red" />
+	                    <field name="otras" nolabel="1" />
+
+	                </group>  
+				</page>
+				
+				<page string="Mejoras" attrs="{'invisible': [('is_rural','=', False)]}">
+	                <group col="4" >
+	
+	                    <label for="mejoras" style="color:red" />
+	                    <field name="mejoras" nolabel="1" />
+	                    <label for="alambrados" style="color:red" />
+	                    <field name="alambrados" nolabel="1" />
+	                    <label for="aguadas" style="color:red" />
+	                    <field name="aguadas" nolabel="1" />
+	                    <label for="tajamares" style="color:red" />
+	                    <field name="tajamares" nolabel="1" />
+	                    
+	                    <field name="centros" />
+	                	    		
+	                </group>  
+				</page>
+
+
+ 				
+				<page string="Encargado" attrs="{'invisible': [('is_rural','=', False)]}">
+	                <group col="4">
+	                    <field name="encargado" string="Nombre" />
+                    	<field name="encargadoCelular" />
+	                </group>  
+				</page>
+				
+				<page string="Contribuciones" attrs="{'invisible': [('is_rural','=', False)]}">	                
+
+                	<group col="4">
+                		<field name="contInm"  />
+                		<field name="impPrim" />
+	                    <field name="bps"  />
+	                    <field name="bhu" />
+	                    <field name="deudas" />
+	                    <field name="suc"  />
+	                    <field name="planos"  />
+                    </group>
+	
+				</page>
+
+	    		
+	    		<page string="Observaciones">
+	                <group>
+	                    <field name="constancias" attrs="{'invisible': [('is_rural','=', False)]}" />
+	                   	<field name="ocupado" attrs="{'invisible': [('is_rural','=', False)]}" />
+	                </group>
+	                
+	                <field name="observations" widget='one2many_list'>
+						<tree string="Observaciónes">
+							<field name="notes" />
+							<field name="observador"/>
+							<field name="obs_date"/>
+						</tree>
+					</field>
+                </page>
+
+                <page string="Gastos">
+	            	<field name="expenses" widget='one2many_list'>
+						<tree string="Gastos">
+							<field name="notes" />
+							<field name="currency"/>
+							<field name="price"/>
+						</tree>
+					</field>
+                </page>
+                
+
+	    		<page string="CONEAT" attrs="{'invisible': [('is_rural','=', False)]}">
+	                <group>
+	                    <field name="suelosConeat" />
+	                </group>
+                 </page>            
+
+				<page string="Atendido por" >
+
+	                <field name="users_ids" >
+                        <tree string="Nombre">
+                            <field name="name" />
+                            <field name="phone" />
+                            <field name="mobile" />
+                        </tree>
+                    </field>	                
+				
+				</page>
+
+				<page string="Compartido/Datero" >
+
+	                <field name="colegas_ids" >
+                        <tree string="Nombre">
+                            <field name="name" />
+                            <field name="phone" />
+                            <field name="mobile" />
+                            <field name="street" />
+                            <field name="website" />
+                        </tree>
+                    </field>	                
+				
+				</page>
+
+
+				<page string="Visitas" >
+
+                    <field name="visit_ids" colspan="4" nolabel="1" mode="tree" >
+                        <tree string="Visitas" editable="bottom">
+                            <field name="date" />
+                            <field name="partner_id" />
+                            <field name="notes" />
+
+                        </tree>
+                    </field>	                
+				
+				</page>
+
+				<page string="Archivos adjuntos" >
+
+                    <field name="attachments" colspan="4" nolabel="1" mode="tree" >
+
+				        <form string="Archivo" version="7.0">
+			                <field name="datas" widget='image' nolabel="1" class="oe_avatar" options='{"preview_image": "datas", "size": [820, 360]}'/>
+			                <group col="8">
+								<group col="4">
+				                    <field name="name" string="Nombre del documento adjunto" />
+								</group>			                
+								<group col="4">
+							        <field name="web" string="Web"/>
+							        <field name="email" string="EMail"/>
+							        <field name="satelital" string="Satelital"/>
+							        <field name="sequence" string="Secuencia" />
+								</group>			                
+							</group>
+			            </form>
+
+                        <tree string="Archivos" toolbar="0" create="0" delete="0">
+				                        
+                            
+                            <field name="name" attrs="{'readonly': True}" />
+                            <field name="type" attrs="{'readonly': True}" />
+                            <field name="web" />
+                            <field name="email" />
+                            <field name="satelital" />
+                            <field name="sequence" />
+                            <!--<img t-att-src="kanban_image('ir.attachment', 'image', record.id.value)" class="oe_kanban_image"/>-->
+
+                        </tree>
+                    </field>	                
+				
+				</page>
+                <page string="EMails" >
+                    <field name="emails" readonly="1" >
+                        <form string="EMail" version="7.0">
+                            <group>
+                                <field name="date" />                         
+                                <field name="author_id" />
+                                <label for="partner_ids" string="Destinatarios"/>
+                                <div groups="base.group_user">
+                                    <field name="partner_ids" widget="many2many_tags_email" />
+                                </div>
+                                <field name="subject" placeholder="Subject..."/>
+                            </group>
+                            <field name="body" style="border: 1pt solid #cccccc;" />
+                        </form>
+                        <tree string="EMails" create="false" delete="false">
+                            <field name="author_id" />
+                            <field name="partner_ids" />  
+                            <field name="subject" />             
+                            <field name="date" />                         
+                            <!--<field name="state" />-->
+                        </tree>
+                    </field>
+                </page>    								                 
+                </notebook>	           
+
+             
+            </sheet>
+            <!--
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+             --> 
+            <label for="texto_rojo" style="color: red; margin-left: 105px;"/>
+            <field name="texto_rojo" nolabel="1"/>            
+                                  
+            </form>
+        </field>
+    </record>
+
+	<record id="view_crm_mach" model="ir.ui.view"> 
+		<field name="name">new.tree</field>
+		<field name="model">crm.lead</field>
+		<field eval="1" name="priority"/>
+		<field name="arch" type="xml">
+			<tree string="Oportunidades macheables">
+				<field name="name"/>
+				<field name="number"/>
+				<field name="largo"/>
+			</tree>
+		</field>
+	</record>
+
+    <!-- Estate Kanban View -->
+    <record model="ir.ui.view" id="estate_kanban_view">
+        <field name="name">estate.kanban</field>
+        <field name="model">estate</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="is_rural"/>
+                <field name="street"/>
+                <field name="city"/>
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <field name="category_id"/>
+                <field name="has_image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open">
+                                <t t-if="record.has_image.raw_value === true">
+                                    <img t-att-src="kanban_image('estate', 'image_small', record.id.value)" class="oe_kanban_image"/>
+                                </t>
+                                <t t-if="record.has_image.raw_value === false">
+                                    <t t-if="record.is_rural.raw_value === true">
+                                        <img t-att-src='_s + "/inmobiliaria/static/src/img/agritourism-64.png"' class="oe_kanban_image"/>
+                                    </t>
+                                    <t t-if="record.is_rural.raw_value === false">
+                                        <img t-att-src='_s + "/inmobiliaria/static/src/img/home-5-64.png"' class="oe_kanban_image"/>
+                                    </t>
+                                </t>
+                            </a>
+                            <div class="oe_kanban_details">
+                                <h4 class="oe_partner_heading"><a type="open">(<field name="number"/>) <field name="name"/></a></h4>
+                                <div class="oe_kanban_partner_categories"/>
+                                <div class="oe_kanban_partner_links"/>
+                                <ul>
+                                    <li t-if="record.partner_id.raw_value"><field name="partner_id"/></li>
+
+<!--
+                                    <li t-if="record.city.raw_value !record.state_id.raw_value and and !record.country_id.raw_value"><field name="city"/></li>
+                                    <li t-if="record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
+                                    <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
+                                    
+                                    <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
+
+-->
+
+                                    <li t-if="record.city.raw_value and !record.state_id.raw_value and !record.country_id.raw_value"><field name="city"/></li>
+                                    <li t-if="!record.city.raw_value and record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
+                                    <li t-if="!record.city.raw_value and !record.state_id.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
+                                    
+                                    <li t-if="record.city.raw_value and record.state_id.raw_value and !record.country_id.raw_value"><field name="city"/>, <field name="state_id"/></li>
+                                    <li t-if="!record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="state_id"/>, <field name="country_id"/></li>
+                                    <li t-if="record.city.raw_value and !record.state_id.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
+                                    
+                                    <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_estate_filter" model="ir.ui.view">
+         <field name="name">estate.select</field>
+         <field name="model">estate</field>
+         <field name="arch" type="xml">
+             <search string="Search Estate">
+             	<field name="number" filter_domain="[('number','ilike',self)]"/>
+                <field name="name" filter_domain="['|',('name','ilike',self),('partner_id','ilike',self)]"/>
+                <field name="category_id" string="Categoría" filter_domain="[('category_id','ilike', self)]"/>
+                <field name="partner_id" filter_domain="[('partner_id','child_of',[self])]"/>
+                <field name="state" string="Estado" filter_domain="[('state','ilike', self)]"/>
+
+
+                <separator/>
+                <filter string="Urbanos" name="type_urban" icon="terp-personal" domain="[('is_rural','=',0)]"/>
+                <filter string="Rurales" name="type_rural" icon="terp-partner" domain="[('is_rural','=',1)]"/>
+                <filter string="En alquiler" name="type_en_alquiler" icon="terp-partner" domain="[('state','=','enalquiler')]"/>
+                <filter string="En venta" name="type_en_venta" icon="terp-partner" domain="[('state','=','enventa')]"/>
+                <filter string="Alquilados" name="type_alquilado" icon="terp-partner" domain="[('state','=','alquilado')]"/>
+                <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>
+                
+                <filter string="Publicados en la Web" name="type_publicado" icon="terp-partner" domain="[('publicado','=',True)]"/>                
+                
+                <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>
+
+
+                <!--
+                <filter string="Urbanos menor a U$S 50.000" name="type_filtro1" icon="terp-partner" domain="[('price','&lt;','50000')]"/>
+                <filter string="Urbanos entre U$S 50.000 y 100.000" name="type_filtro2" icon="terp-partner" domain="[('price','&gt;=','50000'),('price','&lt;','100000')]"/>
+                <filter string="Urbanos entre U$S 100.000 y U$S 300.000" name="type_filtro3" icon="terp-partner" domain="[('price','&gt;=','100000'),('price','&lt;','300000')]"/>
+                <filter string="Urbanos entre U$S 300.000 y U$S 500.000" name="type_filtro4" icon="terp-partner" domain="[('price','&gt;=','300000'),('price','&lt;','500000')]"/>
+                <filter string="Urbanos mayor a U$S 500.000" name="type_filtro5" icon="terp-partner" domain="[('price','&gt;=','500000')]"/>                                                                                                                                                                                
+
+                <filter string="Rurales menor a U$S 50.000" name="type_filtro10" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&lt;','50000')]"/>
+                <filter string="Rurales entre U$S 50.000 y 100.000" name="type_filtro20" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','50000'),('precioTotalLiquidoComIncl','&lt;','100000')]"/>
+                <filter string="Rurales entre U$S 100.000 y U$S 300.000" name="type_filtro30" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','100000'),('precioTotalLiquidoComIncl','&lt;','300000')]"/>
+                <filter string="Rurales entre U$S 300.000 y U$S 500.000" name="type_filtro40" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','300000'),('precioTotalLiquidoComIncl','&lt;','500000')]"/>
+                <filter string="Rurales mayor a U$S 500.000" name="type_filtro50" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','500000')]"/>                                                                                                                                                                                
+                -->
+                
+                <separator/>
+
+
+                <group expand="0" string="Agrupar por...">
+                    <filter string="Cliente" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Departamento" context="{'group_by': 'state_id'}"/>
+                </group>
+            </search>
+         </field>
+     </record>
+
+
+    <record id="view_estate_tree" model="ir.ui.view">
+        <field name="name">estate.tree</field>
+        <field name="model">estate</field>
+        <field eval="1" name="priority"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Propiedades" colors="blue:is_rural==False;green:is_rural==True" >
+             	
+            	<field name="date" />
+            	<field name="fechaContacto" />
+            	<!--<field name="write_date" string="Fecha de actualización" />-->
+            	<field name="write_uid" />
+
+            	<!--<field name="users_id" />-->
+            	<!--<field name="publicado" />-->
+            	<field name="number" />
+            	<field name="partner_id" />
+            	<!--
+				<field name="partner_street" />
+				<field name="partner_city" />
+				<field name="partner_state_id" />
+            	
+				<field name="phone" />
+				<field name="mobile" />
+				<field name="email" />
+				-->
+				<field name="street" />
+				<!--
+				<field name="city" />
+				<field name="state_id" />
+				-->
+				
+				<field name="name" />
+				
+				<field name="category_id" />
+				
+				<field name="price" />
+				<field name="precioTotalLiquidoComIncl" />
+				<!--
+				<field name="padrones" />
+				<field name="conditions" />
+				<field name="notes" />
+				-->
+				
+				<field name="is_rural" invisible="1"/>
+				
+
+			</tree>
+        </field>
+    </record>
+
+        
+    <record id="action_estate_form" model="ir.actions.act_window">
+        <field name="name">Propiedades</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_estate_filter"/>
+        <field name="filter" eval="True"/>
+    </record>
+	
+    <record id="action_estate_form_view1" model="ir.actions.act_window.view">
+        <field eval="0" name="sequence"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="estate_kanban_view"/>
+        <field name="act_window_id" ref="action_estate_form"/>
+    </record>
+    <record id="action_estate_form_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_estate_form"/>
+        <field name="act_window_id" ref="action_estate_form"/>
+    </record>
+    <record id="action_estate_tree_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_estate_tree"/>
+        <field name="act_window_id" ref="action_estate_form"/>
+    </record>
+        
+
+    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" />
+    <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->   
+
+     
+        
+</data>
+</openerp>
+
+    
