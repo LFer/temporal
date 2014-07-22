@@ -8,7 +8,7 @@
   <stylesheet>
     <blockTableStyle id="Standard_Outline">
       <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
+      <blockValign value="TOP"/
     </blockTableStyle>
     <blockTableStyle id="Tabla5">
       <blockAlignment value="LEFT"/>
