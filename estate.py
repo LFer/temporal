@@ -111,18 +111,7 @@ class estate(osv.osv):
         }
 
 
-    """
-    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
-        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
-        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
 
-    def _attach_email(self, cr, uid, ids, name, args, context=None):
-        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
-        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
-        
-    """
             
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -308,14 +297,25 @@ class estate(osv.osv):
         'emails': fields.function(get_emails, string="EMail", relation='mail.message',method=True,type='one2many'),  
         
         'fechaContacto': fields.date('Fecha de Contacto', select=1),
-        
+      
         'ubicacion': fields.text('Ubicación'),
         
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
         'duplicados': fields.char('Duplicados',50),
-        
     }
+    
+    """
+    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
+
+    def _attach_email(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
+    """
 
     def _default_category(self, cr, uid, context=None):
         if context is None:
