@@ -38,21 +38,21 @@
                         <field name="name" default_focus="1" placeholder="Descripción de la propiedad" />
                         
                     </h1>
-                    <group colspan="4" >
-                        
+                    <group col="2" colspan="4" rowspan="2" >
                   		<field name="date" placeholder="Fecha de ingreso" />
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
                   		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
                         <field name="duplicados" placeholder="Duplicados" />  
-                  	</group>
+                        <field name="destacados" placeholder="Destacados"/>
+                    <field name="partner_id" placeholder="Nombre del cliente..."/>
+                    <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
 <!--                  	
                     <group colspan="2" >
                   		<field name="user_id" widget="selection" />
-                  	</group>
--->                  	
-                    <field name="partner_id" placeholder="Nombre del cliente..."/>
-                    <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+                </group>
+-->
+               </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
                     <label for="active" string="Activo" attrs="{'invisible': [('state','=', 'vendido')]}"/>
@@ -139,41 +139,84 @@
                         <field name="largo" nolabel="1" />
                         <label for="ancho" style="color:red" />
                         <field name="ancho" nolabel="1" />
+                       <label for="profundidad" style="color:red"/>
+                       <field name="profundidad" nolabel="1"/>
+                       <label for="frente" style="color:red"/>
+                       <field name="frente" nolabel="1"/> 
                     </group>
 	     		</page>
+                
 
-	     		<page string="Comodidades" attrs="{'invisible': [('is_rural','=', True)]}">
-
-
-	                    <group col="4">
-	                        <label for="cantidadDormitorios" style="color:red" />
-		                	<field name="cantidadDormitorios" nolabel="1" />
-		                	<label for="cantidadBanios" style="color:red" />
-							<field name="cantidadBanios" nolabel="1" />
-
-							<label for="comodidades" style="color:red" />
-	                    	<field name="comodidades" colspan="4" nolabel="1" />
-	                    	<label for="ute" style="color:red" />
-							<field name="ute" nolabel="1" />
-							<label for="ose" style="color:red" />
-							<field name="ose" nolabel="1" />
-							<label for="calefaccion" style="color:red" />
-							<field name="calefaccion" nolabel="1" />
-							<label for="oficina" style="color:red" />
-							<field name="oficina" nolabel="1" />
-							<label for="garaje" style="color:red" />
-							<field name="garaje" nolabel="1" />
-							<label for="piscina" style="color:red" />
-							<field name="piscina" nolabel="1" />
-							<label for="barbacoa" style="color:red" />
-							<field name="barbacoa" nolabel="1" />
-							<label for="equipamiento" style="color:red" />
-							<field name="equipamiento" nolabel="1" />
-							<label for="produccion" style="color:red" />
-							<field name="produccion" nolabel="1" />
-							
-						</group>
-
+	     		<page string="Descripción General">
+	                    <group col="2">
+                            <group string="Descripción General">
+                                <field name="comodidades" nolabel="0"/>
+                                <field name="alquiler_reservado" nolabel="0"/>
+                                <field name="padron" nolabel="0"/>
+                                <field name="year" nolabel="0"/>
+                                <field name="orientacion" nolabel="0"/>
+                                <field name="ubica" nolabel="0"/>
+                                <field name="gastos_comun" nolabel="0"/>
+                                <field name="contri" nolabel="0"/>
+                                <field name="calor" nolabel="0"/>
+                                <field name="impPrim" nolabel="0"/>
+                                <field name="ac" nolabel="0"/>
+                                <field name="calefaccion" nolabel="0"/>
+                                <field name="gas" nolabel="0"/>
+                                <field name="tel" nolabel="0"/>
+                                <field name="tv" nolabel="0"/>
+                                <field name="oficina" nolabel="0"/>
+                                <field name="garaje" nolabel="0"/>
+                                <field name="equipamiento" nolabel="0"/>
+                                <field name="produccion" nolabel="0"/>
+                                <field name="lavadero" nolabel="0"/>
+                                <field name="placard" nolabel="0"/>
+                            </group>
+                            <group string="Descripción Interior">
+                                <field name="cantidadDormitorios" nolabel="0"/>
+                                <field name="suite" nolabel="0"/>
+                                <field name="cantidadBanios" nolabel="0"/>
+                                <field name="toilet" nolabel="0"/>
+                                <field name="bath" nolabel="0"/>
+                                <field name="social" nolabel="0"/>
+                                <field name="hidro" nolabel="0"/>
+                                <field name="jacuzzi" nolabel="0"/>
+                                <field name="escritorio" nolabel="0"/>
+                                <field name="cocina" nolabel="0"/>
+                                <field name="living" nolabel="0"/>
+                                <field name="kit" nolabel="0"/>
+                                <field name="comedor" nolabel="0"/>
+                                <field name="liv_com" nolabel="0"/>
+                                <field name="hall" nolabel="0"/>
+                                <field name="estar" nolabel="0"/>
+                                <field name="ute" nolabel="0"/>
+                                <field name="ose" nolabel="0"/>
+                                <field name="agua_caliente" nolabel="0"/>
+                            </group>
+                            <group string="Descripción Exterior">
+                                <field name="baulera" nolabel="0"/>
+                                <field name="fondo" nolabel="0"/>
+                                <field name="jardin" nolabel="0"/>
+                                <field name="piscina" nolabel="0"/>
+                                <field name="barbacoa" nolabel="0"/>
+                            </group>
+                            <group string="Edificio o condominio">
+                                <field name="balcon" nolabel="0"/>
+                                <field name="terraza" nolabel="0"/>
+                                <field name="terraza_2" nolabel="0"/>
+                                <field name="azotea" nolabel="0"/>
+                                <field name="porteria_2" nolabel="0"/>
+                                <field name="vigilancia" nolabel="0"/>
+                                <field name="porteria" nolabel="0"/>
+                                <field name="ascensor" nolabel="0"/>
+                                <field name="piso" nolabel="0"/>
+                                <field name="internet" nolabel="0"/>
+                                <field name="sauna" nolabel="0"/>
+                                <field name="gym" nolabel="0"/>
+                                <field name="canchas" nolabel="0"/>
+                                <field name="bbq" nolabel="0"/>
+                            </group>
+                        </group>
 	            </page>
 
 	            <page string="Documentación">
@@ -183,13 +226,24 @@
 	                </group>        
 				</page>
 		        
+                <page string="Tasación">
+                    <group>
+                        <field name="fecha_tasacion" nolabel="0"/>
+                        <field name="moneda_tasacion" nolabel="0"/>
+                        <field name="moneda_tasacion" nolabel="0"/>
+                        <field name="importe_tasacion" nolabel="0"/>
+                        <field name="tasado_por" nolabel="0"/>
+                    </group>
+                </page>
+                
 		        <page string="Condiciones de Venta" >                    
                     <!--<group col="5" colspan="3">-->
                     <group>
-                    	<field name="currency" style="width: 20%% "  domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
+                    	<field name="currency" style="width: 15%% "  domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
                     	<label for="price" style="color:red" attrs="{'invisible': [('is_rural','=', True)]}" />
                         <field name="price" attrs="{'invisible': [('is_rural','=', True)]}" nolabel="1" />
                         <field name="conditions" attrs="{'invisible': [('is_rural','=', True)]}"/>
+                        <field name="financiacion" style="width: 23%%"/>
 
                 		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
                 		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>
@@ -360,7 +414,7 @@
 				
 				</page>
 
-				<page string="Compartido/Datero" >
+				<page string="Compartido" >
 
 	                <field name="colegas_ids" >
                         <tree string="Nombre">
@@ -373,6 +427,7 @@
                     </field>	                
 				
 				</page>
+                
 
 
 				<page string="Visitas" >

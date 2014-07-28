@@ -86,13 +86,20 @@ class estate(osv.osv):
         obj = self.browse(cr,uid,ids,context)[0]
         ctx = (context or {}).copy()
         cr.execute('select id from ir_ui_view where model=%s and field_parent=%s and type=%s', ('crm.lead', 'Oportunidades macheables', 'tree'))
-        view_ids = cr.fetchone()
-        view_id = view_ids and view_ids[0] or False
-        for p in caracteristicas:
-            if obj[p]:
-                domain.append('|')
-                domain.append((p,'=',False))
-                domain.append((p,'=',obj[p]))
+        view_ids = cr.fetchall()
+        
+        for a in obj:
+            view_id = view_ids and view_ids[0] or False
+            if obj[a]:
+                for p in caracteristicas:
+                    domain.append('|')
+                    domain.append((p,'=',False))
+                    domain.append((p,'=',obj[p]))
+                domain.append('&')
+
+        if(domain):
+            domain = domain[:-1]
+
         oportunidades = estate_obj.search(cr, uid,domain)
         ctx['oportunidades'] = oportunidades
         return {
@@ -111,13 +118,25 @@ class estate(osv.osv):
         }
 
 
+    """
+    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
 
+    def _attach_email(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
+        
+    """
             
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
         'number': fields.char('Nro. de propiedad', size=64, required=True),
-        'partner_id': fields.many2one('res.partner', 'Nombre del Cliente'),
+        
+        'partner_id': fields.many2one('res.partner', 'Cliente relacionado', required=True),
         'phone': fields.related('partner_id', 'phone', type='char', string='Teléfono'),
         'mobile': fields.related('partner_id', 'mobile', type='char', string='Celular'),
         'email': fields.related('partner_id', 'email', type='char', string='E-mail'),
@@ -147,17 +166,26 @@ class estate(osv.osv):
         'supEdificada': fields.float('Superficie edificada'),
         'largo': fields.integer('Largo'),
         'ancho': fields.integer('Ancho'),
-        'profundidad':fields.integer('Profundidad'),
-        'frente':fields.integer('Frente'),
+        'comodidades': fields.text('Comodidades'),
         'documentacion': fields.text('Documentación'),
+        'cantidadDormitorios': fields.integer('Cantidad de dormitorios'),
+        'cantidadBanios': fields.integer('Cantidad de baños'),
 
         
         'escribano': fields.many2one('res.partner', 'Escribano'),
         
+        'ute': fields.boolean('UTE'),
+        'ose': fields.boolean('OSE'),
+        'calefaccion': fields.boolean('Calefacción'),
+        'oficina': fields.boolean('Oficina'),
+        'garaje': fields.boolean('Garage'),
+        'piscina': fields.boolean('Piscina'),
+        'barbacoa': fields.boolean('Barbacoa'),
+        'equipamiento': fields.boolean('Equipamiento'),
+        'produccion': fields.boolean('Producción'),
 
         'price': fields.float('Precio (Com. Inc.)'),
         'conditions': fields.text('Condiciones'),
-        'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
         
         
         
@@ -206,7 +234,9 @@ class estate(osv.osv):
         'centros': fields.char('Centros de Salud / Escuela', size=256),
         'encargado': fields.char('Encargado', size=256),
         'encargadoCelular': fields.char('Celular', size=256),
+        
         'contInm': fields.boolean('Cont. Inmobiliaria'),
+        'impPrim': fields.boolean('Imp. Primaria'),
         'bps': fields.boolean('BPS'),
         'bhu': fields.boolean('BHU'),
         'deudas': fields.boolean('Deudas'),
@@ -285,101 +315,14 @@ class estate(osv.osv):
         'emails': fields.function(get_emails, string="EMail", relation='mail.message',method=True,type='one2many'),  
         
         'fechaContacto': fields.date('Fecha de Contacto', select=1),
-      
+        
+        'ubicacion': fields.text('Ubicación'),
         
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
         'duplicados': fields.char('Duplicados',50),
-        'destacados': fields.boolean('Destacado'),
-        'ubicacion': fields.text('Ubicación'),#ya existe
-
-
-        # Descripcion General
-        'comodidades': fields.text('Comodidades'),
-        'alquiler_reservado':fields.date('Alquiler-Reservado'),
-        'padron':fields.char('Número de padrón'),
-        'year':fields.char('Año de Construcción'),
-        'orientacion':fields.char('Orientación'),
-        'ubica':fields.char('Ubicación'),
-        'gastos_comun':fields.char('Gastos Comúnes'),
-        'contri':fields.char('Contribucción'),
-        'impPrim': fields.boolean('Imp. Primaria'),#ya existe
-        'calor':fields.char('Calefacción'),
-        'ac':fields.boolean('Aire Acondicionado'),
-        'calefaccion': fields.boolean('Calefacción'),#ya existe
-        'gas':fields.boolean('Gás por cañeria'),
-        'tel':fields.boolean('Teléfono'),
-        'tv':fields.boolean('TV Cable/Internet'),
-        'oficina': fields.boolean('Oficina'),#ya existe
-        'garaje': fields.boolean('Garage'),#ya existe
-        'equipamiento': fields.boolean('Equipamiento'), #ya existe
-        'produccion': fields.boolean('Producción'), #ya existe
-        'lavadero':fields.boolean('Lavadero'),
-        'placard':fields.boolean('Placard'),
         
-        #Descripcion Interior
-        'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
-        'suite':fields.boolean('Habitación en suite'),
-        'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
-        'toilet':fields.boolean('Toilets'),
-        'bath':fields.boolean('Baño de servicio'),
-        'social':fields.boolean('Baño social'),
-        'hidro':fields.boolean('Hidromasaje'),
-        'jacuzzi':fields.boolean('Jacuzzi'),
-        'escritorio':fields.boolean('Escritorio'),
-        'cocina':fields.boolean('Cocina'),
-        'living':fields.boolean('Living'),
-        'kit':fields.boolean('Kitchenette'),
-        'comedor':fields.boolean('Comedor'),
-        'liv_com':fields.boolean('Living-Comedor'),
-        'hall':fields.boolean('Hall'),
-        'estar':fields.boolean('Estar'),
-        'ute': fields.boolean('UTE'),
-        'ose': fields.boolean('OSE'),
-        'agua_caliente':fields.boolean('Agua caliente'),
-
-        #Descripcion Exterior
-        'baulera':fields.boolean('Baulera'),
-        'fondo':fields.boolean('Fondo'),
-        'jardin':fields.boolean('Jardín'),
-        'piscina': fields.boolean('Piscina'),
-        'barbacoa': fields.boolean('Barbacoa'),
-
-        #Edificio o condominio
-        'balcon':fields.boolean('Balcón'),
-        'terraza':fields.boolean('Terraza'),
-        'terraza_2':fields.boolean('Terraza de servicio'),
-        'azotea':fields.boolean('Acceso a azotea'),
-        'porteria_2':fields.boolean('Portero eléctrico'),
-        'vigilancia':fields.boolean('Vigilancia'),
-        'porteria':fields.boolean('Porteria'),
-        'ascensor':fields.boolean('Ascensor'),
-        'piso':fields.boolean('Piso'),
-        'internet':fields.boolean('Internet'),
-        'sauna':fields.boolean('Sauna'),
-        'gym':fields.boolean('Gimnasio'),
-        'canchas':fields.boolean('Canchas'),
-        'bbq':fields.boolean('Barbacoa común'),
-
-        #Tasacion
-        'fecha_tasacion':fields.date('Fecha de Tasación'),
-        'moneda_tasacion':fields.many2one('res.currency', 'Moneda de Tasación'),
-        'importe_tasacion':fields.float('Importe'),
-        'tasado_por':fields.many2one('res.partner','Tasado por'),
-       
     }
-    
-    """
-    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
-        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
-        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
-
-    def _attach_email(self, cr, uid, ids, name, args, context=None):
-        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
-        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
-    """
 
     def _default_category(self, cr, uid, context=None):
         if context is None:
