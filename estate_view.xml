@@ -30,7 +30,10 @@
                     <div>
 		                <div >
 		                    <label for="name" style="color:red" /> 
-		                    <field name="is_rural" invisible="1" class="oe_inline"/> <!--label for="is_rural" string="¿Es propiedad rural?"/-->
+		                    <field name="is_rural" invisible="1" class="oe_inline"/> 
+                            <!--label for="is_rural" string="¿Es propiedad rural?"/-->
+		                    <field name="alquiler" invisible="0" class="oe_inline"/> 
+                            <label for="aluiler" string="¿Está para alquilar?"/>
 		                </div>
 		            </div>
                     <h1>
@@ -151,7 +154,6 @@
 	                    <group col="2">
                             <group string="Descripción General">
                                 <field name="comodidades" nolabel="0"/>
-                                <field name="alquiler_reservado" nolabel="0"/>
                                 <field name="padron" nolabel="0"/>
                                 <field name="year" nolabel="0"/>
                                 <field name="orientacion" nolabel="0"/>
@@ -228,22 +230,27 @@
 		        
                 <page string="Tasación">
                     <group>
-                        <field name="fecha_tasacion" nolabel="0"/>
-                        <field name="moneda_tasacion" nolabel="0"/>
-                        <field name="moneda_tasacion" nolabel="0"/>
-                        <field name="importe_tasacion" nolabel="0"/>
-                        <field name="tasado_por" nolabel="0"/>
+                        <field name="fecha_tasacion" nolabel="0" style="width: 15%% " />
+                        <field name="moneda_tasacion" nolabel="0" style="width: 10%% " />
+                        <field name="importe_tasacion" nolabel="0" style="width: 15%% " />
+                        <field name="tasado_por" nolabel="0" style="width: 20%% " />
                     </group>
                 </page>
                 
 		        <page string="Condiciones de Venta" >                    
                     <!--<group col="5" colspan="3">-->
                     <group>
-                    	<field name="currency" style="width: 15%% "  domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
-                    	<label for="price" style="color:red" attrs="{'invisible': [('is_rural','=', True)]}" />
-                        <field name="price" attrs="{'invisible': [('is_rural','=', True)]}" nolabel="1" />
+                    	<field name="currency"   domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',True)]}"/>
+                    	<field name="currency_al"   domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
+                    	<label for="price" style="color:red" attrs="{'invisible': [('alquiler','=', True)]}" />
+                        <field name="price" attrs="{'invisible': [('alquiler','=', True)]}" nolabel="1" />
+                        <label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
+                        <field name="alquiler_desde" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="alquiler_hasta" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                    <!--button name="action_calcular_precio_hectarea" type="object" string="Calcular alquiler " class="oe_highlight" attrs="{'invisible': [('alquiler','=', False)]}"/--> 
                         <field name="conditions" attrs="{'invisible': [('is_rural','=', True)]}"/>
-                        <field name="financiacion" style="width: 23%%"/>
+                        <field name="financiacion"/>
 
                 		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
                 		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>

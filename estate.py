@@ -155,9 +155,11 @@ class estate(osv.osv):
         'escribano': fields.many2one('res.partner', 'Escribano'),
         
 
-        'price': fields.float('Precio (Com. Inc.)'),
+        'price': fields.float('Precio Venta'),
+        'rent_price':fields.float('Precio Alquiler'),
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
+        'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
         
         
         
@@ -268,7 +270,9 @@ class estate(osv.osv):
         
         'visit_ids': fields.one2many('visit', 'estate_id', 'Visita'),
 
-        'currency': fields.many2one('res.currency', 'Moneda',required=True),
+        'currency': fields.many2one('res.currency', 'Moneda Venta',required=True),
+        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler',required=True),
+        
 
         'modificado': fields.boolean('Modificado'),
         
@@ -296,14 +300,15 @@ class estate(osv.osv):
 
         # Descripcion General
         'comodidades': fields.text('Comodidades'),
-        'alquiler_reservado':fields.date('Alquiler-Reservado'),
+        'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
+        'alquiler_hasta':fields.date('Hasta'),        
         'padron':fields.char('Número de padrón'),
         'year':fields.char('Año de Construcción'),
         'orientacion':fields.char('Orientación'),
         'ubica':fields.char('Ubicación'),
         'gastos_comun':fields.char('Gastos Comúnes'),
         'contri':fields.char('Contribucción'),
-        'impPrim': fields.boolean('Imp. Primaria'),#ya existe
+        'impPrim': fields.float('Imp. Primaria'),#ya existe
         'calor':fields.char('Calefacción'),
         'ac':fields.boolean('Aire Acondicionado'),
         'calefaccion': fields.boolean('Calefacción'),#ya existe
