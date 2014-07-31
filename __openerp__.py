@@ -12,7 +12,8 @@
     "update_xml" : ['partner_view.xml',
                     'estate_view.xml',
                     'estate_report.xml',
-                    'crm_lead_view.xml'],
+                    'crm_lead_view.xml',
+                    'pedidos.xml'],
     "installable": True,
     "active": False,
 }

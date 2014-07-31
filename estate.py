@@ -124,6 +124,7 @@ class estate(osv.osv):
         'partner_street': fields.related('partner_id', 'street', type='char', string='Calle'),
         'partner_city': fields.related('partner_id', 'city', type='char', string='Localidad/Ciudad'),
         'partner_state_id': fields.related('partner_id', 'state_id', type='char', string='Departamento'),
+        'nunemero_de_puerta':fields.char('Nro de puerta'),
 
 
 
@@ -133,6 +134,8 @@ class estate(osv.osv):
         'date': fields.date('Fecha de Ingreso', select=1, required=True),
 
         'street': fields.char('Calle/Dirección', size=128),
+        'numero_de_puerta':fields.char('Numero de puerta'),
+        'numero_de_apto':fields.char('Número de Apto.'),
         'street2': fields.char('Calle 2', size=128),
         'zip': fields.char('Código postal', change_default=True, size=24),
         'city': fields.char('Ciudad', size=128),
@@ -145,10 +148,8 @@ class estate(osv.osv):
         'barrio': fields.char('Barrio', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
-        'largo': fields.integer('Largo'),
-        'ancho': fields.integer('Ancho'),
-        'profundidad':fields.integer('Profundidad'),
-        'frente':fields.integer('Frente'),
+        'largo': fields.integer('Profundidad'),
+        'ancho': fields.integer('Frente'),
         'documentacion': fields.text('Documentación'),
 
         
@@ -156,10 +157,18 @@ class estate(osv.osv):
         
 
         'price': fields.float('Precio Venta'),
-        'rent_price':fields.float('Precio Alquiler'),
+        'rent_price':fields.float('Precio Alquiler Mensual'),
+        'rent_day':fields.float('Precio Alquiler Diario'),
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
         'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
+        
+
+        'fecha_inicio':fields.date('Fecha inicio'),
+        'fecha_fin':fields.date('Fecha fin'),
+        'result':fields.char('Cantidad de dias alquilados'),
+        'costo_alquiler':fields.char('Costo'),
+        
         
         
         
@@ -270,8 +279,8 @@ class estate(osv.osv):
         
         'visit_ids': fields.one2many('visit', 'estate_id', 'Visita'),
 
-        'currency': fields.many2one('res.currency', 'Moneda Venta',required=True),
-        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler',required=True),
+        'currency': fields.many2one('res.currency', 'Moneda Venta'),
+        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler'),
         
 
         'modificado': fields.boolean('Modificado'),
@@ -324,7 +333,8 @@ class estate(osv.osv):
         
         #Descripcion Interior
         'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
-        'suite':fields.boolean('Habitación en suite'),
+        'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
+        'suite':fields.boolean('Habitación en suite'), 
         'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
         'toilet':fields.boolean('Toilets'),
         'bath':fields.boolean('Baño de servicio'),
@@ -371,10 +381,25 @@ class estate(osv.osv):
         'moneda_tasacion':fields.many2one('res.currency', 'Moneda de Tasación'),
         'importe_tasacion':fields.float('Importe'),
         'tasado_por':fields.many2one('res.partner','Tasado por'),
+        'tipo':fields.selection((('C','Colega'),('D','Directo'),('E', 'Exclusivo'),('I','Indirecta'), ('N','No exclusivo'),('O','Ofrecido')),'Tipo'),
+        
        
     }
-    
-    """
+      
+
+    def get_number_of_days(self, cr, uid, ids, fecha_inicio, fecha_fin, rent_day, context=None):
+        res=0
+        if (fecha_fin and fecha_inicio) and (fecha_inicio <= fecha_fin):
+            #import pdb
+            #pdb.set_trace()
+            DATETIME_FORMAT = "%Y-%m-%d"
+            to_dt = datetime.datetime.strptime(fecha_fin, DATETIME_FORMAT)
+            from_dt = datetime.datetime.strptime(fecha_inicio, DATETIME_FORMAT)
+            timedelta = to_dt - from_dt
+            diff_day = timedelta.days + float(timedelta.seconds) / 86400
+            res=round(math.floor(diff_day))+1
+        return { 'value' : { 'result' : res, 'costo_alquiler':rent_day*res}}
+  
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
@@ -384,7 +409,9 @@ class estate(osv.osv):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
         return datas
-    """
+
+    def _tiempo_hoy(self, cr, uid, context=None):
+        return datetime.now()
 
     def _default_category(self, cr, uid, context=None):
         if context is None:
@@ -392,6 +419,10 @@ class estate(osv.osv):
         if context.get('category_id'):
             return [context['category_id']]
         return False
+
+
+
+
 
     def _get_default_image(self, cr, uid, is_company, context=None, colorize=False):
         img_path = openerp.modules.get_module_resource('base', 'static/src/img',
@@ -411,8 +442,10 @@ class estate(osv.osv):
         'is_rural': False,
         'image': False,
         'state': 'enventa',        
-    }    
-
+    }      
+    
+        
+        
     def action_calcular_precio_hectarea(self, cr, uid, ids, *args):
         total = 0
         your_class_records = self.browse(cr, uid, ids)    
@@ -556,7 +589,7 @@ class expenses(osv.osv):
     
     _columns = {
         'notes': fields.text('Comentario del gasto'),
-        'currency': fields.many2one('res.currency', 'Moneda'),
+        'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
     }    
 expenses()

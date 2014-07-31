@@ -33,7 +33,7 @@
 		                    <field name="is_rural" invisible="1" class="oe_inline"/> 
                             <!--label for="is_rural" string="¿Es propiedad rural?"/-->
 		                    <field name="alquiler" invisible="0" class="oe_inline"/> 
-                            <label for="aluiler" string="¿Está para alquilar?"/>
+                            <label for="alquiler" string="¿Está para alquilar?"/>
 		                </div>
 		            </div>
                     <h1>
@@ -43,6 +43,7 @@
                     </h1>
                     <group col="2" colspan="4" rowspan="2" >
                   		<field name="date" placeholder="Fecha de ingreso" />
+                        <field name="tipo" style="width: 40%%" />
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
                   		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
@@ -95,8 +96,11 @@
                         <label for="street" string="Dirección"/>
                         <div>
                             <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
-                            <field name="street2" placeholder="y calle..." style="width: 60%%"/>
+                            <field name="street2" placeholder="y esquina..." style="width: 60%%"/>
                             <field name="barrio" placeholder="Barrio" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
+                            <field name="numero_de_puerta" placeholder="Numero de puerta" style="width: 60%%"/>
+                            <field name="numero_de_apto" placeholder="Numero de Apartamento" style="width: 60%%"/>
+
                             <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/> 
                         </div>
 
@@ -142,10 +146,6 @@
                         <field name="largo" nolabel="1" />
                         <label for="ancho" style="color:red" />
                         <field name="ancho" nolabel="1" />
-                       <label for="profundidad" style="color:red"/>
-                       <field name="profundidad" nolabel="1"/>
-                       <label for="frente" style="color:red"/>
-                       <field name="frente" nolabel="1"/> 
                     </group>
 	     		</page>
                 
@@ -240,15 +240,24 @@
 		        <page string="Condiciones de Venta" >                    
                     <!--<group col="5" colspan="3">-->
                     <group>
-                    	<field name="currency"   domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',True)]}"/>
-                    	<field name="currency_al"   domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
-                    	<label for="price" style="color:red" attrs="{'invisible': [('alquiler','=', True)]}" />
+                    	<field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',True)]}"/>
+                    	<field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
+                    	
+                        <label for="price" style="color:red" attrs="{'invisible': [('alquiler','=', True)]}" />
                         <field name="price" attrs="{'invisible': [('alquiler','=', True)]}" nolabel="1" />
+                        
                         <label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
-                        <field name="alquiler_desde" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="alquiler_hasta" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                    <!--button name="action_calcular_precio_hectarea" type="object" string="Calcular alquiler " class="oe_highlight" attrs="{'invisible': [('alquiler','=', False)]}"/--> 
+                        
+                        <label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>                        
+                        
+                        <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="result"  style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="costo_alquiler" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+
+
                         <field name="conditions" attrs="{'invisible': [('is_rural','=', True)]}"/>
                         <field name="financiacion"/>
 
@@ -507,6 +516,10 @@
                         </tree>
                     </field>
                 </page>    								                 
+                <page string="Prueba">
+                    <group>
+                   </group>
+                </page>
                 </notebook>	           
 
              
@@ -661,47 +674,19 @@
         <field eval="1" name="priority"/>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Propiedades" colors="blue:is_rural==False;green:is_rural==True" >
-             	
-            	<field name="date" />
-            	<field name="fechaContacto" />
-            	<!--<field name="write_date" string="Fecha de actualización" />-->
-            	<field name="write_uid" />
+            <tree string="Propiedades" colors="blue:is_rural==False;green:is_rural==True">
+                <field name="number"/>
+                <field name="street"/>
+                <field name="numero_de_puerta"/>
+                <field name="numero_de_apto"/>
+                <field name="state_id"/>
+                <field name="barrio"/>
+                <field name="nAmbientes"/>
+                <field name="price"/>
+                <field name="rent_price"/>
+                <field name="rent_day"/>
 
-            	<!--<field name="users_id" />-->
-            	<!--<field name="publicado" />-->
-            	<field name="number" />
-            	<field name="partner_id" />
-            	<!--
-				<field name="partner_street" />
-				<field name="partner_city" />
-				<field name="partner_state_id" />
-            	
-				<field name="phone" />
-				<field name="mobile" />
-				<field name="email" />
-				-->
-				<field name="street" />
-				<!--
-				<field name="city" />
-				<field name="state_id" />
-				-->
-				
-				<field name="name" />
-				
-				<field name="category_id" />
-				
-				<field name="price" />
-				<field name="precioTotalLiquidoComIncl" />
-				<!--
-				<field name="padrones" />
-				<field name="conditions" />
-				<field name="notes" />
-				-->
-				
-				<field name="is_rural" invisible="1"/>
-				
-
+                <field name="is_rural" invisible="1"/>
 			</tree>
         </field>
     </record>
