@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="group_adm_inm" model="res.groups">
+        <field name="name">Administración INM</field>
+    </record>
+    
+    <record id="group_inm_secretaria" model="res.groups">
+        <field name="name">Secretaria</field>
+    </record>
+    
+    <record id="group_inm_vendedor" model="res.groups">
+        <field name="name">Vendedor</field>
+    </record>
+    
+    <record id="group_escribano" model="res.groups">
+        <field name="name">Escribano</field>
+    </record>
+
+</data>
+</openerp>

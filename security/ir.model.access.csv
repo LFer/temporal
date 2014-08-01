@@ -1,0 +1,14 @@
+id;name;model_id:id;group_id:id;perm_read;perm_write;perm_create;perm_unlink
+access_inmobiliarias_0;inmobiliarias_0;inmobiliaria.model_inmobiliaria;base.group_user;1;1;1;1
+inmobiliariaSec;inmobiliariaSec;inmobiliaria.model_inmobiliaria;group_inm_secretaria;1;1;1;1
+InmobiliariaVnd_1;InmobiliariaVnd_1;inmobiliaria.model_inmobiliaria;group_inm_ventas;1;1;1;1
+InmobiliariaEvent_2;InmobiliariaEvent_2;base_calendar.model_calendar_attendee;group_inm_secretaria;1;1;1;1
+InmobiliariaEvent_4;InmobiliariaEvent_4;base_calendar.model_calendar_event;group_inm_secretaria;1;1;1;1
+InmobiliariaEvent_5;InmobiliariaEvent_5;base_calendar.model_calendar_event;group_inm_secretaria;1;1;1;1
+;;;;;;;
+access_inmobiliaria_1;access_inmobiliaria_1;inmobiliaria.model_inmobiliaria;group_inm_vendedor;1;1;1;1
+access_inmobiliaria_Vendedor_0;InmobiliariaVnd_0;inmobiliaria.model_inmobiliaria;group_inm_vendedor;1;1;1;1
+InmobiliariaEvent_1;InmobiliariaEvent_1;base_calendar.model_calendar_attendee;group_inm_vendedor;1;1;1;1
+InmobiliariaEvent_3;InmobiliariaEvent_3;base_calendar.model_calendar_event;group_inm_vendedor;1;1;1;1
+;;;;;;;
+access_inmobiliaria_Administracion;inmobiliariaAdm;inmobiliaria.model_inmobiliaria;group_inm_administracion;1;1;1,1;
