@@ -40,19 +40,8 @@ class crm_lead(base_stage, format_address, osv.osv):
         'ancho': fields.integer('Ancho'),
         'comodidades': fields.text('Comodidades'),
         'documentacion': fields.text('Documentación'),
-        'cantidadDormitorios': fields.integer('Cantidad de dormitorios'),
-        'cantidadBanios': fields.integer('Cantidad de baños'),
 
-        'ute': fields.boolean('UTE'),
-        'ose': fields.boolean('OSE'),
-        'calefaccion': fields.boolean('Calefacción'),
-        'oficina': fields.boolean('Oficina'),
-        'garaje': fields.boolean('Garage'),
-        'piscina': fields.boolean('Piscina'),
-        'barbacoa': fields.boolean('Barbacoa'),
-        'equipamiento': fields.boolean('Equipamiento'),
-        'produccion': fields.boolean('Producción'),
-
+        
         'price': fields.float('Precio', size=240),
         'conditions': fields.text('Condiciones'),        
         'notes': fields.text('Comentarios'),
@@ -98,6 +87,79 @@ class crm_lead(base_stage, format_address, osv.osv):
         
         'currency': fields.many2one('res.currency', 'Moneda'),
 
+        # Descripcion General
+        'comodidades': fields.text('Comodidades'),
+        'padron':fields.char('Número de padrón'),
+        'year':fields.char('Año de Construcción'),
+        'orientacion':fields.char('Orientación'),        
+        'ubica':fields.char('Ubicación'),
+        'gastos_comun':fields.char('Gastos Comúnes'),
+        'contri':fields.char('Contribucción'),
+        'calor':fields.char('Calefacción'),
+        'impPrim': fields.float('Imp. Primaria'),#ya existe
+        'ac':fields.boolean('Aire Acondicionado'),
+        'calefaccion': fields.boolean('Calefacción'),#ya existe
+        'gas':fields.boolean('Gás por cañeria'),
+        'tel':fields.boolean('Teléfono'),
+        'tv':fields.boolean('TV Cable/Internet'),
+        'oficina': fields.boolean('Oficina'),#ya existe
+        'garaje': fields.boolean('Garage'),#ya existe
+        'equipamiento': fields.boolean('Equipamiento'), #ya existe
+        'produccion': fields.boolean('Producción'), #ya existe
+        'lavadero':fields.boolean('Lavadero'),
+        'placard':fields.boolean('Placard'),
+        'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
+        'alquiler_hasta':fields.date('Hasta'),        
+
+        
+        #Descripcion Interior
+        'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
+        'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
+        'suite':fields.boolean('Habitación en suite'), 
+        'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
+        'toilet':fields.boolean('Toilets'),
+        'bath':fields.boolean('Baño de servicio'),
+        'social':fields.boolean('Baño social'),
+        'hidro':fields.boolean('Hidromasaje'),
+        'jacuzzi':fields.boolean('Jacuzzi'),
+        'escritorio':fields.boolean('Escritorio'),
+        'cocina':fields.boolean('Cocina'),
+        'living':fields.boolean('Living'),
+        'kit':fields.boolean('Kitchenette'),
+        'comedor':fields.boolean('Comedor'),
+        'liv_com':fields.boolean('Living-Comedor'),
+        'hall':fields.boolean('Hall'),
+        'estar':fields.boolean('Estar'),
+        'ute': fields.boolean('UTE'),
+        'ose': fields.boolean('OSE'),
+        'agua_caliente':fields.boolean('Agua caliente'),
+  
+        #Descripcion Exterior
+        'baulera':fields.boolean('Baulera'),
+        'fondo':fields.boolean('Fondo'),
+        'jardin':fields.boolean('Jardín'),
+        'piscina': fields.boolean('Piscina'),
+        'barbacoa': fields.boolean('Barbacoa'),
+
+        #Edificio o condominio
+        'balcon':fields.boolean('Balcón'),
+        'terraza':fields.boolean('Terraza'),
+        'terraza_2':fields.boolean('Terraza de servicio'),
+        'azotea':fields.boolean('Acceso a azotea'),
+        'porteria_2':fields.boolean('Portero eléctrico'),
+        'vigilancia':fields.boolean('Vigilancia'),
+        'porteria':fields.boolean('Porteria'),
+        'ascensor':fields.boolean('Ascensor'),
+        'piso':fields.boolean('Piso'),
+        'internet':fields.boolean('Internet'),
+        'sauna':fields.boolean('Sauna'),
+        'gym':fields.boolean('Gimnasio'),
+        'canchas':fields.boolean('Canchas'),
+        'bbq':fields.boolean('Barbacoa común'),
+
+        #Condiciones de venta
+        'conditions': fields.text('Condiciones'),
+        'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
     }
 
 

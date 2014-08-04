@@ -151,26 +151,7 @@ class estate(osv.osv):
         'largo': fields.integer('Profundidad'),
         'ancho': fields.integer('Frente'),
         'documentacion': fields.text('Documentación'),
-
-        
         'escribano': fields.many2one('res.partner', 'Escribano'),
-        
-
-        'price': fields.float('Precio Venta'),
-        'rent_price':fields.float('Precio Alquiler Mensual'),
-        'rent_day':fields.float('Precio Alquiler Diario'),
-        'conditions': fields.text('Condiciones'),
-        'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
-        'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
-        
-
-        'fecha_inicio':fields.date('Fecha inicio'),
-        'fecha_fin':fields.date('Fecha fin'),
-        'result':fields.char('Cantidad de dias alquilados'),
-        'costo_alquiler':fields.char('Costo'),
-        
-        
-        
         
         # Rural
         'padron': fields.boolean('Padrón'),
@@ -180,7 +161,6 @@ class estate(osv.osv):
         'fotos': fields.boolean('Fotos'),
         'autWeb': fields.boolean('Aut. Web'),
         'ImagenesGoogle': fields.boolean('Imágenes Google'),
-        
         'distancia': fields.char('Distancia', size=128),
         'accesos': fields.char('Accesos', size=128),
         'seccional': fields.char('Seccional', size=128),
@@ -194,11 +174,9 @@ class estate(osv.osv):
         'montes': fields.char('Montes', size=256),
         'exploit': fields.char('Explotación', size=256),
         'padrones': fields.char('Padrones', size=256),
-        
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
         'galpones': fields.integer('Galpones'),
-                
         'luz': fields.char('Luz', size=256),
         'agua': fields.char('Agua', size=256),
         'embarcadero': fields.integer('Embarcadero'),
@@ -223,7 +201,6 @@ class estate(osv.osv):
         'deudas': fields.boolean('Deudas'),
         'suc': fields.boolean('Suc.'),
         'planos': fields.boolean('Planos'),
-        
         'constancias': fields.char('Const. (¿Declaradas desde 1975?)', size=256),
         'ocupado': fields.char('Ocupado', size=256),
         #, digits_compute=dp.get_precision('estate')
@@ -231,7 +208,6 @@ class estate(osv.osv):
         'precioTotalLiquido': fields.float('Precio total líquido'),
         'precioXHaComIncl': fields.float('Precio por há. com. incl.'),
         'precioTotalLiquidoComIncl': fields.float('Precio total líquido com. incl.'),
-    
         'image': fields.binary("Imagen",
             help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),
         'image_medium': fields.function(_get_image, fnct_inv=_set_image,
@@ -255,51 +231,30 @@ class estate(osv.osv):
         #'user_id': fields.many2one('res.users', 'Vendedor', required=True),
         'users_ids':fields.many2many('res.partner', 'users_rel', 'estate_id', 'partner_id', 'Vendedor'),
         'personas_ids':fields.many2many('res.partner', 'personas_rel', 'estate_id', 'partner_id', 'Personas relacionadas'),
-        
         'publicado': fields.boolean('Publicar en la Web'),
-        
         'active': fields.boolean('Activo'),
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
-
 		'create_uid': fields.many2one('res.users', 'Ingresado por', required=True),
         'write_uid': fields.many2one('res.users', 'Actualizado por', required=True),
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),
-        
-        
         'state': fields.selection(PROPIEDAD_ESTADOS, 'Estado', size=16, readonly=True),
         'fechaVenta': fields.date('Fecha de Venta', select=1),
         'colegas_ids':fields.many2many('res.partner', 'colegas_rel', 'partner_id', 'colega_id', 'Compartido con'),
-        
         'observations':fields.many2one('observations', 'Observaciones'),
-        
         'expenses':fields.many2one('expenses', 'Gastos'),
-        
         #'visit_ids':fields.many2many('visit', 'visit_rel', 'estate_id', 'visit_id', 'Visitas'),
-        
         'visit_ids': fields.one2many('visit', 'estate_id', 'Visita'),
-
-        'currency': fields.many2one('res.currency', 'Moneda Venta'),
-        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler'),
-        
-
         'modificado': fields.boolean('Modificado'),
-        
         'googleLocation': fields.char('Localización de Google Maps', size=512),
         #pais, estado, ciudad, calle y número
-
         #'images': fields.function(_get_attach, type="binary"),        
         'attachments': fields.one2many('ir.attachment', 'res_id', 'Archivos'),
         #'attachments_email': fields.function(_attach_email, type="binary"),
         #'attachments_satelital': fields.function(_attach_satelital, type="binary"),
-        
         'suelosConeat': fields.text('Descripción de grupos de suelos CONEAT'),
-        
         'emails': fields.function(get_emails, string="EMail", relation='mail.message',method=True,type='one2many'),  
-        
         'fechaContacto': fields.date('Fecha de Contacto', select=1),
-      
-        
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
         'duplicados': fields.char('Duplicados',50),
@@ -309,16 +264,14 @@ class estate(osv.osv):
 
         # Descripcion General
         'comodidades': fields.text('Comodidades'),
-        'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
-        'alquiler_hasta':fields.date('Hasta'),        
-        'padron':fields.char('Número de padrón'),
-        'year':fields.char('Año de Construcción'),
-        'orientacion':fields.char('Orientación'),
+        'padron':fields.integer('Número de padrón'),
+        'year':fields.integer('Año de Construcción'),
+        'orientacion':fields.char('Orientación'),        
         'ubica':fields.char('Ubicación'),
-        'gastos_comun':fields.char('Gastos Comúnes'),
-        'contri':fields.char('Contribucción'),
-        'impPrim': fields.float('Imp. Primaria'),#ya existe
+        'gastos_comun':fields.integer('Gastos Comúnes'),
+        'contri':fields.integer('Contribucción'),
         'calor':fields.char('Calefacción'),
+        'impPrim': fields.integer('Imp. Primaria'),#ya existe
         'ac':fields.boolean('Aire Acondicionado'),
         'calefaccion': fields.boolean('Calefacción'),#ya existe
         'gas':fields.boolean('Gás por cañeria'),
@@ -330,10 +283,13 @@ class estate(osv.osv):
         'produccion': fields.boolean('Producción'), #ya existe
         'lavadero':fields.boolean('Lavadero'),
         'placard':fields.boolean('Placard'),
+        'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
+        'alquiler_hasta':fields.date('Hasta'),        
+
         
         #Descripcion Interior
+        'nAmbientes':fields.integer('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
         'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
-        'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
         'suite':fields.boolean('Habitación en suite'), 
         'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
         'toilet':fields.boolean('Toilets'),
@@ -352,7 +308,7 @@ class estate(osv.osv):
         'ute': fields.boolean('UTE'),
         'ose': fields.boolean('OSE'),
         'agua_caliente':fields.boolean('Agua caliente'),
-
+  
         #Descripcion Exterior
         'baulera':fields.boolean('Baulera'),
         'fondo':fields.boolean('Fondo'),
@@ -379,9 +335,26 @@ class estate(osv.osv):
         #Tasacion
         'fecha_tasacion':fields.date('Fecha de Tasación'),
         'moneda_tasacion':fields.many2one('res.currency', 'Moneda de Tasación'),
-        'importe_tasacion':fields.float('Importe'),
+        'importe_tasacion':fields.integer('Importe'),
         'tasado_por':fields.many2one('res.partner','Tasado por'),
         'tipo':fields.selection((('C','Colega'),('D','Directo'),('E', 'Exclusivo'),('I','Indirecta'), ('N','No exclusivo'),('O','Ofrecido')),'Tipo'),
+
+        #Condiciones de venta
+        'currency': fields.many2one('res.currency', 'Moneda Venta'),
+        'price': fields.float('Precio Venta'),
+        'conditions': fields.text('Condiciones'),
+        'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
+        'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
+        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler'),
+        'rent_price':fields.float('Precio Alquiler Mensual'),
+        'rent_day':fields.float('Precio Alquiler Diario'),
+        'fecha_inicio':fields.date('Fecha inicio'),
+        'fecha_fin':fields.date('Fecha fin'),
+        'result':fields.char('Cantidad de dias alquilados'),
+        'costo_alquiler':fields.char('Costo'),
+        
+
+
         
        
     }

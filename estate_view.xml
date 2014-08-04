@@ -156,11 +156,11 @@
                                 <field name="comodidades" nolabel="0"/>
                                 <field name="padron" nolabel="0"/>
                                 <field name="year" nolabel="0"/>
-                                <field name="orientacion" nolabel="0"/>
-                                <field name="ubica" nolabel="0"/>
+                                <field name="orientacion" nolabel="0" style="width: 50%%"/>
+                                <field name="ubica" nolabel="0" style="width: 50%%"/>
                                 <field name="gastos_comun" nolabel="0"/>
                                 <field name="contri" nolabel="0"/>
-                                <field name="calor" nolabel="0"/>
+                                <field name="calor" nolabel="0" style="width: 50%%"/>
                                 <field name="impPrim" nolabel="0"/>
                                 <field name="ac" nolabel="0"/>
                                 <field name="calefaccion" nolabel="0"/>
@@ -175,6 +175,7 @@
                                 <field name="placard" nolabel="0"/>
                             </group>
                             <group string="Descripción Interior">
+                                <field name="nAmbientes"/>
                                 <field name="cantidadDormitorios" nolabel="0"/>
                                 <field name="suite" nolabel="0"/>
                                 <field name="cantidadBanios" nolabel="0"/>
@@ -195,13 +196,6 @@
                                 <field name="ose" nolabel="0"/>
                                 <field name="agua_caliente" nolabel="0"/>
                             </group>
-                            <group string="Descripción Exterior">
-                                <field name="baulera" nolabel="0"/>
-                                <field name="fondo" nolabel="0"/>
-                                <field name="jardin" nolabel="0"/>
-                                <field name="piscina" nolabel="0"/>
-                                <field name="barbacoa" nolabel="0"/>
-                            </group>
                             <group string="Edificio o condominio">
                                 <field name="balcon" nolabel="0"/>
                                 <field name="terraza" nolabel="0"/>
@@ -217,6 +211,13 @@
                                 <field name="gym" nolabel="0"/>
                                 <field name="canchas" nolabel="0"/>
                                 <field name="bbq" nolabel="0"/>
+                            </group>
+                            <group string="Descripción Exterior">
+                                <field name="baulera" nolabel="0"/>
+                                <field name="fondo" nolabel="0"/>
+                                <field name="jardin" nolabel="0"/>
+                                <field name="piscina" nolabel="0"/>
+                                <field name="barbacoa" nolabel="0"/>
                             </group>
                         </group>
 	            </page>

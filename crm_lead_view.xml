@@ -29,24 +29,106 @@
         <field name="arch" type="xml">
                 
 			<xpath expr="//page[@string='Lead']" position="after">
-	        	<page string="Dimensiones" > 
+	        	<page string="Dimensiones">  
                     <group col="4">
-                        <field name="supTotal" />
-                        <field name="supEdificada" />
-                        <field name="largo" />
-                        <field name="ancho" />
+                        <label for="supTotal" style="color:red" />
+                        <field name="supTotal" nolabel="1"/>
+                        <label for="supEdificada" style="color:red" />
+                        <field name="supEdificada" nolabel="1" />
+                        <label for="largo" style="color:red" />
+                        <field name="largo" nolabel="1" />
+                        <label for="ancho" style="color:red" />
+                        <field name="ancho" nolabel="1" />
                     </group>
 	     		</page>
 
 
-	     		<page string="Urbanas/Comodidades" >
+                <page string="Descripción General">
+                        <group col="2">
+                            <group string="Descripción General">
+                                <field name="comodidades" nolabel="0"/>
+                                <field name="padron" nolabel="0"/>
+                                <field name="year" nolabel="0"/>
+                                <field name="orientacion" nolabel="0" style="width: 50%%"/>
+                                <field name="ubica" nolabel="0" style="width: 50%%"/>
+                                <field name="gastos_comun" nolabel="0"/>
+                                <field name="contri" nolabel="0"/>
+                                <field name="calor" nolabel="0" style="width: 50%%"/>
+                                <field name="impPrim" nolabel="0"/>
+                                <field name="ac" nolabel="0"/>
+                                <field name="calefaccion" nolabel="0"/>
+                                <field name="gas" nolabel="0"/>
+                                <field name="tel" nolabel="0"/>
+                                <field name="tv" nolabel="0"/>
+                                <field name="oficina" nolabel="0"/>
+                                <field name="garaje" nolabel="0"/>
+                                <field name="equipamiento" nolabel="0"/>
+                                <field name="produccion" nolabel="0"/>
+                                <field name="lavadero" nolabel="0"/>
+                                <field name="placard" nolabel="0"/>
+                            </group>
+                            <group string="Descripción Interior">
+                                <field name="nAmbientes"/>
+                                <field name="cantidadDormitorios" nolabel="0"/>
+                                <field name="suite" nolabel="0"/>
+                                <field name="cantidadBanios" nolabel="0"/>
+                                <field name="toilet" nolabel="0"/>
+                                <field name="bath" nolabel="0"/>
+                                <field name="social" nolabel="0"/>
+                                <field name="hidro" nolabel="0"/>
+                                <field name="jacuzzi" nolabel="0"/>
+                                <field name="escritorio" nolabel="0"/>
+                                <field name="cocina" nolabel="0"/>
+                                <field name="living" nolabel="0"/>
+                                <field name="kit" nolabel="0"/>
+                                <field name="comedor" nolabel="0"/>
+                                <field name="liv_com" nolabel="0"/>
+                                <field name="hall" nolabel="0"/>
+                                <field name="estar" nolabel="0"/>
+                                <field name="ute" nolabel="0"/>
+                                <field name="ose" nolabel="0"/>
+                                <field name="agua_caliente" nolabel="0"/>
+                            </group>
+                            <group string="Edificio o condominio">
+                                <field name="balcon" nolabel="0"/>
+                                <field name="terraza" nolabel="0"/>
+                                <field name="terraza_2" nolabel="0"/>
+                                <field name="azotea" nolabel="0"/>
+                                <field name="porteria_2" nolabel="0"/>
+                                <field name="vigilancia" nolabel="0"/>
+                                <field name="porteria" nolabel="0"/>
+                                <field name="ascensor" nolabel="0"/>
+                                <field name="piso" nolabel="0"/>
+                                <field name="internet" nolabel="0"/>
+                                <field name="sauna" nolabel="0"/>
+                                <field name="gym" nolabel="0"/>
+                                <field name="canchas" nolabel="0"/>
+                                <field name="bbq" nolabel="0"/>
+                            </group>
+                            <group string="Descripción Exterior">
+                                <field name="baulera" nolabel="0"/>
+                                <field name="fondo" nolabel="0"/>
+                                <field name="jardin" nolabel="0"/>
+                                <field name="piscina" nolabel="0"/>
+                                <field name="barbacoa" nolabel="0"/>
+                            </group>
+                        </group>
+                </page>
+
+                <page string="Condiciones de Venta" >                    
+                    <group>
+                        <field name="conditions"/>
+                        <field name="financiacion"/>
+                    </group>
+                </page>
 
 
+
+	     		<!--page string="Urbanas/Comodidades" >
                     <group col="4">
-	                	<field name="cantidadDormitorios" />
+                        <field name="cantidadDormitorios" />
 						<field name="cantidadBanios" />
-                    
-                    	<field name="comodidades" colspan="4" />
+                        <field name="comodidades" colspan="4" />
 						<field name="ute" />
 						<field name="ose" />
 						<field name="calefaccion" />
@@ -56,25 +138,14 @@
 						<field name="barbacoa" />
 						<field name="equipamiento" />
 						<field name="produccion" />
-						
-					</group>
-
-	            </page>
+                    </group>
+	            </page-->
 
 		        
-		        <page string="Condiciones de Compra" >
-                    <group>
-                    	<field name="currency" style="width: 20%% "/>
-                        <field name="price" />
-                        <field name="precioXHa" />
-                        <field name="conditions" />
 
-                    </group>
-	            
-	            </page>
 
 			
-				<page string="Rurales/Comodidades" >					
+				<!--page string="Rurales/Comodidades" >					
 	                <group col="4" >
 
                 		<field name="luz"  />
@@ -90,7 +161,7 @@
 	                    <field name="otras" />
 
 	                </group>  
-				</page>
+				</page-->
 				
 	     		
 			</xpath>
