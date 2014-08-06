@@ -19,4 +19,26 @@
     </record>
 
 </data>
+<data noupdate="1">
+        <record model="ir.rule" id="access_inmobiliarias_0">
+            <field name="name" >inmobiliarias_0</field>
+            <field name="model_id" ref="model_estate"/>           
+            <!--field name="domain_force">[('state','=','draft',)]</field-->
+            <field name="groups" eval="[(4,ref('group_adm_inm'))]"/>
+            <field name="perm_read"   eval="1"/>
+            <field name="perm_write"  eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="1"/>
+        </record>
+        <record model="ir.rule" id="access_inmobiliarias_1">
+            <field name="name" >inmobiliarias_1</field>
+            <field name="model_id" ref="model_crm_lead"/>           
+            <!--field name="domain_force">[('state','=','draft',)]</field-->
+            <field name="groups" eval="[(4,ref('group_adm_inm'))]"/>
+            <field name="perm_read"   eval="1"/>
+            <field name="perm_write"  eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="1"/>
+        </record>
+    </data>
 </openerp>

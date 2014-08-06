@@ -18,6 +18,7 @@ _logger = logging.getLogger(__name__)
 PROPIEDAD_ESTADOS = [
     ('enalquiler', 'En alquiler'),
     ('alquilado', 'Alquilado'),
+    ('ventAlquiler', 'En venta - En alquiler'),
     ('enventa', 'En venta'),
     ('vendido', 'Vendido'),
 ]
@@ -258,6 +259,7 @@ class estate(osv.osv):
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
         'duplicados': fields.char('Duplicados',50),
+        'reservado':fields.boolean('Reservado'),
         'destacados': fields.boolean('Destacado'),
         'ubicacion': fields.text('Ubicación'),#ya existe
 
@@ -415,6 +417,9 @@ class estate(osv.osv):
         'is_rural': False,
         'image': False,
         'state': 'enventa',        
+        'currency_al': 3,
+        'currency': 3,
+        'moneda_tasacion': 3,
     }      
     
         
@@ -435,6 +440,10 @@ class estate(osv.osv):
 
     def action_estado_enAlquiler(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state': 'enalquiler', 'active': True,'fechaAlquiler': None})
+        return True    
+   
+    def action_estado_ventAlquiler(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state': 'ventAlquiler', 'active': True,'fechaAlquiler': None})
         return True    
         
     def action_estado_vendido(self, cr, uid, ids, *args):
@@ -564,5 +573,10 @@ class expenses(osv.osv):
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
-    }    
+    }
+        
+    _defaults = {
+        'currency': 3,
+    }      
+    
 expenses()

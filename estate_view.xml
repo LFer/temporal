@@ -12,6 +12,7 @@
             	<button name="action_estado_vendido" type="object" states="enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
                 <button name="action_estado_enAlquiler" type="object" states="alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
                 <button name="action_estado_enVenta" type="object" states="alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
+                <button name="action_estado_ventAlquiler" type="object" states="enalquiler,enventa" string="En venta - En aalquiler" confirm="¿Confirma marcar para la venta-alquiler?"/>
 				<!--
                 <button name="action_estado_desactivado" type="object" domain="[('active','=', True)]" string="Desactivar" confirm="¿Confirma marcar como desactivado?"/>
                 <button name="action_estado_activar" type="object" domain="[('active','=', False)]" string="Activar" confirm="¿Confirma marcar como activado?"/>
@@ -49,6 +50,7 @@
                   		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
                         <field name="duplicados" placeholder="Duplicados" />  
                         <field name="destacados" placeholder="Destacados"/>
+                        <field name="reservado" placeholder="Destacados"/>
                     <field name="partner_id" placeholder="Nombre del cliente..."/>
                     <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
 <!--                  	
@@ -231,8 +233,9 @@
 		        
                 <page string="Tasación">
                     <group>
-                        <field name="fecha_tasacion" nolabel="0" style="width: 15%% " />
-                        <field name="moneda_tasacion" nolabel="0" style="width: 10%% " />
+                        <field name="fecha_tasacion" nolabel="0" style="width: 17%%" />
+/>
+                        <field name="moneda_tasacion" nolabel="0" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/>
                         <field name="importe_tasacion" nolabel="0" style="width: 15%% " />
                         <field name="tasado_por" nolabel="0" style="width: 20%% " />
                     </group>
@@ -403,11 +406,11 @@
                 </page>
 
                 <page string="Gastos">
-	            	<field name="expenses" widget='one2many_list'>
+                	<field name="expenses" widget='one2many' >
 						<tree string="Gastos">
-							<field name="notes" />
-							<field name="currency"/>
-							<field name="price"/>
+                        	    <field name="notes" />
+							    <field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/>
+							    <field name="price" style="width: 17%%"/>
 						</tree>
 					</field>
                 </page>
@@ -721,9 +724,16 @@
         <field name="view_id" ref="view_estate_tree"/>
         <field name="act_window_id" ref="action_estate_form"/>
     </record>
-        
+   
 
-    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1"/>
+	<record id="action_expenses_tree" model="ir.actions.act_window">
+		<field name="name">Gastos</field>
+		<field name="res_model">expenses</field>
+		<field name="view_type">tree</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"/>
     <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->   
 
      
