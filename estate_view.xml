@@ -23,7 +23,8 @@
                 </xpath>
                 <field name="state" widget="statusbar" statusbar_visible="enalquiler,alquilado,enventa,vendido" statusbar_colors='{"vendido":"blue"}'/>
             </header>
-            <sheet>
+ 
+             <sheet>
 				
 				
                	<field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>

@@ -7,15 +7,16 @@
             id="estate_report_urbana"
             model="estate"
             name="inmobiliaria.estate.urbana"
-            rml="inmobiliaria/report/estate_urbana.rml"
-            string="Ficha de propiedad" 
+            rml="dtm_inmobiliaria/report/estate_urbana.rml"
+			string="Ficha de propiedad" 
+			/>
 
         <report
             auto="False"
             id="estate_report_simple"
             model="estate"
             name="inmobiliaria.estate.simple"
-            rml="inmobiliaria/report/estate_simple.rml"
+            rml="dtm_inmobiliaria/report/estate_simple.rml"
             string="Ficha sin imágenes"
             />
 
@@ -24,7 +25,7 @@
             id="estate_report_terreno"
             model="estate"
             name="inmobiliaria.estate.terreno"
-            rml="inmobiliaria/report/estate_terreno.rml"
+            rml="dtm_inmobiliaria/report/estate_terreno.rml"
             string="Ficha de terreno"
             />
             
@@ -33,7 +34,7 @@
             id="estate_report_urbana_completo"
             model="estate"
             name="inmobiliaria.estate.urbana.completo"
-            rml="inmobiliaria/report/estate_urbana_completo.rml"
+            rml="dtm_inmobiliaria/report/estate_urbana_completo.rml"
             string="Ficha de propiedad completa"
             />
 
