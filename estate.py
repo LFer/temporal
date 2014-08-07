@@ -242,8 +242,9 @@ class estate(osv.osv):
         'state': fields.selection(PROPIEDAD_ESTADOS, 'Estado', size=16, readonly=True),
         'fechaVenta': fields.date('Fecha de Venta', select=1),
         'colegas_ids':fields.many2many('res.partner', 'colegas_rel', 'partner_id', 'colega_id', 'Compartido con'),
-        'observations':fields.many2one('observations', 'Observaciones'),
-        'expenses':fields.many2one('expenses', 'Gastos'),
+        'observations_ids':fields.one2many('observations', 'estate_id','Obervaciones'),
+        'expenses_ids':fields.one2many('expenses', 'estate_id','Gastos'),
+        'temporada_ids':fields.one2many('temporada','estate_id', 'Temporada'),
         #'visit_ids':fields.many2many('visit', 'visit_rel', 'estate_id', 'visit_id', 'Visitas'),
         'visit_ids': fields.one2many('visit', 'estate_id', 'Visita'),
         'modificado': fields.boolean('Modificado'),
@@ -347,33 +348,14 @@ class estate(osv.osv):
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
         'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
-        'currency_al': fields.many2one('res.currency', 'Moneda Alquiler'),
-        'rent_price':fields.float('Precio Alquiler Mensual'),
-        'rent_day':fields.float('Precio Alquiler Diario'),
-        'fecha_inicio':fields.date('Fecha inicio'),
-        'fecha_fin':fields.date('Fecha fin'),
-        'result':fields.char('Cantidad de dias alquilados'),
-        'costo_alquiler':fields.char('Costo'),
         
-
-
-        
-       
+        #Gastos
+        'notes': fields.text('Comentario del gasto'),
+        'currency': fields.many2one('res.currency',r'Moneda'),
+        'price': fields.float('Valor'),     
     }
       
 
-    def get_number_of_days(self, cr, uid, ids, fecha_inicio, fecha_fin, rent_day, context=None):
-        res=0
-        if (fecha_fin and fecha_inicio) and (fecha_inicio <= fecha_fin):
-            #import pdb
-            #pdb.set_trace()
-            DATETIME_FORMAT = "%Y-%m-%d"
-            to_dt = datetime.datetime.strptime(fecha_fin, DATETIME_FORMAT)
-            from_dt = datetime.datetime.strptime(fecha_inicio, DATETIME_FORMAT)
-            timedelta = to_dt - from_dt
-            diff_day = timedelta.days + float(timedelta.seconds) / 86400
-            res=round(math.floor(diff_day))+1
-        return { 'value' : { 'result' : res, 'costo_alquiler':rent_day*res}}
   
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
@@ -417,7 +399,6 @@ class estate(osv.osv):
         'is_rural': False,
         'image': False,
         'state': 'enventa',        
-        'currency_al': 3,
         'currency': 3,
         'moneda_tasacion': 3,
     }      
@@ -560,6 +541,7 @@ class observations(osv.osv):
     _name = "observations"
     
     _columns = {
+        'estate_id':fields.integer('estate_id'),
         'notes': fields.text('Comentarios'),
         'observador': fields.many2one('res.users', 'Usuario'),
         'obs_date': fields.datetime('Fecha de observación'),
@@ -568,8 +550,8 @@ observations()
 
 class expenses(osv.osv):
     _name = "expenses"
-    
     _columns = {
+        'estate_id':fields.integer('estate_id'),
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
@@ -580,3 +562,41 @@ class expenses(osv.osv):
     }      
     
 expenses()
+
+class temporada(osv.osv):
+    _name="temporada"
+    _columns= {
+        'estate_id':fields.integer('estate_id'),
+        'cliente_1':fields.many2one('res.users', 'Cliente'),
+        'pago_1':fields.boolean('Pagó'),
+        'usuario_1':fields.many2one('res.users', 'Usuario'),
+        'currency_al': fields.many2one('res.currency', 'Moneda'),
+        'rent_price':fields.float('Imp. Mensual' , required=True),
+        'rent_day':fields.float('Imp. Diario' , required=True),
+        'fecha_inicio':fields.date('Fecha inicio'),
+        'fecha_fin':fields.date('Fecha fin'),
+        'result':fields.char('C/dias alquilados'),
+        'costo_alquiler':fields.char('Costo'),
+    }
+    
+    def get_number_of_days(self, cr, uid, ids, fecha_inicio, fecha_fin, rent_day, context=None):
+        res=0
+        if (fecha_fin and fecha_inicio) and (fecha_inicio <= fecha_fin):
+            #import pdb
+            #pdb.set_trace()
+            DATETIME_FORMAT = "%Y-%m-%d"
+            to_dt = datetime.datetime.strptime(fecha_fin, DATETIME_FORMAT)
+            from_dt = datetime.datetime.strptime(fecha_inicio, DATETIME_FORMAT)
+            timedelta = to_dt - from_dt
+            diff_day = timedelta.days + float(timedelta.seconds) / 86400
+            res=round(math.floor(diff_day))+1
+        return { 'value' : { 'result' : res, 'costo_alquiler':rent_day*res}}
+
+
+    _defaults = {
+        'currency_al': 3,
+        'rent_price' : 10,
+        'rent_day' : 10,
+    }   
+
+temporada()

@@ -240,29 +240,29 @@
                         <field name="tasado_por" nolabel="0" style="width: 20%% " />
                     </group>
                 </page>
-                
+              
 		        <page string="Condiciones de Venta" >                    
                     <!--<group col="5" colspan="3">-->
                     <group>
-                    	<field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',True)]}"/>
-                    	<field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
+                    	<field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
+                    	<!--field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/-->
                     	
-                        <label for="price" style="color:red" attrs="{'invisible': [('alquiler','=', True)]}" />
-                        <field name="price" attrs="{'invisible': [('alquiler','=', True)]}" nolabel="1" />
+                        <label for="price" style="color:red" />
+                        <field name="price" nolabel="1" />
                         
-                        <label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
+                        <!--label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/-->
                         
-                        <label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>                        
+                        <!--label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/-->                        
                         
-                        <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <!--field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="result"  style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="costo_alquiler" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="costo_alquiler" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/-->
 
 
-                        <field name="conditions" attrs="{'invisible': [('is_rural','=', True)]}"/>
+                        <field name="conditions"/>
                         <field name="financiacion"/>
 
                 		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
@@ -276,6 +276,30 @@
                     <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>                        	            
 	            </page>
 
+
+                
+                
+                    <page string="Alquiler por temporada" attrs="{'invisible': [('alquiler','=', False)]}" >
+                
+                    <field name="temporada_ids" widget="one2many_list" mode="tree">
+                
+                        <tree string="Alquiler por temporada" editable="bottom">
+                
+                            <field name="cliente_1"/>
+                            <field name="usuario_1"/>        
+                            <field name="currency_al" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />        
+                            <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />        
+                            <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />        
+                            <field name="rent_day"/>
+                            <field name="rent_price"/>    
+                            <field name="result"/>        
+                            <field name="costo_alquiler"/>      
+                            <field name="pago_1"/>        
+                
+                        </tree>
+                    </field>
+                </page>
+                
 
 	            
 	            <page string="Características" attrs="{'invisible': [('is_rural','=', False)]}">
@@ -391,13 +415,8 @@
 
 	    		
 	    		<page string="Observaciones">
-	                <group>
-	                    <field name="constancias" attrs="{'invisible': [('is_rural','=', False)]}" />
-	                   	<field name="ocupado" attrs="{'invisible': [('is_rural','=', False)]}" />
-	                </group>
-	                
-	                <field name="observations" widget='one2many_list'>
-						<tree string="Observaciónes">
+                    <field name="observations_ids" widget='one2many' mode="tree" >
+						<tree string="Observaciónes" editable="bottom" >
 							<field name="notes" />
 							<field name="observador"/>
 							<field name="obs_date"/>
@@ -406,8 +425,8 @@
                 </page>
 
                 <page string="Gastos">
-                	<field name="expenses" widget='one2many' >
-						<tree string="Gastos">
+                	<field name="expenses_ids" widget='one2many' mode="tree" >
+						<tree string="Gastos" editable="bottom">
                         	    <field name="notes" />
 							    <field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/>
 							    <field name="price" style="width: 17%%"/>
@@ -520,11 +539,11 @@
                         </tree>
                     </field>
                 </page>    								                 
-                <page string="Prueba">
+                <page sring="Historial">
                     <group>
-                   </group>
+                    </group>
                 </page>
-                </notebook>	           
+            </notebook>	           
 
              
             </sheet>
@@ -687,8 +706,6 @@
                 <field name="barrio"/>
                 <field name="nAmbientes"/>
                 <field name="price"/>
-                <field name="rent_price"/>
-                <field name="rent_day"/>
 
                 <field name="is_rural" invisible="1"/>
 			</tree>
@@ -724,15 +741,7 @@
         <field name="view_id" ref="view_estate_tree"/>
         <field name="act_window_id" ref="action_estate_form"/>
     </record>
-   
-
-	<record id="action_expenses_tree" model="ir.actions.act_window">
-		<field name="name">Gastos</field>
-		<field name="res_model">expenses</field>
-		<field name="view_type">tree</field>
-		<field name="view_mode">tree</field>
-	</record>
-
+ 
     <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"/>
     <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->   
 
