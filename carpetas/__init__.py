@@ -1,1 +1,0 @@
-import carpeta,participantes,conceptocarpetas,facturas_carpeta_rel,mail_message,invoice,partner
