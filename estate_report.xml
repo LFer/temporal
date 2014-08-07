@@ -9,7 +9,6 @@
             name="inmobiliaria.estate.urbana"
             rml="inmobiliaria/report/estate_urbana.rml"
             string="Ficha de propiedad" 
-            />
 
         <report
             auto="False"
@@ -20,6 +19,14 @@
             string="Ficha sin imágenes"
             />
 
+        <report
+            auto="False"
+            id="estate_report_terreno"
+            model="estate"
+            name="inmobiliaria.estate.terreno"
+            rml="inmobiliaria/report/estate_terreno.rml"
+            string="Ficha de terreno"
+            />
             
         <report
             auto="False"

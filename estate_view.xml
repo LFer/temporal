@@ -685,6 +685,7 @@
                     <filter string="Ciudad" context="{'group_by': 'city'}"/>
                     <filter string="Barrio" context="{'group_by': 'barrio'}"/>
                     <filter string="Cliente" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Departamento" context="{'group_by': 'state_id'}"/>
                 </group>
             </search>
          </field>

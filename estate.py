@@ -113,12 +113,25 @@ class estate(osv.osv):
 
 
 
+
+    """
+    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
+
+    def _attach_email(self, cr, uid, ids, name, args, context=None):
+        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
+        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
+        return datas
+        
+    """
             
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
         'number': fields.char('Nro. de propiedad', size=64, required=True),
-        'partner_id': fields.many2one('res.partner', 'Nombre del Cliente'),
+        'partner_id': fields.many2one('res.partner', 'Cliente relacionado', required=True),
         'phone': fields.related('partner_id', 'phone', type='char', string='Teléfono'),
         'mobile': fields.related('partner_id', 'mobile', type='char', string='Celular'),
         'email': fields.related('partner_id', 'email', type='char', string='E-mail'),
@@ -178,6 +191,7 @@ class estate(osv.osv):
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
         'galpones': fields.integer('Galpones'),
+                
         'luz': fields.char('Luz', size=256),
         'agua': fields.char('Agua', size=256),
         'embarcadero': fields.integer('Embarcadero'),
@@ -197,6 +211,7 @@ class estate(osv.osv):
         'encargado': fields.char('Encargado', size=256),
         'encargadoCelular': fields.char('Celular', size=256),
         'contInm': fields.boolean('Cont. Inmobiliaria'),
+        'impPrim': fields.boolean('Imp. Primaria'),
         'bps': fields.boolean('BPS'),
         'bhu': fields.boolean('BHU'),
         'deudas': fields.boolean('Deudas'),
@@ -376,10 +391,6 @@ class estate(osv.osv):
         if context.get('category_id'):
             return [context['category_id']]
         return False
-
-
-
-
 
     def _get_default_image(self, cr, uid, is_company, context=None, colorize=False):
         img_path = openerp.modules.get_module_resource('base', 'static/src/img',
