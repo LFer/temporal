@@ -260,6 +260,7 @@ class estate(osv.osv):
         'observations_ids':fields.one2many('observations', 'estate_id','Obervaciones'),
         'expenses_ids':fields.one2many('expenses', 'estate_id','Gastos'),
         'temporada_ids':fields.one2many('temporada','estate_id', 'Temporada'),
+        'historial_ids' :fields.one2many('historial', 'estate_id', 'Historial'),
         #'visit_ids':fields.many2many('visit', 'visit_rel', 'estate_id', 'visit_id', 'Visitas'),
         'visit_ids': fields.one2many('visit', 'estate_id', 'Visita'),
         'modificado': fields.boolean('Modificado'),
@@ -274,7 +275,7 @@ class estate(osv.osv):
         'fechaContacto': fields.date('Fecha de Contacto', select=1),
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
-        'duplicados': fields.char('Duplicados',50),
+        #'duplicados': fields.char('Duplicados',50),
         'reservado':fields.boolean('Reservado'),
         'destacados': fields.boolean('Destacado'),
         'ubicacion': fields.text('Ubicación'),#ya existe
@@ -367,8 +368,10 @@ class estate(osv.osv):
         #Gastos
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
-        'price': fields.float('Valor'),     
+        'price': fields.float('Valor'),   
+        
     }
+    
       
 
   
@@ -566,7 +569,7 @@ class expenses(osv.osv):
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
-    }
+        }
         
     _defaults = {
         'currency': 3,
@@ -611,3 +614,15 @@ class temporada(osv.osv):
     }   
 
 temporada()
+
+class historial(osv.osv):
+    _name="historial"
+    _columns= {
+        'estate_id':fields.integer('estate_id'),
+        'usuario_2':fields.many2one('res.users', 'Usuario'),
+        'cambio_2' :fields.char('Cambio'),
+        'fecha_cambio':fields.datetime('Fecha de cambio'),
+    }
+
+historial()
+       

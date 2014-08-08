@@ -84,8 +84,11 @@ class crm_lead(base_stage, format_address, osv.osv):
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
         'create_uid': fields.many2one('res.users', 'Ingresado por', required=True),
         'write_uid': fields.many2one('res.users', 'Actualizado por', required=True),
-        
+
+       #Forma de pago
         'currency': fields.many2one('res.currency', 'Moneda'),
+        'pago_desde':fields.float('Desde', required=True),
+        'pago_hasta':fields.float('Hasta', required=True),
 
         # Descripcion General
         'comodidades': fields.text('Comodidades'),

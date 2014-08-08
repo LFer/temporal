@@ -49,7 +49,7 @@
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
                   		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
-                        <field name="duplicados" placeholder="Duplicados" />  
+                        <!--field name="duplicados" placeholder="Duplicados" /-->  
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
                     <field name="partner_id" placeholder="Nombre del cliente..."/>
@@ -130,15 +130,14 @@
                         <div>
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
                         </div>
-
-
+                            
+                            
 	                </group>
-
-					
-	            </page>
-
-
-
+                            
+                            
+	            </page>          
+                            
+                            
 	        	<page string="Dimensiones" attrs="{'invisible': [('is_rural','=', True)]}"> 
                     <group col="4">
                         <label for="supTotal" style="color:red" />
@@ -151,8 +150,8 @@
                         <field name="ancho" nolabel="1" />
                     </group>
 	     		</page>
-                
-
+	        	
+	        	
 	     		<page string="Descripción General">
 	                    <group col="2">
                             <group string="Descripción General">
@@ -482,6 +481,9 @@
                     </field>	                
 				
 				</page>
+                
+
+    
 
 				<page string="Archivos adjuntos" >
 
@@ -539,11 +541,20 @@
                             <!--<field name="state" />-->
                         </tree>
                     </field>
-                </page>    								                 
-                <page sring="Historial">
-                    <group>
-                    </group>
                 </page>
+                    
+                    <page string="Historial" >
+                        <field name="historial_ids" widget="one2many" mode="tree">
+                            <tree string="Alquiler" editable="bottom">
+                                <field name="usuario_2" />
+                                <field name="cambio_2" />        
+                                <field name="fecha_cambio" />        
+                            </tree>
+                        </field>
+                    </page>
+                
+                
+    
             </notebook>	           
 
              
