@@ -619,5 +619,12 @@ class historial(osv.osv):
         'fecha_cambio':fields.datetime('Fecha de cambio'),
     }
 
+    _defaults = {
+    'usuario_2': lambda obj, cr, uid, context: uid,
+    'fecha_cambio': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S')
+    
+    }
+    
+
 historial()
        
