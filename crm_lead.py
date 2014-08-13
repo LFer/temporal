@@ -163,7 +163,13 @@ class crm_lead(base_stage, format_address, osv.osv):
         #Condiciones de venta
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
+
+        #Para la vista form editada
+        'crm_currency':fields.many2one('res.currency', 'Moneda'),
     }
+    _defaults= {
+        'crm_currency': 3,
+        }
 
 
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):

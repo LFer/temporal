@@ -77,43 +77,49 @@ class estate(osv.osv):
         return result        
 
     def button_estate_match(self, cr, uid, ids, context=None, *args):
-        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'inmobiliaria', 'inherited_view_crm_leads_tree')
-        view_id = view_ref and view_ref[1] or False
-        estate_obj = self.pool.get("crm.lead")
-        #import pdb; pdb.set_trace()
-        domain = []
-        caracteristicas = ['largo','city']
-        #,'city','country_id','cantidadDormitorios'
-        obj = self.browse(cr,uid,ids,context)[0]
-        ctx = (context or {}).copy()
-        cr.execute('select id from ir_ui_view where model=%s and field_parent=%s and type=%s', ('crm.lead', 'Oportunidades macheables', 'tree'))
-        view_ids = cr.fetchone()
-        view_id = view_ids and view_ids[0] or False
-        for p in caracteristicas:
-            if obj[p]:
-                domain.append('|')
-                domain.append((p,'=',False))
-                domain.append((p,'=',obj[p]))
-        oportunidades = estate_obj.search(cr, uid,domain)
-        ctx['oportunidades'] = oportunidades
-        return {
-            'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
-            'type': 'ir.actions.act_window',
-            'name': 'Oportunidades macheables',
-            'res_model': 'crm.lead',
-            #'res_id': oportunidades,
-            'view_type': 'tree',
-            'view_mode': 'tree',
-            'button': 'yes',
-            'view_id': (view_id,'View'),
-            'target': 'new',
-            'nodestroy': True,
-            'context':ctx,
-        }
+            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'inmobiliaria', 'inherited_view_crm_leads_tree')
+            view_id = view_ref and view_ref[1] or False
+            estate_obj = self.pool.get("crm.lead")
+            #import pdb; pdb.set_trace()
+            oportunidades = []
+            machea = 0
+            min_score = 0    # Inicializar variables
+            caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
+            excluyentes = ['ose']
+            obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
+            ctx = (context or {}).copy()
+            objIds = self.pool.get('crm.lead').search(cr,uid,[('ose','=',True)],context=context)
+            objOport = self.pool.get('crm.lead').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las oportunidades 
+            oportunidades = objIds[:]
+            #import pdb; pdb.set_trace()
 
+            # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+            # las oportnuidades que no cumplen con las características especificadas en la lista de características.
+            for unaOP in objOport:    # Recorro las oportunidades
+                min_score = 0
+                for p in caracteristicas:    # Recorro las caracteristicas de la lista
+                    #if unaOP:
+                    min_score += 1
+                    if obj[p] == unaOP[p]:
+                        machea += 1
+                unaOP['score'] = machea    # Actualizar score        
+                if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
+                    oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
 
-
-
+            return {
+                'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
+                'type': 'ir.actions.act_window',
+                'name': 'Oportunidades macheables',
+                'res_model': 'crm.lead',
+                #'res_id': oportunidades,
+                'view_type': 'tree',
+                'view_mode': 'tree',
+                'button': 'yes',
+                'view_id': (view_id,'View'),
+                'target': 'new',
+                'nodestroy': True,
+                'context':ctx,
+            }
     """
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
@@ -126,7 +132,7 @@ class estate(osv.osv):
         return datas
         
     """
-            
+          
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
@@ -139,14 +145,10 @@ class estate(osv.osv):
         'partner_city': fields.related('partner_id', 'city', type='char', string='Localidad/Ciudad'),
         'partner_state_id': fields.related('partner_id', 'state_id', type='char', string='Departamento'),
         'nunemero_de_puerta':fields.char('Nro de puerta'),
-
-
-
-        
+        'score': fields.integer('score', readonly=True),
         'is_rural': fields.boolean('Es propiedad rural', help="Seleccione si la propiedad es rural, sino es urbana"),
         'category_id': fields.many2many('res.partner.category', id1='id', id2='category_id', string='Categorías'),
         'date': fields.date('Fecha de Ingreso', select=1, required=True),
-
         'street': fields.char('Calle/Dirección', size=128),
         'numero_de_puerta':fields.char('Numero de puerta'),
         'numero_de_apto':fields.char('Número de Apto.'),
@@ -156,9 +158,7 @@ class estate(osv.osv):
         'neighborhood': fields.char('Barrio', size=128),
         'state_id': fields.many2one("res.country.state", 'Departamento'),
         'country_id': fields.many2one('res.country', 'País'),
-
-        'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),
-        
+        'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),    
         'barrio': fields.char('Barrio', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
@@ -191,7 +191,6 @@ class estate(osv.osv):
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
         'galpones': fields.integer('Galpones'),
-                
         'luz': fields.char('Luz', size=256),
         'agua': fields.char('Agua', size=256),
         'embarcadero': fields.integer('Embarcadero'),
@@ -280,7 +279,6 @@ class estate(osv.osv):
         'destacados': fields.boolean('Destacado'),
         'ubicacion': fields.text('Ubicación'),#ya existe
 
-
         # Descripcion General
         'comodidades': fields.text('Comodidades'),
         'padron':fields.integer('Número de padrón'),
@@ -297,15 +295,14 @@ class estate(osv.osv):
         'tel':fields.boolean('Teléfono'),
         'tv':fields.boolean('TV Cable/Internet'),
         'oficina': fields.boolean('Oficina'),#ya existe
-        'garaje': fields.boolean('Garage'),#ya existe
+        'garaje': fields.boolean('Garaje'),#ya existe
         'equipamiento': fields.boolean('Equipamiento'), #ya existe
         'produccion': fields.boolean('Producción'), #ya existe
         'lavadero':fields.boolean('Lavadero'),
         'placard':fields.boolean('Placard'),
         'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
         'alquiler_hasta':fields.date('Hasta'),        
-
-        
+      
         #Descripcion Interior
         'nAmbientes':fields.integer('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
         'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
@@ -372,8 +369,6 @@ class estate(osv.osv):
         
     }
     
-      
-
   
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
@@ -557,7 +552,7 @@ class observations(osv.osv):
     _columns = {
         'estate_id':fields.integer('estate_id'),
         'notes': fields.text('Comentarios'),
-        'observador': fields.many2one('res.users', 'Usuario'),
+        'observador': fields.many2one('res.partner', 'Usuario'),
         'obs_date': fields.datetime('Fecha de observación'),
     }    
 observations()
@@ -581,7 +576,7 @@ class temporada(osv.osv):
     _name="temporada"
     _columns= {
         'estate_id':fields.integer('estate_id'),
-        'cliente_1':fields.many2one('res.users', 'Cliente'),
+        'cliente_1':fields.many2one('res.partner', 'Cliente'),
         'pago_1':fields.boolean('Pagó'),
         'usuario_1':fields.many2one('res.users', 'Usuario'),
         'currency_al': fields.many2one('res.currency', 'Moneda'),
@@ -619,7 +614,7 @@ class historial(osv.osv):
     _name="historial"
     _columns= {
         'estate_id':fields.integer('estate_id'),
-        'usuario_2':fields.many2one('res.users', 'Usuario'),
+        'usuario_2':fields.many2one('res.partner', 'Usuario'),
         'cambio_2' :fields.char('Cambio'),
         'fecha_cambio':fields.datetime('Fecha de cambio'),
     }

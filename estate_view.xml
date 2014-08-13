@@ -62,6 +62,7 @@
                </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
+                    <field name="score" invisible="1"/>
                     <label for="active" string="Activo" attrs="{'invisible': [('state','=', 'vendido')]}"/>
                     <field name="active" attrs="{'invisible': [('state','=', 'vendido')]}"/>
                     <field name="webUrl" widget="url" attrs="{'invisible': [('publicado','=', False)]}"/>

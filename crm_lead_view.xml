@@ -9,10 +9,10 @@
         <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
         <field name="arch" type="xml">
         	<field name="planned_revenue" position="replace">
-        		<field name="price" />
+        		<field name="pago_desde" />
         	</field>
         	<field name="probability" position="replace">
-        		<field name="precioXHa" />
+        		<field name="pago_hasta" />
         	</field>
         </field>				
     </record>
@@ -24,20 +24,38 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
-                
-			<xpath expr="//page[@string='Lead']" position="after">
-	        	<page string="Dimensiones">  
-                    <group col="4">
-                        <label for="supTotal" style="color:red" />
-                        <field name="supTotal" nolabel="1"/>
-                        <label for="supEdificada" style="color:red" />
-                        <field name="supEdificada" nolabel="1" />
-                        <label for="largo" style="color:red" />
-                        <field name="largo" nolabel="1" />
-                        <label for="ancho" style="color:red" />
-                        <field name="ancho" nolabel="1" />
-                    </group>
-	     		</page>
+        
+            <field name="planned_revenue" position="replace">
+                <div>
+                <label for="crm_currency"/>
+                <field name="crm_currency" style="width: 20%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/> 
+                </div>
+                <span class="oe_grey">Desde </span>
+        		<!--label for="pago_desde" class="oe_edit_only"/-->
+                <field name="crm_currency" invisible="1"/>
+                <field name="pago_desde"  class="oe_inline" widget='monetary'/> 
+            </field>
+        	<field name="probability" position="replace">
+                <field name="pago_hasta" class="oe_inline" widget='monetary' /> 
+        	</field>
+            
+        	
+            
+            
+            
+			    <xpath expr="//page[@string='Lead']" position="after">
+	        	    <page string="Dimensiones">  
+                        <group col="4">
+                            <label for="supTotal" style="color:red" />
+                            <field name="supTotal" nolabel="1"/>
+                            <label for="supEdificada" style="color:red" />
+                            <field name="supEdificada" nolabel="1" />
+                            <label for="largo" style="color:red" />
+                            <field name="largo" nolabel="1" />
+                            <label for="ancho" style="color:red" />
+                            <field name="ancho" nolabel="1" />
+                        </group>
+	     		    </page>
 
                 <page string="Descripción General">
                         <group col="2">
