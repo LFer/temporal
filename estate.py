@@ -78,7 +78,7 @@ class estate(osv.osv):
         return result        
 
     def button_estate_match(self, cr, uid, ids, context=None, *args):
-            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'inmobiliaria', 'inherited_view_crm_leads_tree')
+            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'inherited_view_crm_leads_tree')
             view_id = view_ref and view_ref[1] or False
             estate_obj = self.pool.get("crm.lead")
             #import pdb; pdb.set_trace()

@@ -6,7 +6,7 @@
     "website" : "www.datamatic.com.uy",
     "category" : "Inmobiliarias",
     "description": """ Gestión de Inmobiliarias """,
-    "depends" : ['base','crm_claim','project'],
+    "depends" : ['base','crm_claim','project','account','documents'],
     "init_xml" : ['estate_security.xml',
                  'security/inmobiliaria_security.xml'],
     "demo_xml" : [],
