@@ -8,11 +8,11 @@
         <field name="arch" type="xml">
             <form string="Propiedades" version="7.0">
             <header>
-            	<button name="action_estado_alquilado" type="object" states="ventAlquiler,enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>
-            	<button name="action_estado_vendido" type="object" states="ventAlquiler,enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
-                <button name="action_estado_enAlquiler" type="object" states="ventAlquiler,alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
-                <button name="action_estado_enVenta" type="object" states="ventAlquiler,alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
-                <button name="action_estado_ventAlquiler" type="object" states=" alquilado,vendido,enalquiler,enventa" string="En venta - En alquiler" confirm="¿Confirma marcar para la venta-alquiler?"/>
+            	<button name="action_estado_alquilado" type="object" states="creando,ventAlquiler,enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>
+            	<button name="action_estado_vendido" type="object" states="creando,ventAlquiler,enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
+                <button name="action_estado_enAlquiler" type="object" states="creando,ventAlquiler,alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
+                <button name="action_estado_enVenta" type="object" states="creando,ventAlquiler,alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
+                <button name="action_estado_ventAlquiler" type="object" states="creando,alquilado,vendido,enalquiler,enventa" string="En venta - En alquiler" confirm="¿Confirma marcar para la venta-alquiler?"/>
 				<!--
                 <button name="action_estado_desactivado" type="object" domain="[('active','=', True)]" string="Desactivar" confirm="¿Confirma marcar como desactivado?"/>
                 <button name="action_estado_activar" type="object" domain="[('active','=', False)]" string="Activar" confirm="¿Confirma marcar como activado?"/>
@@ -21,7 +21,7 @@
                 <xpath expr="//div[@class='oe_right oe_button_box']" >
                     <button name="button_estate_match" type="object" string="Buscar oportunidades" class="oe_highlight"/>
                 </xpath>
-                <field name="state" widget="statusbar" statusbar_visible="enalquiler,alquilado,enventa,vendido" statusbar_colors='{"vendido":"blue"}'/>
+                <field name="state" widget="statusbar" statusbar_visible="creando,enalquiler,alquilado,enventa,ventAlquiler,vendido" statusbar_colors='{"vendido":"blue"}'/>
             </header>
  
              <sheet>
@@ -34,8 +34,8 @@
 		                    <label for="name" style="color:red" /> 
 		                    <field name="is_rural" invisible="1" class="oe_inline"/> 
                             <!--label for="is_rural" string="¿Es propiedad rural?"/-->
-		                    <field name="alquiler" invisible="0" class="oe_inline"/> 
-                            <label for="alquiler" string="¿Está para alquilar?"/>
+		                    <field name="alquiler" invisible="1" class="oe_inline"/> 
+                            <!--label for="alquiler" string="¿Está para alquilar?"/-->
 		                </div>
 		            </div>
                     <h1>
@@ -242,48 +242,32 @@
                 </page>
               
 		        <page string="Condiciones de Venta" >                    
-                    <group>
+                    <group  attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enalquiler'] ) ] }" >
                         <h3>
-                            <label for="currency" style="color:red"/>
-                    	    <field name="currency" class="oe_inline"  style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />
-                    	    <!--field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/-->
-                    	
-                            <label for="price"  style="color:red" />
-                            <field name="price" class="oe_inline" widget='monetary' nolabel="1" />
+                            <label for="currency_venta" style="color:red"/>
+                    	    <field name="currency_venta" class="oe_inline"  style="width: 7%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />                   	
+                            <label for="price_venta"  style="color:red" />
+                            <field name="price_venta" class="oe_inline" widget='monetary' nolabel="1"  />
+                        </h3>
+                    </group>
+                    <group attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enventa' ] ) ] }" >
+                        <h3>
+                            <label for="currency_alquiler" style="color:red"/>
+                            <field name="currency_alquiler" class="oe_inline"  style="width: 7%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />
+                            <label for="price_alquiler" style="color:red;width: 7%%" />
+                            <field name="price_alquiler" class="oe_inline" widget='monetary' nolabel="1" />
                         </h3>
                     </group>
                     <group>
-                        
-                        <!--label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/-->
-                        
-                        <!--label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/-->                        
-                        
-                        <!--field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="result"  style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="costo_alquiler" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/-->
-
-
                         <field name="conditions"/>
                         <field name="financiacion"/>
-
-                		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
-                		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>
-                		<label for="precioXHaComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
-	                    <field name="precioXHaComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />        
-	                    <label for="precioTotalLiquidoComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
-                    	<field name="precioTotalLiquidoComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />
-
                     </group>
-                    <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>                        	            
 	            </page>
 
 
                 
                 
-                    <page string="Alquiler por temporada" attrs="{'invisible': [('alquiler','=', False)]}" >
+                    <page string="Alquiler por temporada" attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enventa' ] ) ] }" >
                 
                     <field name="temporada_ids" widget="one2many_list" mode="tree">
                 
@@ -507,18 +491,14 @@
 								</group>			                
 							</group>
 			            </form>
-
+                        
                         <tree string="Archivos" toolbar="0" create="0" delete="0">
-				                        
-                            
                             <field name="name" attrs="{'readonly': True}" />
                             <field name="type" attrs="{'readonly': True}" />
                             <field name="web" />
                             <field name="email" />
                             <field name="satelital" />
                             <field name="sequence" />
-                            <!--<img t-att-src="kanban_image('ir.attachment', 'image', record.id.value)" class="oe_kanban_image"/>-->
-
                         </tree>
                     </field>	                
 				
@@ -542,11 +522,9 @@
                             <field name="partner_ids" />  
                             <field name="subject" />             
                             <field name="date" />                         
-                            <!--<field name="state" />-->
                         </tree>
                     </field>
                 </page>
-                    
                     <page string="Historial" >
                         <field name="historial_ids" widget="one2many" mode="tree">
                             <tree string="Alquiler" editable="bottom">
@@ -556,19 +534,8 @@
                             </tree>
                         </field>
                     </page>
-                
-                
-    
-            </notebook>	           
-
-             
+            </notebook>	                     
             </sheet>
-            <!--
-            <div class="oe_chatter">
-                <field name="message_follower_ids" widget="mail_followers" />
-                <field name="message_ids" widget="mail_thread"/>
-            </div>
-             --> 
             <label for="texto_rojo" style="color: red; margin-left: 105px;"/>
             <field name="texto_rojo" nolabel="1"/>            
                                   
@@ -626,26 +593,13 @@
                                 <div class="oe_kanban_partner_links"/>
                                 <ul>
                                     <li t-if="record.partner_id.raw_value"><field name="partner_id"/></li>
-
-<!--
-                                    <li t-if="record.city.raw_value !record.state_id.raw_value and and !record.country_id.raw_value"><field name="city"/></li>
-                                    <li t-if="record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
-                                    <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
-                                    
-                                    <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
-
--->
-
                                     <li t-if="record.city.raw_value and !record.state_id.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
                                     <li t-if="!record.city.raw_value and !record.state_id.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
-                                    
                                     <li t-if="record.city.raw_value and record.state_id.raw_value and !record.country_id.raw_value"><field name="city"/>, <field name="state_id"/></li>
                                     <li t-if="!record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="state_id"/>, <field name="country_id"/></li>
                                     <li t-if="record.city.raw_value and !record.state_id.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
-                                    
                                     <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
-
                                 </ul>
                             </div>
                         </div>
@@ -667,35 +621,15 @@
                 <field name="partner_id" filter_domain="[('partner_id','child_of',[self])]"/>
                 <field name="state" string="Estado" filter_domain="[('state','ilike', self)]"/>
 
-
                 <separator/>
                 <filter string="Urbanos" name="type_urban" icon="terp-personal" domain="[('is_rural','=',0)]"/>
                 <filter string="En alquiler" name="type_en_alquiler" icon="terp-partner" domain="[('state','=','enalquiler')]"/>
                 <filter string="En venta" name="type_en_venta" icon="terp-partner" domain="[('state','=','enventa')]"/>
                 <filter string="Alquilados" name="type_alquilado" icon="terp-partner" domain="[('state','=','alquilado')]"/>
-                <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>
-                
+                <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>             
                 <filter string="Publicados en la Web" name="type_publicado" icon="terp-partner" domain="[('publicado','=',True)]"/>                
-                
-                <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>
-
-
-                <!--
-                <filter string="Urbanos menor a U$S 50.000" name="type_filtro1" icon="terp-partner" domain="[('price','&lt;','50000')]"/>
-                <filter string="Urbanos entre U$S 50.000 y 100.000" name="type_filtro2" icon="terp-partner" domain="[('price','&gt;=','50000'),('price','&lt;','100000')]"/>
-                <filter string="Urbanos entre U$S 100.000 y U$S 300.000" name="type_filtro3" icon="terp-partner" domain="[('price','&gt;=','100000'),('price','&lt;','300000')]"/>
-                <filter string="Urbanos entre U$S 300.000 y U$S 500.000" name="type_filtro4" icon="terp-partner" domain="[('price','&gt;=','300000'),('price','&lt;','500000')]"/>
-                <filter string="Urbanos mayor a U$S 500.000" name="type_filtro5" icon="terp-partner" domain="[('price','&gt;=','500000')]"/>                                                                                                                                                                                
-
-                <filter string="Rurales menor a U$S 50.000" name="type_filtro10" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&lt;','50000')]"/>
-                <filter string="Rurales entre U$S 50.000 y 100.000" name="type_filtro20" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','50000'),('precioTotalLiquidoComIncl','&lt;','100000')]"/>
-                <filter string="Rurales entre U$S 100.000 y U$S 300.000" name="type_filtro30" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','100000'),('precioTotalLiquidoComIncl','&lt;','300000')]"/>
-                <filter string="Rurales entre U$S 300.000 y U$S 500.000" name="type_filtro40" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','300000'),('precioTotalLiquidoComIncl','&lt;','500000')]"/>
-                <filter string="Rurales mayor a U$S 500.000" name="type_filtro50" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','500000')]"/>                                                                                                                                                                                
-                -->
-                
+                <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>               
                 <separator/>
-
 
                 <group expand="0" string="Agrupar por...">
                     <filter string="Ciudad" context="{'group_by': 'city'}"/>
@@ -723,7 +657,6 @@
                 <field name="barrio"/>
                 <field name="nAmbientes"/>
                 <field name="price"/>
-
                 <field name="is_rural" invisible="1"/>
 			</tree>
         </field>
@@ -762,7 +695,54 @@
     <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"/>
     <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->   
 
-     
+
+<!--
+ESTE TROZO IBA EN CONDICIONES DE VENTA>
+            
+
+                        <field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
+                        <label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
+                        <label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>                        
+                        <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="result"  style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                        <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
+                		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
+                		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>
+                		<label for="precioXHaComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
+	                    <field name="precioXHaComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />        
+	                    <label for="precioTotalLiquidoComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
+                    	<field name="precioTotalLiquidoComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />
+                        <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>                        	            
+                        
+            FILTROS
+                        <filter string="Urbanos menor a U$S 50.000" name="type_filtro1" icon="terp-partner" domain="[('price','&lt;','50000')]"/>
+                        <filter string="Urbanos entre U$S 50.000 y 100.000" name="type_filtro2" icon="terp-partner" domain="[('price','&gt;=','50000'),('price','&lt;','100000')]"/>
+                        <filter string="Urbanos entre U$S 100.000 y U$S 300.000" name="type_filtro3" icon="terp-partner" domain="[('price','&gt;=','100000'),('price','&lt;','300000')]"/>
+                        <filter string="Urbanos entre U$S 300.000 y U$S 500.000" name="type_filtro4" icon="terp-partner" domain="[('price','&gt;=','300000'),('price','&lt;','500000')]"/>
+                        <filter string="Urbanos mayor a U$S 500.000" name="type_filtro5" icon="terp-partner" domain="[('price','&gt;=','500000')]"/>                                                                                                                                                                                
+
+                        <filter string="Rurales menor a U$S 50.000" name="type_filtro10" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&lt;','50000')]"/>
+                        <filter string="Rurales entre U$S 50.000 y 100.000" name="type_filtro20" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','50000'),('precioTotalLiquidoComIncl','&lt;','100000')]"/>
+                        <filter string="Rurales entre U$S 100.000 y U$S 300.000" name="type_filtro30" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','100000'),('precioTotalLiquidoComIncl','&lt;','300000')]"/>
+                        <filter string="Rurales entre U$S 300.000 y U$S 500.000" name="type_filtro40" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','300000'),('precioTotalLiquidoComIncl','&lt;','500000')]"/>
+                        <filter string="Rurales mayor a U$S 500.000" name="type_filtro50" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','500000')]"/>                                                                                                                                                                                
+                        
+            DETALLES DE LA KANBAN
+                        <li t-if="record.city.raw_value !record.state_id.raw_value and and !record.country_id.raw_value"><field name="city"/></li>
+                        <li t-if="record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
+                        <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
+                        <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
+                        
+            DE LA 561 A LA 566
+
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" />
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+-->
+
         
 </data>
 </openerp>
