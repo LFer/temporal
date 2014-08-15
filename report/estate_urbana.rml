@@ -105,7 +105,7 @@
 
       <tr>
         <td>
-          <para style="terp_default_8">Comodidades y distribución:</para>
+          <para style="terp_default_8">Comodidades y distibucción:</para>
         </td>
       </tr>
       <tr>
@@ -170,7 +170,7 @@
       </tr>
       <tr>
         <td>
-          <para style="terp_default_8">Valor de la propiedad: <font face="Helvetica-bold" color="red">[[ (o.currency.name) or '' ]] [[ ("{:,.0f}".format(o.price).replace(',','.')) or '' ]]</font></para>
+          <para style="terp_default_8">Valor de la propiedad: <font face="Helvetica-bold" color="red">[[ (o.currency.symbol) or '' ]] [[ ("{:,.0f}".format(o.price).replace(',','.')) or '' ]]</font></para>
         </td>
       </tr>
       <tr>

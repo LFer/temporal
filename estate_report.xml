@@ -8,8 +8,8 @@
             model="estate"
             name="inmobiliaria.estate.urbana"
             rml="dtm_inmobiliaria/report/estate_urbana.rml"
-			string="Ficha de propiedad" 
-			/>
+            string="Ficha de propiedad" 
+            />
 
         <report
             auto="False"
@@ -19,24 +19,6 @@
             rml="dtm_inmobiliaria/report/estate_simple.rml"
             string="Ficha sin imágenes"
             />
-
-        <report
-            auto="False"
-            id="estate_report_terreno"
-            model="estate"
-            name="inmobiliaria.estate.terreno"
-            rml="dtm_inmobiliaria/report/estate_terreno.rml"
-            string="Ficha de terreno"
-            />
             
-        <report
-            auto="False"
-            id="estate_report_urbana_completo"
-            model="estate"
-            name="inmobiliaria.estate.urbana.completo"
-            rml="dtm_inmobiliaria/report/estate_urbana_completo.rml"
-            string="Ficha de propiedad completa"
-            />
-
     </data>
 </openerp>

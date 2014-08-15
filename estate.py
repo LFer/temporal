@@ -270,7 +270,7 @@ class estate(osv.osv):
         #'attachments_email': fields.function(_attach_email, type="binary"),
         #'attachments_satelital': fields.function(_attach_satelital, type="binary"),
         'suelosConeat': fields.text('Descripción de grupos de suelos CONEAT'),
-        'emails': fields.function(get_emails, string="EMail", relation='mail.message',method=True,type='one2many'),  
+        'emails': fields.function(get_emails, string="e-mail", relation='mail.message',method=True,type='one2many'),  
         'fechaContacto': fields.date('Fecha de Contacto', select=1),
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 

@@ -83,7 +83,7 @@ class ir_attachment(osv.osv):
         'satelital': fields.boolean('Satelital'),
         'sequence': fields.integer('Secuencia'),
         'mapa': fields.boolean('Mapa'),
-        #'image': fields.function(_data_get, string='File Content', type="binary", nodrop=True),
+        'image': fields.function(_data_get, string='File Content', type="binary", nodrop=True),
         #'fullPath': fields.function(_full_path, string='File path', type="char"),
 
     }

@@ -131,14 +131,8 @@
                         <div>
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
                         </div>
-                            
-                            
 	                </group>
-                            
-                            
 	            </page>          
-                            
-                            
 	        	<page string="Dimensiones" attrs="{'invisible': [('is_rural','=', True)]}"> 
                     <group col="4">
                         <label for="supTotal" style="color:red" />
@@ -151,8 +145,6 @@
                         <field name="ancho" nolabel="1" />
                     </group>
 	     		</page>
-	        	
-	        	
 	     		<page string="Descripción General">
 	                    <group col="2">
                             <group string="Descripción General">
@@ -501,7 +493,7 @@
 								</group>			                
 								<group col="4">
 							        <field name="web" string="Web"/>
-							        <field name="email" string="EMail"/>
+							        <field name="email" string="EMail-Ficha"/>
 							        <field name="satelital" string="Satelital"/>
 							        <field name="sequence" string="Secuencia" />
 								</group>			                
@@ -514,7 +506,7 @@
                             <field name="name" attrs="{'readonly': True}" />
                             <field name="type" attrs="{'readonly': True}" />
                             <field name="web" />
-                            <field name="email" />
+                            <field name="email" string="EMail-Ficha"/>
                             <field name="satelital" />
                             <field name="sequence" />
                             <!--<img t-att-src="kanban_image('ir.attachment', 'image', record.id.value)" class="oe_kanban_image"/>-->
