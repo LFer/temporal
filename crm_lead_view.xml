@@ -28,11 +28,10 @@
             <field name="planned_revenue" position="replace">
                 <div>
                 <label for="crm_currency"/>
-                <field name="crm_currency" style="width: 20%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/> 
+                <field name="crm_currency" style="width: 23%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/> 
                 </div>
-                <span class="oe_grey">Desde </span>
         		<!--label for="pago_desde" class="oe_edit_only"/-->
-                <field name="crm_currency" invisible="1"/>
+                <span class="oe_grey">Desde </span>
                 <field name="pago_desde"  class="oe_inline" widget='monetary'/> 
             </field>
         	<field name="probability" position="replace">

@@ -8,11 +8,11 @@
         <field name="arch" type="xml">
             <form string="Propiedades" version="7.0">
             <header>
-            	<button name="action_estado_alquilado" type="object" states="enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>
-            	<button name="action_estado_vendido" type="object" states="enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
-                <button name="action_estado_enAlquiler" type="object" states="alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
-                <button name="action_estado_enVenta" type="object" states="alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
-                <button name="action_estado_ventAlquiler" type="object" states="enalquiler,enventa" string="En venta - En aalquiler" confirm="¿Confirma marcar para la venta-alquiler?"/>
+            	<button name="action_estado_alquilado" type="object" states="ventAlquiler,enalquiler,enventa" string="Alquilado" confirm="¿Confirma marcar como alquilado?" class="oe_highlight"/>
+            	<button name="action_estado_vendido" type="object" states="ventAlquiler,enalquiler,enventa" string="Vendido" confirm="¿Confirma marcar como vendido?" class="oe_highlight"/>
+                <button name="action_estado_enAlquiler" type="object" states="ventAlquiler,alquilado,vendido,enventa" string="Para Alquilar" confirm="¿Confirma marcar para alquilar?"/>
+                <button name="action_estado_enVenta" type="object" states="ventAlquiler,alquilado,vendido,enalquiler" string="Para la Venta" confirm="¿Confirma marcar para la venta?"/>
+                <button name="action_estado_ventAlquiler" type="object" states=" alquilado,vendido,enalquiler,enventa" string="En venta - En alquiler" confirm="¿Confirma marcar para la venta-alquiler?"/>
 				<!--
                 <button name="action_estado_desactivado" type="object" domain="[('active','=', True)]" string="Desactivar" confirm="¿Confirma marcar como desactivado?"/>
                 <button name="action_estado_activar" type="object" domain="[('active','=', False)]" string="Activar" confirm="¿Confirma marcar como activado?"/>
@@ -242,13 +242,17 @@
                 </page>
               
 		        <page string="Condiciones de Venta" >                    
-                    <!--<group col="5" colspan="3">-->
                     <group>
-                    	<field name="currency" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
-                    	<!--field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/-->
+                        <h3>
+                            <label for="currency" style="color:red"/>
+                    	    <field name="currency" class="oe_inline"  style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />
+                    	    <!--field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/-->
                     	
-                        <label for="price" style="color:red" />
-                        <field name="price" nolabel="1" />
+                            <label for="price"  style="color:red" />
+                            <field name="price" class="oe_inline" widget='monetary' nolabel="1" />
+                        </h3>
+                    </group>
+                    <group>
                         
                         <!--label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/-->

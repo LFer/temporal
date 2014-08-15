@@ -1,6 +1,6 @@
 
 {
-    "name" : "dtm_inmobiliarias",
+    "name" : "dtm_inmobiliaria",
     "version" : "1.0",
     "author" : "Datamatic",
     "website" : "www.datamatic.com.uy",
