@@ -19,7 +19,7 @@
  				-->
  				<button name="action_invoice_sent" type="object" string="Enviar por Email" class="oe_highlight" />
                 <xpath expr="//div[@class='oe_right oe_button_box']" >
-                    <button name="button_estate_match" type="object" string="Buscar oportunidades" class="oe_highlight"/>
+                    <button name="button_estate_match" type="object" string="Buscar pedidos" class="oe_highlight"/>
                 </xpath>
                 <field name="state" widget="statusbar" statusbar_visible="creando,enalquiler,alquilado,enventa,ventAlquiler,vendido" statusbar_colors='{"vendido":"blue"}'/>
             </header>

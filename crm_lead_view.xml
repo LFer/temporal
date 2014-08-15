@@ -8,12 +8,13 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
         <field name="arch" type="xml">
-        	<field name="planned_revenue" position="replace">
+            <field name="planned_revenue" position="replace">
         		<field name="pago_desde" />
         	</field>
         	<field name="probability" position="replace">
         		<field name="pago_hasta" />
         	</field>
+
         </field>				
     </record>
 
@@ -24,7 +25,9 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
-        
+            <button name="case_mark_lost" position="after">
+                <button name="" type="object"  string="Buscar pedidos" class="oe_highlight"/>
+            </button>
             <field name="planned_revenue" position="replace">
                 <div>
                 <label for="crm_currency"/>
