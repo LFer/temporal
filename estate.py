@@ -16,6 +16,7 @@ import decimal_precision as dp
 import logging
 _logger = logging.getLogger(__name__)
 PROPIEDAD_ESTADOS = [
+    ('creando', 'Creando'),
     ('enalquiler', 'En alquiler'),
     ('alquilado', 'Alquilado'),
     ('ventAlquiler', 'En venta - En alquiler'),
@@ -120,7 +121,7 @@ class estate(osv.osv):
                 'nodestroy': True,
                 'context':ctx,
             }
-    """
+  
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
@@ -131,7 +132,7 @@ class estate(osv.osv):
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
         return datas
         
-    """
+  
           
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -355,9 +356,16 @@ class estate(osv.osv):
         'tasado_por':fields.many2one('res.partner','Tasado por'),
         'tipo':fields.selection((('C','Colega'),('D','Directo'),('E', 'Exclusivo'),('I','Indirecta'), ('N','No exclusivo'),('O','Ofrecido')),'Tipo'),
 
+        
+        #Para vender
+        'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
+        'price_venta': fields.float('Precio Venta'),
+
+        #Para alquilar
+        'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
+        'price_alquiler': fields.float('Precio Alquiler'),
+        
         #Condiciones de venta
-        'currency': fields.many2one('res.currency', 'Moneda Venta'),
-        'price': fields.float('Precio Venta'),
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
         'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
@@ -365,7 +373,7 @@ class estate(osv.osv):
         #Gastos
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
-        'price': fields.float('Valor'),   
+        'price': fields.float('Valor'),
         
     }
     
@@ -407,9 +415,12 @@ class estate(osv.osv):
         'category_id': _default_category,
         'is_rural': False,
         'image': False,
-        'state': 'enventa',        
+        'state': 'creando',        
         'currency': 3,
         'moneda_tasacion': 3,
+        'currency_alquiler': 3,
+        'currency_venta': 3,
+        
     }      
     
         
