@@ -26,7 +26,7 @@
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
             <button name="case_mark_lost" position="after">
-                <button name="" type="object"  string="Buscar pedidos" class="oe_highlight"/>
+                <button name="button_crm_match" type="object"  string="Buscar propiedades" class="oe_highlight"/>
             </button>
             <field name="planned_revenue" position="replace">
                 <div>
@@ -127,6 +127,7 @@
                                 <field name="jardin" nolabel="0"/>
                                 <field name="piscina" nolabel="0"/>
                                 <field name="barbacoa" nolabel="0"/>
+                                <field name="is_rural" nolabel="0"/> <!-- OJITO CON ESTE-->
                             </group>
                         </group>
                 </page>

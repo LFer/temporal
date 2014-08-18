@@ -279,37 +279,6 @@
                         </tree>
                     </field>
                 </page>
-                
-
-	            
-	            <page string="Características" attrs="{'invisible': [('is_rural','=', False)]}">
-	                <group col="4" >
-
-  	            
-                        <label for="distancia" style="color:red" />
-	                    <field name="distancia" nolabel="1" />
-	                    <label for="accesos" style="color:red" />
-	                   	<field name="accesos" nolabel="1" />
-	                   	<label for="superficie" style="color:red" />
-	                    <field name="superficie" nolabel="1" />
-	                    
-	                    <label for="indiceConeat" style="color:red" />
-	                    <field name="indiceConeat" nolabel="1" />
-						<!-- <field name="indiceProdFinal" /> -->
-						
-	                    <field name="indiceValorReal" />
-                        <label for="exploit" style="color:red" />
-	                    <field name="exploit" nolabel="1" />
-	                    <label for="montes" style="color:red" />
-	                    <field name="montes" nolabel="1" />
-	                    <label for="supForestada" style="color:red" />
-	                    <field name="supForestada" nolabel="1" />
-
-	                    <field name="padrones"  />
-
-	                </group>  
-				</page>
-				
 				
 				<page string="Personas relacionadas" >
 	                <field name="personas_ids" >
@@ -478,7 +447,6 @@
 								<group col="4">
 							        <field name="web" string="Web"/>
 							        <field name="email" string="EMail-Ficha"/>
-							        <field name="satelital" string="Satelital"/>
 							        <field name="sequence" string="Secuencia" />
 								</group>			                
 							</group>
@@ -517,6 +485,15 @@
                         </tree>
                     </field>
                 </page>
+
+                
+                <page string="necesarios">   
+            
+                    <field name="satelital"/>
+
+                </page>
+
+
                     <page string="Historial" >
                         <field name="historial_ids" widget="one2many" mode="tree">
                             <tree string="Alquiler" editable="bottom">
@@ -640,7 +617,7 @@
         <field eval="1" name="priority"/>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Propiedades" colors="blue:is_rural==False;green:is_rural==True">
+            <tree string="Propiedades">
                 <field name="number"/>
                 <field name="street"/>
                 <field name="numero_de_puerta"/>

@@ -121,11 +121,12 @@ class estate(osv.osv):
                 'nodestroy': True,
                 'context':ctx,
             }
-  
+    """  
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
         return datas
+    """
 
     def _attach_email(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
@@ -176,19 +177,9 @@ class estate(osv.osv):
         'fotos': fields.boolean('Fotos'),
         'autWeb': fields.boolean('Aut. Web'),
         'ImagenesGoogle': fields.boolean('Imágenes Google'),
-        'distancia': fields.char('Distancia', size=128),
-        'accesos': fields.char('Accesos', size=128),
         'seccional': fields.char('Seccional', size=128),
-        'superficie': fields.float('Superficie'),
-        'supForestada': fields.float('Sup. Forestada'),
-        'indiceConeat': fields.integer('Índice Coneat'),
         
-        #'indiceProdFinal': fields.integer('Índice de Producción Final'),
-        'indiceValorReal': fields.integer('Índice de Valor Real'),
         'tieneCasa': fields.boolean('Casa'),
-        'montes': fields.char('Montes', size=256),
-        'exploit': fields.char('Explotación', size=256),
-        'padrones': fields.char('Padrones', size=256),
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
         'galpones': fields.integer('Galpones'),
@@ -374,15 +365,12 @@ class estate(osv.osv):
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
+
+        #wtf
+        'satelital':fields.char('Satelital'),
         
     }
     
-  
-    def _attach_satelital(self, cr, uid, ids, name, args, context=None):
-        attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
-        datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
-
     def _attach_email(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)

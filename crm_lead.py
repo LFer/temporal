@@ -25,6 +25,50 @@ class crm_lead(base_stage, format_address, osv.osv):
     _inherit = ['crm.lead']
 
 
+    def button_crm_match(self, cr, uid, ids, context=None, *args):
+            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'view_estate_tree')
+            view_id = view_ref and view_ref[1] or False
+            estate_obj = self.pool.get("estate")
+            #import pdb; pdb.set_trace()
+            oportunidades = []
+            machea = 0
+            min_score = 0    # Inicializar variables
+            caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
+            excluyentes = ['ose']
+            obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
+            ctx = (context or {}).copy()
+            objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True)],context=context)
+            objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades 
+            oportunidades = objIds[:]
+            #import pdb; pdb.set_trace()
+
+            # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+            # las oportnuidades que no cumplen con las características especificadas en la lista de características.
+            for unaOP in objOport:    # Recorro las oportunidades
+                min_score = 0
+                for p in caracteristicas:    # Recorro las caracteristicas de la lista
+                    #if unaOP:
+                    min_score += 1
+                    if obj[p] == unaOP[p]:
+                        machea += 1
+                unaOP['score'] = machea    # Actualizar score        
+                if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
+                    oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
+
+            return {
+                'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
+                'type': 'ir.actions.act_window',
+                'name': 'Propiedades macheables',
+                'res_model': 'estate',
+                #'res_id': oportunidades,
+                'view_type': 'tree',
+                'view_mode': 'tree',
+                'button': 'yes',
+                'view_id': (view_id,'View'),
+                'target': 'new',
+                'nodestroy': True,
+                'context':ctx,
+            }
     _columns = {
 
         'number': fields.char('Código', size=64, required=True),
@@ -166,6 +210,9 @@ class crm_lead(base_stage, format_address, osv.osv):
 
         #Para la vista form editada
         'crm_currency':fields.many2one('res.currency', 'Moneda'),
+        'is_rural':fields.boolean('Es propiedad rural'),
+        
+        
     }
     _defaults= {
         'crm_currency': 3,
