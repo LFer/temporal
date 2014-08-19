@@ -24,51 +24,54 @@ class crm_lead(base_stage, format_address, osv.osv):
     _name = "crm.lead"
     _inherit = ['crm.lead']
 
-
     def button_crm_match(self, cr, uid, ids, context=None, *args):
-            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'view_estate_tree')
-            view_id = view_ref and view_ref[1] or False
-            estate_obj = self.pool.get("estate")
-            #import pdb; pdb.set_trace()
-            oportunidades = []
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'view_estate_tree')
+        view_id = view_ref and view_ref[1] or False
+        estate_obj = self.pool.get("estate")
+        #import pdb; pdb.set_trace()
+        oportunidades = []
+        machea = 0
+        min_score = 0    # Inicializar variables
+        caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
+        excluyentes = ['ose']
+        obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
+        ctx = (context or {}).copy()
+        objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True)],context=context)
+        objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades 
+        oportunidades = objIds[:]
+        #import pdb; pdb.set_trace()
+        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+        # las oportnuidades que no cumplen con las características especificadas en la lista de características.
+        for unaOP in objOport:    # Recorro las oportunidades
+            min_score = 0
             machea = 0
-            min_score = 0    # Inicializar variables
-            caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
-            excluyentes = ['ose']
-            obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
-            ctx = (context or {}).copy()
-            objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True)],context=context)
-            objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades 
-            oportunidades = objIds[:]
-            #import pdb; pdb.set_trace()
+            porcent = 0
+            unaOP['score'] = []
+            for p in caracteristicas:    # Recorro las caracteristicas de la lista.
+                min_score += 1
+                if obj[p] == unaOP[p]:    # Compara la caracteristica del objeto actual con la carac del pedido.
+                    machea += 1
+            # Actualizar score.
+            porcent = (machea*100)/min_score
+            unaOP['score'].append("porcent")
+            unaOP['score'].append("%")       
+            if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
+                oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
 
-            # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
-            # las oportnuidades que no cumplen con las características especificadas en la lista de características.
-            for unaOP in objOport:    # Recorro las oportunidades
-                min_score = 0
-                for p in caracteristicas:    # Recorro las caracteristicas de la lista
-                    #if unaOP:
-                    min_score += 1
-                    if obj[p] == unaOP[p]:
-                        machea += 1
-                unaOP['score'] = machea    # Actualizar score        
-                if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
-                    oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
+        return {
+            'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
+            'type': 'ir.actions.act_window',
+            'name': 'Propiedades macheables',
+            'res_model': 'estate',
+            'view_type': 'tree',
+            'view_mode': 'tree',
+            'button': 'yes',
+            'view_id': (view_id,'View'),
+            'target': 'new',
+            'nodestroy': True,
+            'context':ctx,
+        }
 
-            return {
-                'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
-                'type': 'ir.actions.act_window',
-                'name': 'Propiedades macheables',
-                'res_model': 'estate',
-                #'res_id': oportunidades,
-                'view_type': 'tree',
-                'view_mode': 'tree',
-                'button': 'yes',
-                'view_id': (view_id,'View'),
-                'target': 'new',
-                'nodestroy': True,
-                'context':ctx,
-            }
     _columns = {
 
         'number': fields.char('Código', size=64, required=True),
@@ -76,7 +79,7 @@ class crm_lead(base_stage, format_address, osv.osv):
         'state_id': fields.many2one("res.country.state", 'Departamento'),
         'country_id': fields.many2one('res.country', 'País'),
         'category_id': fields.many2many('res.partner.category', 'crm_lead_category_rel', 'lead_id', 'category_id', string='Categorías'),
-        
+        'score': fields.float('Porcentaje macheo', readonly=True),
         'barrio': fields.char('Barrio', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
@@ -84,24 +87,17 @@ class crm_lead(base_stage, format_address, osv.osv):
         'ancho': fields.integer('Ancho'),
         'comodidades': fields.text('Comodidades'),
         'documentacion': fields.text('Documentación'),
-
-        
         'price': fields.float('Precio', size=240),
         'conditions': fields.text('Condiciones'),        
         'notes': fields.text('Comentarios'),
-
-
         'superficie': fields.float('Superficie'),
         'supForestada': fields.float('Sup. Forestada'),
         'indiceConeat': fields.integer('Índice Coneat'),
-        
         'tieneCasa': fields.boolean('Casa'),
         'montes': fields.boolean('Montes'),
-        
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
         'galpones': fields.integer('Galpones'),
-                
         'luz': fields.boolean('Luz'),
         'agua': fields.boolean('Agua'),
         'embarcadero': fields.integer('Embarcadero'),
@@ -117,12 +113,8 @@ class crm_lead(base_stage, format_address, osv.osv):
         'alambrados': fields.char('Alambrados Ext./Internos', size=256),
         'aguadas': fields.char('Aguadas', size=256),
         'tajamares': fields.char('Tajamares', size=256),
-        
         'ocupado': fields.char('Ocupado', size=256),
-        
         'precioXHa': fields.float('Precio por há.', size=240),
-    
-    
         'users_ids':fields.many2many('res.partner', 'users_oportunity_rel', 'oportunity_id', 'partner_id', 'Vendedor'),
         'active': fields.boolean('Activo'),
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
@@ -156,8 +148,7 @@ class crm_lead(base_stage, format_address, osv.osv):
         'lavadero':fields.boolean('Lavadero'),
         'placard':fields.boolean('Placard'),
         'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
-        'alquiler_hasta':fields.date('Hasta'),        
-
+        'alquiler_hasta':fields.date('Hasta'),
         
         #Descripcion Interior
         'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
@@ -211,13 +202,11 @@ class crm_lead(base_stage, format_address, osv.osv):
         #Para la vista form editada
         'crm_currency':fields.many2one('res.currency', 'Moneda'),
         'is_rural':fields.boolean('Es propiedad rural'),
-        
-        
     }
+
     _defaults= {
         'crm_currency': 3,
         }
-
 
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
         if category_id:
@@ -231,19 +220,12 @@ class crm_lead(base_stage, format_address, osv.osv):
                 "WHERE "\
                 "NOT EXISTS ("\
                 " SELECT id FROM crm_case_categ WHERE id = "+str(lista[0])+")"
-                
-                cr.execute(sql)                          
-
-                
+                cr.execute(sql)
                 cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
                     (lista[0],))           
                 nomcat = cr.fetchone()[0]+'-OP'
-                
-                
-
                 numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero == False:
-                
                     tiposec = self.pool.get('ir.sequence.type').create(cr, uid,{
                         'create_uid' : uid,
                         'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
@@ -253,7 +235,6 @@ class crm_lead(base_stage, format_address, osv.osv):
                         'name' : nomcat,
                     }) 
                     if tiposec:
-                        
                         self.pool.get('ir.sequence').create(cr, uid,{
                             'create_uid' : uid,
                             'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
@@ -266,7 +247,6 @@ class crm_lead(base_stage, format_address, osv.osv):
                             'number_increment' : 1,
                         }) 
                     numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)  
-
                         
         return {'value':{'number':numero},}        
 

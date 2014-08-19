@@ -14,6 +14,7 @@ from openerp import SUPERUSER_ID
 from openerp import pooler, tools
 import decimal_precision as dp
 import logging
+
 _logger = logging.getLogger(__name__)
 PROPIEDAD_ESTADOS = [
     ('creando', 'Creando'),
@@ -61,66 +62,76 @@ class estate(osv.osv):
 
         result = {}
         website = ""
-
         company_ids = self.pool.get('res.company').search(cr, uid, [('id','!=',0)], context=context)
         for obj in self.pool.get('res.company').browse(cr, uid, company_ids, context=context):
             website = obj.website
-
         for obj in self.browse(cr, uid, ids, context=context):
             result[obj.id] = website + "/?s=" + obj.number
         return result
 
     def _get_CodProp(self, cr, uid, ids, name, args, context=None):
-
         result = {}
         for obj in self.browse(cr, uid, ids, context=context):
             result[obj.id] = "http://79.143.191.243:8000/verImagenes.php?nro=" + obj.number
         return result        
 
     def button_estate_match(self, cr, uid, ids, context=None, *args):
-            view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'inherited_view_crm_leads_tree')
-            view_id = view_ref and view_ref[1] or False
-            estate_obj = self.pool.get("crm.lead")
-            #import pdb; pdb.set_trace()
-            oportunidades = []
-            machea = 0
-            min_score = 0    # Inicializar variables
-            caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
-            excluyentes = ['ose']
-            obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
-            ctx = (context or {}).copy()
-            objIds = self.pool.get('crm.lead').search(cr,uid,[('ose','=',True)],context=context)
-            objOport = self.pool.get('crm.lead').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las oportunidades 
-            oportunidades = objIds[:]
-            #import pdb; pdb.set_trace()
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'view_crm_leads_macheo_tree')
+        view_id = view_ref and view_ref[1] or False
+        #estate_obj = self.pool.get("crm.lead")
+        #import pdb; pdb.set_trace()
+        oportunidades = []
+        machea = 0
+        min_score = 0    # Inicializar variables
+        caracteristicas = ['largo','garaje','ancho','cocina','piscina'] # Lista de las caracteristicas por la que se va a machear
+        excluyentes = ['ose','city']
+        obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
+        ctx = (context or {}).copy()
+        objIds = self.pool.get('crm.lead').search(cr,uid,[('ose','=',True),('city','=','Salto')],context=context)
+        objOport = self.pool.get('crm.lead').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las oportunidades 
+        oportunidades = objIds[:]
+        # import pdb; pdb.set_trace()
+        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+        # las oportnuidades que no cumplen con las características especificadas en la lista de características.
+        for unaOP in objOport:    # Recorro las oportunidades
+            min_score = 0.0
+            machea = 0.0
+            porcent = 0.0
+            unaOP['score'] = []
+            for p in caracteristicas:    # Recorro las caracteristicas de la lista.
+                min_score += 1
+                if obj[p] == unaOP[p]:    #Compara la caracteristica del objeto actual con la carac del pedido.
+                    machea += 1
+            # write value score para poder escribir en la base de datos
+            # ver ejemplo en el mrree department_handler.write(cr,uid,to_change_parents,newvals,context=newcontext)
+            # Actualizar score.
+            porcent = (machea*100)/min_score
+            
+            self.pool.get('crm.lead').write(cr,uid,unaOP['id'],{'score': porcent},context=context) 
+            #unaOP.write(cr,uid,'score',machea,context=context)
+            
+            if (machea < ((min_score/2)+1)):    # Si el macheo es menor a la mitad mas 1, entonces lo quita de la lista.
+                oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan.
+        
+        #import pdb; pdb.set_trace()
+        
+        
+        
+        return {
+            'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
+            'type': 'ir.actions.act_window',
+            'name': 'Oportunidades macheables',
+            'res_model': 'crm.lead',
+            'view_type': 'tree',
+            'view_mode': 'tree',
+            'button': 'yes',
+            'view_id': (view_id,'View'),
+            'target': 'new',
+            'nodestroy': True,
+            'context':ctx,
+        }
+        
 
-            # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
-            # las oportnuidades que no cumplen con las características especificadas en la lista de características.
-            for unaOP in objOport:    # Recorro las oportunidades
-                min_score = 0
-                for p in caracteristicas:    # Recorro las caracteristicas de la lista
-                    #if unaOP:
-                    min_score += 1
-                    if obj[p] == unaOP[p]:
-                        machea += 1
-                unaOP['score'] = machea    # Actualizar score        
-                if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
-                    oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
-
-            return {
-                'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
-                'type': 'ir.actions.act_window',
-                'name': 'Oportunidades macheables',
-                'res_model': 'crm.lead',
-                #'res_id': oportunidades,
-                'view_type': 'tree',
-                'view_mode': 'tree',
-                'button': 'yes',
-                'view_id': (view_id,'View'),
-                'target': 'new',
-                'nodestroy': True,
-                'context':ctx,
-            }
     """  
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
@@ -133,8 +144,6 @@ class estate(osv.osv):
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
         return datas
         
-  
-          
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
@@ -147,7 +156,7 @@ class estate(osv.osv):
         'partner_city': fields.related('partner_id', 'city', type='char', string='Localidad/Ciudad'),
         'partner_state_id': fields.related('partner_id', 'state_id', type='char', string='Departamento'),
         'nunemero_de_puerta':fields.char('Nro de puerta'),
-        'score': fields.integer('score', readonly=True),
+        'score': fields.float('Porcentaje macheo', readonly=True),
         'is_rural': fields.boolean('Es propiedad rural', help="Seleccione si la propiedad es rural, sino es urbana"),
         'category_id': fields.many2many('res.partner.category', id1='id', id2='category_id', string='Categorías'),
         'date': fields.date('Fecha de Ingreso', select=1, required=True),
@@ -178,7 +187,6 @@ class estate(osv.osv):
         'autWeb': fields.boolean('Aut. Web'),
         'ImagenesGoogle': fields.boolean('Imágenes Google'),
         'seccional': fields.char('Seccional', size=128),
-        
         'tieneCasa': fields.boolean('Casa'),
         'casaPrincipal': fields.char('Casa Principal', size=256),
         'casaPersonal': fields.char('Casa del Personal', size=256),
@@ -346,7 +354,6 @@ class estate(osv.osv):
         'importe_tasacion':fields.integer('Importe'),
         'tasado_por':fields.many2one('res.partner','Tasado por'),
         'tipo':fields.selection((('C','Colega'),('D','Directo'),('E', 'Exclusivo'),('I','Indirecta'), ('N','No exclusivo'),('O','Ofrecido')),'Tipo'),
-
         
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
@@ -391,7 +398,6 @@ class estate(osv.osv):
                                                        ('company_image.png' if is_company else 'avatar.png'))
         with open(img_path, 'rb') as f:
             image = f.read()
-
         # colorize user avatars
         if not is_company:
             image = tools.image_colorize(image)
@@ -407,11 +413,8 @@ class estate(osv.osv):
         'currency': 3,
         'moneda_tasacion': 3,
         'currency_alquiler': 3,
-        'currency_venta': 3,
-        
-    }      
-    
-        
+        'currency_venta': 3,        
+    }   
         
     def action_calcular_precio_hectarea(self, cr, uid, ids, *args):
         total = 0
@@ -420,8 +423,7 @@ class estate(osv.osv):
             total += record.precioTotalLiquidoComIncl / record.superficie
             self.write(cr, uid, ids, {'precioXHaComIncl': round(total)})
             #res[record.id] = {'value':{'precioXHaComIncl':total}}
-        return True        
-
+        return True
         
     def action_estado_alquilado(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state': 'alquilado', 'active': True,'fechaAlquiler': time.strftime('%Y-%m-%d %H:%M:%S')})
@@ -491,11 +493,9 @@ class estate(osv.osv):
             'context': ctx,
         }
 
-
     def write(self, cr, uid, ids, values, context=None):
         values['modificado'] = True
         return super(estate, self).write(cr, uid, ids, values, context=context)
-
         
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
         if category_id:
@@ -540,7 +540,6 @@ class estate(osv.osv):
                     numaux = numaux.strip()
                     sufix = numero[i:]
                     numero = numaux.zfill(4) + sufix
-                        
         return {'value':{'number':numero},}        
     
 estate()
