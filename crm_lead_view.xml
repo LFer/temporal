@@ -22,9 +22,7 @@
         <field name="model">crm.lead</field>
         <field name="type">tree</field>
         <field name="arch" type="xml" >
-            <tree string="Propiedades" version="7.0" toolbar="1">
-
-                
+            <tree string="Propiedades">
                 <field name="create_date"/>
                 <field name="name" string="Opportunity"/>
                 <field name="partner_id" string="Customer"/>
