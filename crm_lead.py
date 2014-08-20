@@ -32,20 +32,20 @@ class crm_lead(base_stage, format_address, osv.osv):
         oportunidades = []
         machea = 0
         min_score = 0    # Inicializar variables
-        caracteristicas = ['largo','garaje'] # Lista de las caracteristicas por la que se va a machear
-        excluyentes = ['ose']
+        caracteristicas = ['largo','garaje','ancho','cocina','piscina'] # Lista de las caracteristicas por la que se va a machear
+        excluyentes = ['ose','city']
         obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
         ctx = (context or {}).copy()
-        objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True)],context=context)
+        objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True),('city','=','Salto')],context=context)
         objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades 
         oportunidades = objIds[:]
         #import pdb; pdb.set_trace()
         # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
         # las oportnuidades que no cumplen con las características especificadas en la lista de características.
         for unaOP in objOport:    # Recorro las oportunidades
-            min_score = 0
-            machea = 0
-            porcent = 0
+            min_score = 0.0
+            machea = 0.0
+            porcent = 0.0
             unaOP['score'] = []
             for p in caracteristicas:    # Recorro las caracteristicas de la lista.
                 min_score += 1
@@ -53,9 +53,11 @@ class crm_lead(base_stage, format_address, osv.osv):
                     machea += 1
             # Actualizar score.
             porcent = (machea*100)/min_score
-            unaOP['score'].append("porcent")
-            unaOP['score'].append("%")       
-            if (machea >= (( min_score / 0.0000002) + 1)):    # Si machea
+            #unaOP['score'].append("porcent")
+            #unaOP['score'].append("%")      
+            self.pool.get('estate').write(cr,uid,unaOP['id'],{'score': porcent},context=context)
+
+            if (machea < ((min_score/2)+1)):    # Si machea
                 oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan
 
         return {

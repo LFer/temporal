@@ -7,6 +7,7 @@ from lxml import etree
 import math
 import pytz
 import re
+from openerp.tools.translate import _
 
 from osv import osv
 from osv import fields
@@ -120,7 +121,7 @@ class estate(osv.osv):
         return {
             'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
             'type': 'ir.actions.act_window',
-            'name': 'Oportunidades macheables',
+            'name': 'Pedidos macheables',
             'res_model': 'crm.lead',
             'view_type': 'tree',
             'view_mode': 'tree',
@@ -248,8 +249,10 @@ class estate(osv.osv):
         'personas_ids':fields.many2many('res.partner', 'personas_rel', 'estate_id', 'partner_id', 'Personas relacionadas'),
         'publicado': fields.boolean('Publicar en la Web'),
         'active': fields.boolean('Activo'),
+        'message_ids': fields.one2many('mail.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
+        'create_date': fields.datetime('Fecha de creación' , readonly=True),
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
-		'create_uid': fields.many2one('res.users', 'Ingresado por', required=True),
+		'create_uid': fields.many2one('res.users', 'Creado por', required=True),
         'write_uid': fields.many2one('res.users', 'Actualizado por', required=True),
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),

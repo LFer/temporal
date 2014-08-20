@@ -22,26 +22,19 @@
                     <button name="button_estate_match" type="object" string="Buscar pedidos" class="oe_highlight"/>
                 </xpath>
                 <field name="state" widget="statusbar" statusbar_visible="creando,enalquiler,alquilado,enventa,ventAlquiler,vendido" statusbar_colors='{"vendido":"blue"}'/>
-            </header>
- 
-             <sheet>
-				
-				
+            </header> 
+            <sheet>
                	<field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
                 <div class="oe_title">
                     <div>
 		                <div >
 		                    <label for="name" style="color:red" /> 
 		                    <field name="is_rural" invisible="1" class="oe_inline"/> 
-                            <!--label for="is_rural" string="¿Es propiedad rural?"/-->
-		                    <field name="alquiler" invisible="1" class="oe_inline"/> 
-                            <!--label for="alquiler" string="¿Está para alquilar?"/-->
+		                    <field name="alquiler" invisible="1" class="oe_inline"/>
 		                </div>
 		            </div>
                     <h1>
-                        
                         <field name="name" default_focus="1" placeholder="Descripción de la propiedad" />
-                        
                     </h1>
                     <group col="2" colspan="4" rowspan="2" >
                   		<field name="date" placeholder="Fecha de ingreso" />
@@ -52,14 +45,9 @@
                         <!--field name="duplicados" placeholder="Duplicados" /-->  
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
-                    <field name="partner_id" placeholder="Nombre del cliente..."/>
-                    <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
-<!--                  	
-                    <group colspan="2" >
-                  		<field name="user_id" widget="selection" />
-                </group>
--->
-               </group>
+                        <field name="partner_id" placeholder="Nombre del cliente..."/>
+                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+                    </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
                     <field name="score" invisible="1"/>
@@ -89,14 +77,11 @@
                     	<field name="fotos" />
                     	<!--<field name="autWeb"  />-->
                     </group>
-                </group>  
-	
+                </group>
 	
                 <notebook colspan="4">
                 <page string="Dirección">            
-
-	                <group>
-	
+	                <group>	
                         <label for="street" string="Dirección"/>
                         <div>
                             <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
@@ -132,7 +117,8 @@
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
                         </div>
 	                </group>
-	            </page>          
+	            </page>
+
 	        	<page string="Dimensiones" attrs="{'invisible': [('is_rural','=', True)]}"> 
                     <group col="4">
                         <label for="supTotal" style="color:red" />
@@ -145,76 +131,77 @@
                         <field name="ancho" nolabel="1" />
                     </group>
 	     		</page>
+
 	     		<page string="Descripción General">
-	                    <group col="2">
-                            <group string="Descripción General">
-                                <field name="comodidades" nolabel="0"/>
-                                <field name="padron" nolabel="0"/>
-                                <field name="year" nolabel="0"/>
-                                <field name="orientacion" nolabel="0" style="width: 50%%"/>
-                                <field name="ubica" nolabel="0" style="width: 50%%"/>
-                                <field name="gastos_comun" nolabel="0"/>
-                                <field name="contri" nolabel="0"/>
-                                <field name="calor" nolabel="0" style="width: 50%%"/>
-                                <field name="impPrim" nolabel="0"/>
-                                <field name="ac" nolabel="0"/>
-                                <field name="calefaccion" nolabel="0"/>
-                                <field name="gas" nolabel="0"/>
-                                <field name="tel" nolabel="0"/>
-                                <field name="tv" nolabel="0"/>
-                                <field name="oficina" nolabel="0"/>
-                                <field name="garaje" nolabel="0"/>
-                                <field name="equipamiento" nolabel="0"/>
-                                <field name="produccion" nolabel="0"/>
-                                <field name="lavadero" nolabel="0"/>
-                                <field name="placard" nolabel="0"/>
-                            </group>
-                            <group string="Descripción Interior">
-                                <field name="nAmbientes"/>
-                                <field name="cantidadDormitorios" nolabel="0"/>
-                                <field name="suite" nolabel="0"/>
-                                <field name="cantidadBanios" nolabel="0"/>
-                                <field name="toilet" nolabel="0"/>
-                                <field name="bath" nolabel="0"/>
-                                <field name="social" nolabel="0"/>
-                                <field name="hidro" nolabel="0"/>
-                                <field name="jacuzzi" nolabel="0"/>
-                                <field name="escritorio" nolabel="0"/>
-                                <field name="cocina" nolabel="0"/>
-                                <field name="living" nolabel="0"/>
-                                <field name="kit" nolabel="0"/>
-                                <field name="comedor" nolabel="0"/>
-                                <field name="liv_com" nolabel="0"/>
-                                <field name="hall" nolabel="0"/>
-                                <field name="estar" nolabel="0"/>
-                                <field name="ute" nolabel="0"/>
-                                <field name="ose" nolabel="0"/>
-                                <field name="agua_caliente" nolabel="0"/>
-                            </group>
-                            <group string="Edificio o condominio">
-                                <field name="balcon" nolabel="0"/>
-                                <field name="terraza" nolabel="0"/>
-                                <field name="terraza_2" nolabel="0"/>
-                                <field name="azotea" nolabel="0"/>
-                                <field name="porteria_2" nolabel="0"/>
-                                <field name="vigilancia" nolabel="0"/>
-                                <field name="porteria" nolabel="0"/>
-                                <field name="ascensor" nolabel="0"/>
-                                <field name="piso" nolabel="0"/>
-                                <field name="internet" nolabel="0"/>
-                                <field name="sauna" nolabel="0"/>
-                                <field name="gym" nolabel="0"/>
-                                <field name="canchas" nolabel="0"/>
-                                <field name="bbq" nolabel="0"/>
-                            </group>
-                            <group string="Descripción Exterior">
-                                <field name="baulera" nolabel="0"/>
-                                <field name="fondo" nolabel="0"/>
-                                <field name="jardin" nolabel="0"/>
-                                <field name="piscina" nolabel="0"/>
-                                <field name="barbacoa" nolabel="0"/>
-                            </group>
+                    <group col="2">
+                        <group string="Descripción General">
+                            <field name="comodidades" nolabel="0"/>
+                            <field name="padron" nolabel="0"/>
+                            <field name="year" nolabel="0"/>
+                            <field name="orientacion" nolabel="0" style="width: 50%%"/>
+                            <field name="ubica" nolabel="0" style="width: 50%%"/>
+                            <field name="gastos_comun" nolabel="0"/>
+                            <field name="contri" nolabel="0"/>
+                            <field name="calor" nolabel="0" style="width: 50%%"/>
+                            <field name="impPrim" nolabel="0"/>
+                            <field name="ac" nolabel="0"/>
+                            <field name="calefaccion" nolabel="0"/>
+                            <field name="gas" nolabel="0"/>
+                            <field name="tel" nolabel="0"/>
+                            <field name="tv" nolabel="0"/>
+                            <field name="oficina" nolabel="0"/>
+                            <field name="garaje" nolabel="0"/>
+                            <field name="equipamiento" nolabel="0"/>
+                            <field name="produccion" nolabel="0"/>
+                            <field name="lavadero" nolabel="0"/>
+                            <field name="placard" nolabel="0"/>
                         </group>
+                        <group string="Descripción Interior">
+                            <field name="nAmbientes"/>
+                            <field name="cantidadDormitorios" nolabel="0"/>
+                            <field name="suite" nolabel="0"/>
+                            <field name="cantidadBanios" nolabel="0"/>
+                            <field name="toilet" nolabel="0"/>
+                            <field name="bath" nolabel="0"/>
+                            <field name="social" nolabel="0"/>
+                            <field name="hidro" nolabel="0"/>
+                            <field name="jacuzzi" nolabel="0"/>
+                            <field name="escritorio" nolabel="0"/>
+                            <field name="cocina" nolabel="0"/>
+                            <field name="living" nolabel="0"/>
+                            <field name="kit" nolabel="0"/>
+                            <field name="comedor" nolabel="0"/>
+                            <field name="liv_com" nolabel="0"/>
+                            <field name="hall" nolabel="0"/>
+                            <field name="estar" nolabel="0"/>
+                            <field name="ute" nolabel="0"/>
+                            <field name="ose" nolabel="0"/>
+                            <field name="agua_caliente" nolabel="0"/>
+                        </group>
+                        <group string="Edificio o condominio">
+                            <field name="balcon" nolabel="0"/>
+                            <field name="terraza" nolabel="0"/>
+                            <field name="terraza_2" nolabel="0"/>
+                            <field name="azotea" nolabel="0"/>
+                            <field name="porteria_2" nolabel="0"/>
+                            <field name="vigilancia" nolabel="0"/>
+                            <field name="porteria" nolabel="0"/>
+                            <field name="ascensor" nolabel="0"/>
+                            <field name="piso" nolabel="0"/>
+                            <field name="internet" nolabel="0"/>
+                            <field name="sauna" nolabel="0"/>
+                            <field name="gym" nolabel="0"/>
+                            <field name="canchas" nolabel="0"/>
+                            <field name="bbq" nolabel="0"/>
+                        </group>
+                        <group string="Descripción Exterior">
+                            <field name="baulera" nolabel="0"/>
+                            <field name="fondo" nolabel="0"/>
+                            <field name="jardin" nolabel="0"/>
+                            <field name="piscina" nolabel="0"/>
+                            <field name="barbacoa" nolabel="0"/>
+                        </group>
+                    </group>
 	            </page>
 
 	            <page string="Documentación">
@@ -256,26 +243,19 @@
                     </group>
 	            </page>
 
-
-                
-                
-                    <page string="Alquiler por temporada" attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enventa' ] ) ] }" >
-                
-                    <field name="temporada_ids" widget="one2many_list" mode="tree">
-                
-                        <tree string="Alquiler por temporada" editable="bottom">
-                
+                <page string="Alquiler por temporada" attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enventa' ] ) ] }" >
+                    <field name="temporada_ids" widget="one2many_list" mode="tree">                
+                        <tree string="Alquiler por temporada" editable="bottom">                
                             <field name="cliente_1"/>
                             <field name="usuario_1"/>        
                             <field name="currency_al" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />        
-                            <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />        
+                            <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />      
                             <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />        
                             <field name="rent_day"/>
                             <field name="rent_price"/>    
                             <field name="result"/>        
                             <field name="costo_alquiler"/>      
-                            <field name="pago_1"/>        
-                
+                            <field name="pago_1"/>                     
                         </tree>
                     </field>
                 </page>
@@ -287,12 +267,10 @@
                             <field name="category_id" />                            
                         </tree>
                     </field>
-				</page>
-				
+				</page>				
 
 				<page string="Comodidades" attrs="{'invisible': [('is_rural','=', False)]}">					
 	                <group col="4" >
-
                         <label for="casaPrincipal" style="color:red" />
                 		<field name="casaPrincipal" nolabel="1" />
                 		<label for="casaPersonal" style="color:red" />
@@ -318,13 +296,11 @@
 	                    <field name="cepo" nolabel="1" />
 	                    <label for="otras" style="color:red" />
 	                    <field name="otras" nolabel="1" />
-
 	                </group>  
 				</page>
 				
 				<page string="Mejoras" attrs="{'invisible': [('is_rural','=', False)]}">
-	                <group col="4" >
-	
+	                <group col="4" >	
 	                    <label for="mejoras" style="color:red" />
 	                    <field name="mejoras" nolabel="1" />
 	                    <label for="alambrados" style="color:red" />
@@ -332,14 +308,10 @@
 	                    <label for="aguadas" style="color:red" />
 	                    <field name="aguadas" nolabel="1" />
 	                    <label for="tajamares" style="color:red" />
-	                    <field name="tajamares" nolabel="1" />
-	                    
-	                    <field name="centros" />
-	                	    		
+	                    <field name="tajamares" nolabel="1" />	                    
+	                    <field name="centros" />	                	    		
 	                </group>  
 				</page>
-
-
  				
 				<page string="Encargado" attrs="{'invisible': [('is_rural','=', False)]}">
 	                <group col="4">
@@ -348,8 +320,7 @@
 	                </group>  
 				</page>
 				
-				<page string="Contribuciones" attrs="{'invisible': [('is_rural','=', False)]}">	                
-
+				<page string="Contribuciones" attrs="{'invisible': [('is_rural','=', False)]}">
                 	<group col="4">
                 		<field name="contInm"  />
                 		<field name="impPrim" />
@@ -358,10 +329,8 @@
 	                    <field name="deudas" />
 	                    <field name="suc"  />
 	                    <field name="planos"  />
-                    </group>
-	
+                    </group>	
 				</page>
-
 	    		
 	    		<page string="Observaciones">
                     <field name="observations_ids" widget='one2many' mode="tree" >
@@ -381,8 +350,7 @@
 							    <field name="price" style="width: 17%%"/>
 						</tree>
 					</field>
-                </page>
-                
+                </page>                
 
 	    		<page string="CONEAT" attrs="{'invisible': [('is_rural','=', False)]}">
 	                <group>
@@ -391,19 +359,16 @@
                  </page>            
 
 				<page string="Atendido por" >
-
 	                <field name="users_ids" >
                         <tree string="Nombre">
                             <field name="name" />
                             <field name="phone" />
                             <field name="mobile" />
                         </tree>
-                    </field>	                
-				
+                    </field>	                				
 				</page>
 
 				<page string="Compartido" >
-
 	                <field name="colegas_ids" >
                         <tree string="Nombre">
                             <field name="name" />
@@ -412,32 +377,21 @@
                             <field name="street" />
                             <field name="website" />
                         </tree>
-                    </field>	                
-				
+                    </field>	                				
 				</page>
-                
-
 
 				<page string="Visitas" >
-
                     <field name="visit_ids" colspan="4" nolabel="1" mode="tree" >
                         <tree string="Visitas" editable="bottom">
                             <field name="date" />
                             <field name="partner_id" />
                             <field name="notes" />
-
                         </tree>
                     </field>	                
-				
 				</page>
                 
-
-    
-
 				<page string="Archivos adjuntos" >
-
                     <field name="attachments" colspan="4" nolabel="1" mode="tree" >
-
 				        <form string="Archivo" version="7.0">
 			                <field name="datas" widget='image' nolabel="1" class="oe_avatar" options='{"preview_image": "datas", "size": [820, 360]}'/>
 			                <group col="8">
@@ -486,28 +440,27 @@
                     </field>
                 </page>
 
-                
-                <page string="necesarios">   
-            
-                    <field name="satelital"/>
-
+                <page string="Histórico">
+                    <group col="4" colspan="2">
+                        <field name="create_date" style="width: 60%%"/>
+                        <field name="write_date" style="width: 60%%"/>
+                    </group>
+                    <group col="4" colspan="2">
+                        <field name="create_uid" style="width: 60%%"/>
+                        <field name="write_uid" style="width: 60%%"/>                
+                    </group>                    
+                    <field name="message_ids" colspan="4" nolabel="1" mode="tree" readonly="1">
+                        <tree string="Historia">
+                            <field name="display_text" string="Informacion Historica"/>
+                            <field name="email_from" invisible="1"/>
+                        </tree>
+                    </field>
                 </page>
 
-
-                    <page string="Historial" >
-                        <field name="historial_ids" widget="one2many" mode="tree">
-                            <tree string="Alquiler" editable="bottom">
-                                <field name="usuario_2"/>
-                                <field name="cambio_2" />        
-                                <field name="fecha_cambio"/>        
-                            </tree>
-                        </field>
-                    </page>
             </notebook>	                     
             </sheet>
             <label for="texto_rojo" style="color: red; margin-left: 105px;"/>
-            <field name="texto_rojo" nolabel="1"/>            
-                                  
+            <field name="texto_rojo" nolabel="1"/>
             </form>
         </field>
     </record>
@@ -517,7 +470,7 @@
 		<field name="model">crm.lead</field>
 		<field eval="1" name="priority"/>
 		<field name="arch" type="xml">
-			<tree string="Oportunidades macheables">
+			<tree string="Pedidos macheables">
 				<field name="name"/>
 				<field name="number"/>
 				<field name="largo"/>
@@ -572,7 +525,6 @@
                                 </ul>
                             </div>
                         </div>
-
                     </t>
                 </templates>
             </kanban>
@@ -591,17 +543,18 @@
                 <field name="state" string="Estado" filter_domain="[('state','ilike', self)]"/>
 
                 <separator/>
-                <filter string="Urbanos" name="type_urban" icon="terp-personal" domain="[('is_rural','=',0)]"/>
+                
                 <filter string="En alquiler" name="type_en_alquiler" icon="terp-partner" domain="[('state','=','enalquiler')]"/>
                 <filter string="En venta" name="type_en_venta" icon="terp-partner" domain="[('state','=','enventa')]"/>
+                <filter string="En venta-alquiler" name="type_en_ventAlquiler" icon="terp-partner" domain="[('state','=','ventAlquiler')]"/>
                 <filter string="Alquilados" name="type_alquilado" icon="terp-partner" domain="[('state','=','alquilado')]"/>
                 <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>             
                 <filter string="Publicados en la Web" name="type_publicado" icon="terp-partner" domain="[('publicado','=',True)]"/>                
-                <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>               
+                <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>
+
                 <separator/>
 
                 <group expand="0" string="Agrupar por...">
-                    <filter string="Ciudad" context="{'group_by': 'city'}"/>
                     <filter string="Barrio" context="{'group_by': 'barrio'}"/>
                     <filter string="Cliente" context="{'group_by': 'partner_id'}"/>
                     <filter string="Departamento" context="{'group_by': 'state_id'}"/>
@@ -609,7 +562,6 @@
             </search>
          </field>
      </record>
-
 
     <record id="view_estate_tree" model="ir.ui.view">
         <field name="name">estate.tree</field>
@@ -630,7 +582,6 @@
 			</tree>
         </field>
     </record>
-
         
     <record id="action_estate_form" model="ir.actions.act_window">
         <field name="name">Propiedades</field>
@@ -711,9 +662,5 @@ ESTE TROZO IBA EN CONDICIONES DE VENTA>
                             <field name="message_ids" widget="mail_thread"/>
                         </div>
 -->
-
-        
 </data>
 </openerp>
-
-    
