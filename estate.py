@@ -103,21 +103,13 @@ class estate(osv.osv):
                 min_score += 1
                 if obj[p] == unaOP[p]:    #Compara la caracteristica del objeto actual con la carac del pedido.
                     machea += 1
-            # write value score para poder escribir en la base de datos
-            # ver ejemplo en el mrree department_handler.write(cr,uid,to_change_parents,newvals,context=newcontext)
-            # Actualizar score.
             porcent = (machea*100)/min_score
-            #unaOP['score'].append("porcent")
-            #unaOP['score'].append("%")
             
             self.pool.get('crm.lead').write(cr,uid,unaOP['id'],{'score': porcent},context=context) 
-            #unaOP.write(cr,uid,'score',machea,context=context)
             
             if (machea < ((min_score/2)+1)):    # Si el macheo es menor a la mitad mas 1, entonces lo quita de la lista.
                 oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan.
-        
-        #import pdb; pdb.set_trace()
-        
+                
         return {
             'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
             'type': 'ir.actions.act_window',

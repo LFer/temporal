@@ -33,15 +33,15 @@ class estate(report_sxw.rml_parse):
     #print 'aca'
 
         
-report_sxw.report_sxw('report.inmobiliaria.estate.urbana','estate','addons/inmobiliaria/report/estate_urbana.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.urbana','estate','addons/inmobiliaria/report/estate_urbana.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.rural','estate','addons/inmobiliaria/report/estate_rural.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.rural','estate','addons/inmobiliaria/report/estate_rural.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.satelital','estate','addons/inmobiliaria/report/estate_satelital.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.satelital','estate','addons/inmobiliaria/report/estate_satelital.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.terreno','estate','addons/inmobiliaria/report/estate_terreno.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.terreno','estate','addons/inmobiliaria/report/estate_terreno.rml',parser=estate,header=True)
 
 
 def _get_imagepath(self, ide):
