@@ -502,10 +502,10 @@
                                 </t>
                                 <t t-if="record.has_image.raw_value === false">
                                     <t t-if="record.is_rural.raw_value === true">
-                                        <img t-att-src='_s + "/inmobiliaria/static/src/img/agritourism-64.png"' class="oe_kanban_image"/>
+                                        <img t-att-src='_s + "/dtm_inmobiliaria/static/src/img/agritourism-64.png"' class="oe_kanban_image"/>
                                     </t>
-                                    <t t-if="record.is_rural.raw_value === false">
-                                        <img t-att-src='_s + "/inmobiliaria/static/src/img/home-5-64.png"' class="oe_kanban_image"/>
+                                    <t>
+                                        <img t-att-src='_s + "/dtm_inmobiliaria/static/src/img/home-5-64.png"' class="oe_kanban_image"/>
                                     </t>
                                 </t>
                             </a>

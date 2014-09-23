@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 <data>
-
-
-
-
-
 	<record id="inherited_view_partner_estate_form" model="ir.ui.view">
         <field name="name">res.partner.estate.form.inherit</field>
         <field name="model">res.partner</field>

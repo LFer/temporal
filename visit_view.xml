@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 <data>
-
     <record model="ir.ui.view" id="view_Visit_form">
         <field name="name">Estate.visit.form</field>
         <field name="model">visit</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Visita">
-            
                 <group colspan="2" col="2">
-
-                
                     <field name="date" />
                     <field name="partner_id" widget="selection" />
                     <field name="estate_id" widget="selection" />
                     <field name="notes" colspan="4"/>
                  </group>
-
             </form>
         </field>
     </record>
-       
 </data>
 </openerp>
