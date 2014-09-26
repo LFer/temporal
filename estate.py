@@ -244,8 +244,8 @@ class estate(osv.osv):
         'message_ids': fields.one2many('mail.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
         'create_date': fields.datetime('Fecha de creación' , readonly=True),
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
-		'create_uid': fields.many2one('res.users', 'Creado por', required=True),
-        'write_uid': fields.many2one('res.users', 'Actualizado por', required=True),
+		'create_uid': fields.many2one('res.users', 'Creado por'),
+        'write_uid': fields.many2one('res.users', 'Actualizado por'),
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),
         'state': fields.selection(PROPIEDAD_ESTADOS, 'Estado', size=16, readonly=True),
@@ -420,31 +420,136 @@ class estate(osv.osv):
             #res[record.id] = {'value':{'precioXHaComIncl':total}}
         return True
         
-    def action_estado_alquilado(self, cr, uid, ids, *args):
+    def action_estado_alquilado(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a alquilado'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'state': 'alquilado', 'active': True,'fechaAlquiler': time.strftime('%Y-%m-%d %H:%M:%S')})
         return True
 
-    def action_estado_enAlquiler(self, cr, uid, ids, *args):
+    def action_estado_enAlquiler(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a en alquiler'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'state': 'enalquiler', 'active': True,'fechaAlquiler': None})
         return True    
    
-    def action_estado_ventAlquiler(self, cr, uid, ids, *args):
+    def action_estado_ventAlquiler(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a en venta y alquiler'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'state': 'ventAlquiler', 'active': True,'fechaAlquiler': None})
         return True    
         
-    def action_estado_vendido(self, cr, uid, ids, *args):
+    def action_estado_vendido(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a vendido'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'state': 'vendido', 'active': False,'fechaVenta': time.strftime('%Y-%m-%d %H:%M:%S')})
         return True
 
-    def action_estado_enVenta(self, cr, uid, ids, *args):
+    def action_estado_enVenta(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a en venta'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'state': 'enventa', 'active': True,'fechaVenta': None})
         return True    
 
-    def action_estado_desactivado(self, cr, uid, ids, *args):
+    def action_estado_desactivado(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a desactivado'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'active': False})
         return True    
 
-    def action_estado_activado(self, cr, uid, ids, *args):
+    def action_estado_activado(self, cr, uid, ids, values, context=None):
+        subject = 'Cambio de estado a activado'
+        cr.execute("""  select partner_id from res_users where id = %s""",
+                    (uid,))                      
+        cli = cr.fetchone()[0]        
+        
+        message = self.pool.get('mail.message')
+        message.create(cr, uid, {
+                'res_id': ids[0],
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'author_id': cli,
+                'model': self._name,
+                'subject' : subject,
+                'body': values,
+            }, context=context)
+
         self.write(cr, uid, ids, {'active': True})
         return True    
 
@@ -490,6 +595,33 @@ class estate(osv.osv):
 
     def write(self, cr, uid, ids, values, context=None):
         values['modificado'] = True
+        #import pdb
+        #pdb.set_trace()
+        if context != None:
+
+            esArray = True
+            try:
+                x = len(ids)
+            except Exception:
+                esArray = False
+               
+            if esArray:
+                subject = 'Modificado'
+
+                cr.execute("""  select partner_id from res_users where id = %s""",
+                            (context.get('uid'),))                      
+                cli = cr.fetchone()[0]
+                #if message.type != "notification":
+                message = self.pool.get('mail.message')
+                message.create(cr, uid, {
+                        'res_id': ids[0],
+                        'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                        'author_id': cli,
+                        'model': self._name,
+                        'subject' : subject,
+                        'body': values
+                    }, context=context)       
+
         return super(estate, self).write(cr, uid, ids, values, context=context)
         
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):

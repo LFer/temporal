@@ -23,6 +23,8 @@ class mail_message(osv.osv):
             context = {}
         tz = context.get('tz')
         result = {}
+        _logger.info('!!!!!porqueeeeee****'+str(ids))
+        # Read message as UID 1 to allow viewing author even if from different company
         
         for message in self.browse(cr, SUPERUSER_ID, ids):
             msg_txt = ''
@@ -31,6 +33,9 @@ class mail_message(osv.osv):
                 if message.body:
                     msg_txt += truncate_text(message.body)
             else:
+                
+                #msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':\n\t'
+                #msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':\n\t'
                 msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':' + (message.subject or '') + '\n\t'
             result[message.id] = msg_txt
         
