@@ -48,4 +48,3 @@ class mail_message(osv.osv):
         'display_text': fields.function(_get_display_text, method=True, type='text', size="512", string='Display Text'),        
     }
 mail_message()
-

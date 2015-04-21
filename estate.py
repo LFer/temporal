@@ -141,7 +141,7 @@ class estate(osv.osv):
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
         'number': fields.char('Nro. de propiedad', size=64, required=True),
-        'partner_id': fields.many2one('res.partner', 'Cliente relacionado', required=True),
+        'partner_id': fields.many2one('res.partner', 'Cliente relacionado'), #TODO se va a una pestaña nueva , required=True
         'phone': fields.related('partner_id', 'phone', type='char', string='Teléfono'),
         'mobile': fields.related('partner_id', 'mobile', type='char', string='Celular'),
         'email': fields.related('partner_id', 'email', type='char', string='E-mail'),
@@ -152,25 +152,32 @@ class estate(osv.osv):
         'score': fields.float('Porcentaje macheo', readonly=True),
         'is_rural': fields.boolean('Es propiedad rural', help="Seleccione si la propiedad es rural, sino es urbana"),
         'category_id': fields.many2many('res.partner.category', id1='id', id2='category_id', string='Categorías'),
-        'date': fields.date('Fecha de Ingreso', select=1, required=True),
-        'street': fields.char('Calle/Dirección', size=128),
-        'numero_de_puerta':fields.char('Numero de puerta'),
-        'numero_de_apto':fields.char('Número de Apto.'),
-        'street2': fields.char('Calle 2', size=128),
+        'street': fields.char('Calle', size=128),
+        'numero_de_puerta':fields.char('Nº de puerta'),
+        'numero_de_apto':fields.char('Unidad Piso'),
+        'street2': fields.char('Esquina', size=128),
         'zip': fields.char('Código postal', change_default=True, size=24),
         'city': fields.char('Ciudad', size=128),
         'neighborhood': fields.char('Barrio', size=128),
         'state_id': fields.many2one("res.country.state", 'Departamento'),
         'country_id': fields.many2one('res.country', 'País'),
         'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),    
-        'barrio': fields.char('Barrio', size=128),
+        'barrio': fields.char('Zona', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
         'largo': fields.integer('Profundidad'),
         'ancho': fields.integer('Frente'),
+        'superficie_terraza': fields.integer('Superficie Terraza'),
+        'metraje_fondo': fields.integer('Fondo'),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
-        
+
+        #Cabezal
+        'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('T',u'Tasación')),u'Opereción'),
+        'tipo_propiedad':fields.selection((('C','Casa'),('A','Apartamento'),('L','Local'),('O','Oficina'),('G','Garage'),('T','Terreno'),('D',u'Depósito'),('G','Galpón')),'Tipo de propiedad'),
+        'categoria':fields.selection((('C','Colega'),('D','Directo'),('E','Exclusivo'),('I','Indirecta'),('N','No exclusivo'),('O','Ofrecido')),'Categoría'),
+        #Pestaña Documentacion
+        'obs_documentacion':fields.text('Observaciones'),
         # Rural
         'padron': fields.boolean('Padrón'),
         'estudioSuelo': fields.boolean('Estudios de Suelo'),
@@ -237,21 +244,31 @@ class estate(osv.osv):
         'has_image': fields.function(_has_image, type="boolean"),
 
         #'user_id': fields.many2one('res.users', 'Vendedor', required=True),
+        
         'users_ids':fields.many2many('res.partner', 'users_rel', 'estate_id', 'partner_id', 'Vendedor'),
+        
         'personas_ids':fields.many2many('res.partner', 'personas_rel', 'estate_id', 'partner_id', 'Personas relacionadas'),
+        
         'publicado': fields.boolean('Publicar en la Web'),
+        
         'active': fields.boolean('Activo'),
+
+        #Pestaña historico
         'message_ids': fields.one2many('mail.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
+        'message_obs':fields.text('Observaciones'),
         'create_date': fields.datetime('Fecha de creación' , readonly=True),
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
 		'create_uid': fields.many2one('res.users', 'Creado por'),
         'write_uid': fields.many2one('res.users', 'Actualizado por'),
+        'date': fields.date('Fecha de Ingreso', select=1, required=True),
+        'ingresado_por':fields.many2one('res.users', 'Ingresado por'),
+        
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),
         'state': fields.selection(PROPIEDAD_ESTADOS, 'Estado', size=16, readonly=True),
         'fechaVenta': fields.date('Fecha de Venta', select=1),
         'colegas_ids':fields.many2many('res.partner', 'colegas_rel', 'partner_id', 'colega_id', 'Compartido con'),
-        'observations_ids':fields.one2many('observations', 'estate_id','Obervaciones'),
+        'observations_ids':fields.one2many('observations', 'estate_id','Observaciones'),
         'expenses_ids':fields.one2many('expenses', 'estate_id','Gastos'),
         'temporada_ids':fields.one2many('temporada','estate_id', 'Temporada'),
         'historial_ids' :fields.one2many('historial', 'estate_id', 'Historial'),
@@ -266,13 +283,14 @@ class estate(osv.osv):
         #'attachments_satelital': fields.function(_attach_satelital, type="binary"),
         'suelosConeat': fields.text('Descripción de grupos de suelos CONEAT'),
         'emails': fields.function(get_emails, string="e-mail", relation='mail.message',method=True,type='one2many'),  
-        'fechaContacto': fields.date('Fecha de Contacto', select=1),
+        'fechaContacto': fields.date('Fecha de Contacto', select=1), #TODO se va a historico
         'webUrl': fields.function(_get_webUrl),  
         'webProp': fields.function(_get_CodProp), 
         #'duplicados': fields.char('Duplicados',50),
         'reservado':fields.boolean('Reservado'),
         'destacados': fields.boolean('Destacado'),
         'ubicacion': fields.text('Ubicación'),#ya existe
+
 
         # Descripcion General
         'comodidades': fields.text('Comodidades'),
@@ -348,7 +366,8 @@ class estate(osv.osv):
         'moneda_tasacion':fields.many2one('res.currency', 'Moneda de Tasación'),
         'importe_tasacion':fields.integer('Importe'),
         'tasado_por':fields.many2one('res.partner','Tasado por'),
-        'tipo':fields.selection((('C','Colega'),('D','Directo'),('E', 'Exclusivo'),('I','Indirecta'), ('N','No exclusivo'),('O','Ofrecido')),'Tipo'),
+        'obs_tasacion':fields.text('Observaciónes'),
+        
         
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),

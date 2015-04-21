@@ -34,18 +34,19 @@
 		                </div>
 		            </div>
                     <h1>
-                        <field name="name" default_focus="1" placeholder="Descripción de la propiedad" />
+                        <field name="name" default_focus="1" placeholder="Descripción de la propiedad, ah si?" />
                     </h1>
                     <group col="2" colspan="4" rowspan="2" >
-                  		<field name="date" placeholder="Fecha de ingreso" />
-                        <field name="tipo" style="width: 40%%" />
+                        <field name="operacion" style="width: 40%%" />
+                        <field name="tipo_propiedad" style="width: 40%%" />
+                        <field name="price_venta" style="width: 40%%" />
+                        <field name="categoria" style="width: 40%%" />
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
-                  		<field name="fechaContacto" placeholder="Fecha de Contacto" />                  		
                         <!--field name="duplicados" placeholder="Duplicados" /-->  
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
-                        <field name="partner_id" placeholder="Nombre del cliente..."/>
+                        <!--field name="partner_id" placeholder="Nombre del cliente..."/> TODO VA A UNA PESTAÑA NUEVA-->
                         <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
                     </group>
                     <label for="publicado" string="Publicar en la Web" />
@@ -81,45 +82,23 @@
 	
                 <notebook colspan="4">
                 <page string="Dirección">            
-	                <group>	
-                        <label for="street" string="Dirección"/>
-                        <div>
+	                <group string="Dirección">	                     
                             <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
                             <field name="street2" placeholder="y esquina..." style="width: 60%%"/>
-                            <field name="barrio" placeholder="Barrio" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
-                            <field name="numero_de_puerta" placeholder="Numero de puerta" style="width: 60%%"/>
-                            <field name="numero_de_apto" placeholder="Numero de Apartamento" style="width: 60%%"/>
-
-                            <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/> 
-                        </div>
-
-                        <label for="city" string="Ciudad/Departamento" style="color:red"/>
-                        <div>
-                            <div class="address_format">
-                                <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
-                                <field name="state_id" class="oe_no_button" placeholder="Departamento" style="width: 20%%;" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
-                                <field name="zip" placeholder="Código postal" style="width: 19%%"/>
-                            </div>
-                        </div>
-
-                        <label for="country_id" string="País" style="color:red"/>
-                        <div>
+                            <field name="barrio" placeholder="Zona" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
+                            <field name="numero_de_puerta" placeholder="Nº de puerta" style="width: 60%%"/>
+                            <field name="numero_de_apto" placeholder="numero_de_apto" style="width: 60%%"/>
+                            <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/>
+                            <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
+                            <field name="state_id" class="oe_no_button" placeholder="Departamento" style="width: 20%%;" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                            <field name="zip" placeholder="Código postal" style="width: 19%%"/>
                             <field name="country_id" placeholder="País" class="oe_no_button" options='{"no_open": True}' style="width: 20%%;"/>
-                        </div>
-
-                        <label for="ubicacion" string="Ubicación" />
-                        <div>
                             <field name="ubicacion" placeholder="Como llegar..." />
-                        </div>
-
-                        <label for="googleLocation" string="Localización Google" />
-                        <div>
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
-                        </div>
 	                </group>
 	            </page>
 
-	        	<page string="Dimensiones" attrs="{'invisible': [('is_rural','=', True)]}"> 
+	        	<page string="Metraje" attrs="{'invisible': [('is_rural','=', True)]}"> 
                     <group col="4">
                         <label for="supTotal" style="color:red" />
                         <field name="supTotal" nolabel="1"/>
@@ -129,6 +108,10 @@
                         <field name="largo" nolabel="1" />
                         <label for="ancho" style="color:red" />
                         <field name="ancho" nolabel="1" />
+                        <label for="superficie_terraza" style="color:red" />
+                        <field name="superficie_terraza" nolabel="1" />
+                        <label for="metraje_fondo" style="color:red" />
+                        <field name="metraje_fondo" nolabel="1" />
                     </group>
 	     		</page>
 
@@ -205,9 +188,8 @@
 	            </page>
 
 	            <page string="Documentación">
-	                <group>
-	                    <field name="documentacion" />
-	                    <field name="escribano" placeholder="Nombre del escribano..." style="width: 300px " />
+	                <group string="Observaciones">
+	                    <field name="obs_documentacion" nolabel="1"/>
 	                </group>        
 				</page>
 		        
@@ -217,6 +199,9 @@
                         <field name="moneda_tasacion" nolabel="0" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"/>
                         <field name="importe_tasacion" nolabel="0" style="width: 15%% " />
                         <field name="tasado_por" nolabel="0" style="width: 20%% " />
+                    </group>
+                    <group string="Observaciones">                        
+                        <field name="obs_tasacion" nolabel="1"/>
                     </group>
                 </page>
               
@@ -358,7 +343,7 @@
 	                </group>
                  </page>            
 
-				<page string="Atendido por" >
+				<page string="Clientes interesados" > <!--ESTO SE RESUELVE CON UN ONE2MANY A RES.PARTNER Y AHI LE METO LO QUE QUIERO-->
 	                <field name="users_ids" >
                         <tree string="Nombre">
                             <field name="name" />
@@ -442,13 +427,16 @@
 
                 <page string="Histórico">
                     <group col="4" colspan="2">
-                        <field name="create_date" style="width: 60%%"/>
+                        <field name="date" placeholder="Fecha de ingreso" />
                         <field name="write_date" style="width: 60%%"/>
-                    </group>
-                    <group col="4" colspan="2">
+                        <field name="ingresado_por" style="width: 60%%" placeholder="Selecione el usuario" />
                         <field name="create_uid" style="width: 60%%"/>
-                        <field name="write_uid" style="width: 60%%"/>                
-                    </group>                    
+                        <field name="write_uid" style="width: 60%%"/>
+                        <field name="fechaContacto" placeholder="Fecha de Contacto" />
+                    </group>
+                     <group string="Observaciones">
+                        <field name="message_obs" nolabel="1"/>
+                    </group>              
                     <field name="message_ids" colspan="4" nolabel="1" mode="tree" readonly="1">
                         <tree string="Historia">
                             <field name="display_text" string="Informacion Historica"/>
