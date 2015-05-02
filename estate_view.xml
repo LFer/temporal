@@ -344,6 +344,9 @@
                  </page>            
 
 				<page string="Clientes interesados" > <!--ESTO SE RESUELVE CON UN ONE2MANY A RES.PARTNER Y AHI LE METO LO QUE QUIERO-->
+                    <group>
+                        <field name="atendido_por" style="width: 30%%"/>
+                    </group>
 	                <field name="users_ids" >
                         <tree string="Nombre">
                             <field name="name" />

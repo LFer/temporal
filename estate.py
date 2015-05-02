@@ -252,7 +252,7 @@ class estate(osv.osv):
         'publicado': fields.boolean('Publicar en la Web'),
         
         'active': fields.boolean('Activo'),
-
+        'atendido_por':fields.many2one('res.users', 'Atendido por'),
         #Pestaña historico
         'message_ids': fields.one2many('mail.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
         'message_obs':fields.text('Observaciones'),
