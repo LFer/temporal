@@ -469,6 +469,13 @@
                     </field>
                 </page>
 
+                <page string="Propietario" >
+                    <group>
+                        <field name="partner_id" style="width: 40%%"/>
+                    </group>
+    
+                </page>
+
             </notebook>	                     
             </sheet>
             <label for="texto_rojo" style="color: red; margin-left: 105px;"/>
@@ -476,6 +483,8 @@
             </form>
         </field>
     </record>
+
+    
 
 	<record id="view_crm_mach" model="ir.ui.view"> 
 		<field name="name">new.tree</field>
