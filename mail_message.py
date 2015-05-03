@@ -17,7 +17,7 @@ def format_date_tz(date, tz=None):
 
 
 class mail_message(osv.osv):
-   
+
     def _get_display_text(self, cr, uid, ids, name, arg, context=None):
         if context is None:
             context = {}
@@ -25,7 +25,7 @@ class mail_message(osv.osv):
         result = {}
         _logger.info('!!!!!porqueeeeee****'+str(ids))
         # Read message as UID 1 to allow viewing author even if from different company
-        
+
         for message in self.browse(cr, SUPERUSER_ID, ids):
             msg_txt = ''
             if message.email_from:
@@ -33,18 +33,18 @@ class mail_message(osv.osv):
                 if message.body:
                     msg_txt += truncate_text(message.body)
             else:
-                
+
                 #msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':\n\t'
                 #msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':\n\t'
                 msg_txt = (message.author_id.name or '/') + _(' en ') + format_date_tz(message.date, tz) + ':' + (message.subject or '') + '\n\t'
             result[message.id] = msg_txt
-        
+
         return result
 
     _name = "mail.message"
     _inherit = "mail.message"
-    
+
     _columns = {
-        'display_text': fields.function(_get_display_text, method=True, type='text', size="512", string='Display Text'),        
+        'display_text': fields.function(_get_display_text, method=True, type='text', size="512", string='Display Text'),
     }
 mail_message()

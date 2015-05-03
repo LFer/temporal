@@ -57,7 +57,7 @@ class estate(osv.osv):
         for id in ids:
             result[id] = self.pool.get('mail.message').search(cr, uid, [('subtype_id','=',1),('model','=','estate'), ('res_id', '=',id)])
         return result
-        
+
     def _get_webUrl(self, cr, uid, ids, name, args, context=None):
 
         result = {}
@@ -73,7 +73,7 @@ class estate(osv.osv):
         result = {}
         for obj in self.browse(cr, uid, ids, context=context):
             result[obj.id] = "http://79.143.191.243:8000/verImagenes.php?nro=" + obj.number
-        return result        
+        return result
 
     def button_estate_match(self, cr, uid, ids, context=None, *args):
         view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dtm_inmobiliaria', 'view_crm_leads_macheo_tree')
@@ -88,10 +88,10 @@ class estate(osv.osv):
         obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
         ctx = (context or {}).copy()
         objIds = self.pool.get('crm.lead').search(cr,uid,[('ose','=',True),('city','=','Salto')],context=context)
-        objOport = self.pool.get('crm.lead').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las oportunidades 
+        objOport = self.pool.get('crm.lead').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las oportunidades
         oportunidades = objIds[:]
         # import pdb; pdb.set_trace()
-        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una
         # las oportnuidades que no cumplen con las características especificadas en la lista de características.
         for unaOP in objOport:    # Recorro las oportunidades
             min_score = 0.0
@@ -103,12 +103,12 @@ class estate(osv.osv):
                 if obj[p] == unaOP[p]:    #Compara la caracteristica del objeto actual con la carac del pedido.
                     machea += 1
             porcent = (machea*100)/min_score
-            
-            self.pool.get('crm.lead').write(cr,uid,unaOP['id'],{'score': porcent},context=context) 
-            
+
+            self.pool.get('crm.lead').write(cr,uid,unaOP['id'],{'score': porcent},context=context)
+
             if (machea < ((min_score/2)+1)):    # Si el macheo es menor a la mitad mas 1, entonces lo quita de la lista.
                 oportunidades.remove(unaOP['id'])    # Quita las id que no cumplan.
-                
+
         return {
             'domain': "[('id','in',["+','.join(map(str, oportunidades))+"])]",
             'type': 'ir.actions.act_window',
@@ -122,9 +122,9 @@ class estate(osv.osv):
             'nodestroy': True,
             'context':ctx,
         }
-        
 
-    """  
+
+    """
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
@@ -135,7 +135,7 @@ class estate(osv.osv):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
         return datas
-        
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Descripción', size=256, required=True),
@@ -160,7 +160,7 @@ class estate(osv.osv):
         'neighborhood': fields.char('Barrio', size=128),
         'state_id': fields.many2one("res.country.state", 'Departamento'),
         'country_id': fields.many2one('res.country', 'País'),
-        'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),    
+        'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),
         'barrio': fields.char('Zona', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
@@ -269,21 +269,21 @@ class estate(osv.osv):
         'modificado': fields.boolean('Modificado'),
         'googleLocation': fields.char('Localización de Google Maps', size=512),
         #pais, estado, ciudad, calle y número
-        #'images': fields.function(_get_attach, type="binary"),        
+        #'images': fields.function(_get_attach, type="binary"),
         'attachments': fields.one2many('ir.attachment', 'res_id', 'Archivos'),
         #'attachments_email': fields.function(_attach_email, type="binary"),
         #'attachments_satelital': fields.function(_attach_satelital, type="binary"),
         'suelosConeat': fields.text('Descripción de grupos de suelos CONEAT'),
-        'emails': fields.function(get_emails, string="e-mail", relation='mail.message',method=True,type='one2many'),  
+        'emails': fields.function(get_emails, string="e-mail", relation='mail.message',method=True,type='one2many'),
         'fechaContacto': fields.date('Fecha de Contacto', select=1), #TODO se va a historico
-        'webUrl': fields.function(_get_webUrl),  
-        'webProp': fields.function(_get_CodProp), 
+        'webUrl': fields.function(_get_webUrl),
+        'webProp': fields.function(_get_CodProp),
         #'duplicados': fields.char('Duplicados',50),
         'reservado':fields.boolean('Reservado'),
         'destacados': fields.boolean('Destacado'),
         'ubicacion': fields.text('Ubicación'),
         'comodidades': fields.text('Comodidades'),
-        'orientacion':fields.char('Orientación'),        
+        'orientacion':fields.char('Orientación'),
         'ubica':fields.char('Ubicación'),
         'calor':fields.char('Calefacción'),
         'tel':fields.boolean('Teléfono'),
@@ -293,7 +293,7 @@ class estate(osv.osv):
         'produccion': fields.boolean('Producción'), #ya existe
         'placard':fields.boolean('Placard'),
         'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
-        'alquiler_hasta':fields.date('Hasta'),        
+        'alquiler_hasta':fields.date('Hasta'),
         #Descripcion Interior
         'social':fields.boolean('Baño social'),
         'jacuzzi':fields.boolean('Jacuzzi'),
@@ -331,11 +331,11 @@ class estate(osv.osv):
         #Descripcion General
         'padron':fields.char(u'N° de padrón'),
         'year':fields.char('Año de Construcción', size=4),
-        'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),  
+        'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),
         'select_ubicacion':fields.selection((('F','Frente'),('C','Contrafrente'),('I','Interior'),('L','Lateral'),('P','Penthouse')),u'Ubicación'),
         'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado')),u'Estado'),
         #Ambientes/Dormitorios
-        'cantidadDormitorios':fields.char('Cantidad de dormitorios'), 
+        'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
         'nAmbientes':fields.char('Cantidad de ambientes'),
         'suite':fields.char('Dormitorios en suite'),
         'DormitorioPlacard':fields.char('Dormitorios con placard'),
@@ -401,7 +401,7 @@ class estate(osv.osv):
         'salon_comunal':fields.boolean(u'Salón Comunal'),
         #Comodidades del edificio
         'ascensor':fields.boolean('Ascensor'),
-        'porteria':fields.boolean('Porteria'), 
+        'porteria':fields.boolean('Porteria'),
         'porteria_2':fields.boolean('Portero eléctrico'),
         'lavanderia':fields.boolean(u'Lavandería'),
         'vigilancia':fields.boolean('Vigilancia'),
@@ -414,7 +414,7 @@ class estate(osv.osv):
         #Pestaña Direccion
         'edificio':fields.char('Edificio'),
     }
-    
+
     def _attach_email(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('email','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
@@ -440,34 +440,34 @@ class estate(osv.osv):
             image = tools.image_colorize(image)
 
         return tools.image_resize_image_big(image.encode('base64'))
-    
+
     _defaults = {
         'active': True,
         'category_id': _default_category,
         'is_rural': False,
         'image': False,
-        'state': 'creando',        
+        'state': 'creando',
         'currency': 3,
         'moneda_tasacion': 3,
         'currency_alquiler': 3,
-        'currency_venta': 3,        
-    }   
-        
+        'currency_venta': 3,
+    }
+
     def action_calcular_precio_hectarea(self, cr, uid, ids, *args):
         total = 0
-        your_class_records = self.browse(cr, uid, ids)    
-        for record in your_class_records:        
+        your_class_records = self.browse(cr, uid, ids)
+        for record in your_class_records:
             total += record.precioTotalLiquidoComIncl / record.superficie
             self.write(cr, uid, ids, {'precioXHaComIncl': round(total)})
             #res[record.id] = {'value':{'precioXHaComIncl':total}}
         return True
-        
+
     def action_estado_alquilado(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a alquilado'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -484,9 +484,9 @@ class estate(osv.osv):
     def action_estado_enAlquiler(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a en alquiler'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -498,14 +498,14 @@ class estate(osv.osv):
             }, context=context)
 
         self.write(cr, uid, ids, {'state': 'enalquiler', 'active': True,'fechaAlquiler': None})
-        return True    
-   
+        return True
+
     def action_estado_ventAlquiler(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a en venta y alquiler'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -517,14 +517,14 @@ class estate(osv.osv):
             }, context=context)
 
         self.write(cr, uid, ids, {'state': 'ventAlquiler', 'active': True,'fechaAlquiler': None})
-        return True    
-        
+        return True
+
     def action_estado_vendido(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a vendido'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -541,9 +541,9 @@ class estate(osv.osv):
     def action_estado_enVenta(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a en venta'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -555,14 +555,14 @@ class estate(osv.osv):
             }, context=context)
 
         self.write(cr, uid, ids, {'state': 'enventa', 'active': True,'fechaVenta': None})
-        return True    
+        return True
 
     def action_estado_desactivado(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a desactivado'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -574,14 +574,14 @@ class estate(osv.osv):
             }, context=context)
 
         self.write(cr, uid, ids, {'active': False})
-        return True    
+        return True
 
     def action_estado_activado(self, cr, uid, ids, values, context=None):
         subject = 'Cambio de estado a activado'
         cr.execute("""  select partner_id from res_users where id = %s""",
-                    (uid,))                      
-        cli = cr.fetchone()[0]        
-        
+                    (uid,))
+        cli = cr.fetchone()[0]
+
         message = self.pool.get('mail.message')
         message.create(cr, uid, {
                 'res_id': ids[0],
@@ -593,7 +593,7 @@ class estate(osv.osv):
             }, context=context)
 
         self.write(cr, uid, ids, {'active': True})
-        return True    
+        return True
 
     def onchange_state(self, cr, uid, ids, state_id, context=None):
         if state_id:
@@ -614,7 +614,7 @@ class estate(osv.osv):
         try:
             compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
-            compose_form_id = False 
+            compose_form_id = False
         ctx = dict(context)
         ctx.update({
             'default_model': 'estate',
@@ -646,12 +646,12 @@ class estate(osv.osv):
                 x = len(ids)
             except Exception:
                 esArray = False
-               
+
             if esArray:
                 subject = 'Modificado'
 
                 cr.execute("""  select partner_id from res_users where id = %s""",
-                            (context.get('uid'),))                      
+                            (context.get('uid'),))
                 cli = cr.fetchone()[0]
                 #if message.type != "notification":
                 message = self.pool.get('mail.message')
@@ -662,23 +662,23 @@ class estate(osv.osv):
                         'model': self._name,
                         'subject' : subject,
                         'body': values
-                    }, context=context)       
+                    }, context=context)
 
         return super(estate, self).write(cr, uid, ids, values, context=context)
-        
+
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
         if category_id:
             numero=""
             lista=category_id[0][2]
             largo =len(lista)
-            if largo > 0:  
+            if largo > 0:
                 # return {'value':{'number':codigo, 'codigo':codigo},}
                 cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
-                    (lista[0],))           
-                nomcat = cr.fetchone()[0]               
+                    (lista[0],))
+                nomcat = cr.fetchone()[0]
                 numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero == False:
-                
+
                     tiposec = self.pool.get('ir.sequence.type').create(cr, uid,{
                         'create_uid' : uid,
                         'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
@@ -686,42 +686,42 @@ class estate(osv.osv):
                         'write_uid' : uid,
                         'code' : nomcat,
                         'name' : nomcat,
-                    }) 
+                    })
                     if tiposec:
-                        
+
                         nomaux = nomcat[:1]
                         self.pool.get('ir.sequence').create(cr, uid,{
                             'create_uid' : uid,
                             'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'write_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'code' : nomcat,
-                            'name' : nomcat,                            
+                            'name' : nomcat,
                             'number_next' : 1,
                             'implementation' : 'standard',
                             'padding' : '0',
                             'number_increment' : 1,
                             'suffix' : '-'+nomaux+'V',
-                        }) 
-                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)  
+                        })
+                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero:
-                    i = string.index(numero, '-')               
+                    i = string.index(numero, '-')
                     numaux = numero[:i]
                     numaux = numaux.strip()
                     sufix = numero[i:]
                     numero = numaux.zfill(4) + sufix
-        return {'value':{'number':numero},}        
-    
+        return {'value':{'number':numero},}
+
 estate()
 
 class observations(osv.osv):
     _name = "observations"
-    
+
     _columns = {
         'estate_id':fields.integer('estate_id'),
         'notes': fields.text('Comentarios'),
         'observador': fields.many2one('res.partner', 'Usuario'),
         'obs_date': fields.datetime('Fecha de observación'),
-    }    
+    }
 observations()
 
 class expenses(osv.osv):
@@ -732,11 +732,11 @@ class expenses(osv.osv):
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
         }
-        
+
     _defaults = {
         'currency': 3,
-    }      
-    
+    }
+
 expenses()
 
 class temporada(osv.osv):
@@ -754,7 +754,7 @@ class temporada(osv.osv):
         'result':fields.char('C/dias alquilados'),
         'costo_alquiler':fields.char('Costo'),
     }
-    
+
     def get_number_of_days(self, cr, uid, ids, fecha_inicio, fecha_fin, rent_day, context=None):
         res=0
         if (fecha_fin and fecha_inicio) and (fecha_inicio <= fecha_fin):
@@ -773,7 +773,7 @@ class temporada(osv.osv):
         'currency_al': 3,
         'rent_price' : 10,
         'rent_day' : 10,
-    }   
+    }
 
 temporada()
 
@@ -789,12 +789,12 @@ class historial(osv.osv):
     _defaults = {
     'usuario_2': lambda obj, cr, uid, context: uid,
     'fecha_cambio': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S')
-    
+
     }
-    
+
 
 historial()
-       
+
 class interesados(osv.osv):
     _name = "interesados"
     _columns = {
@@ -802,7 +802,7 @@ class interesados(osv.osv):
         'cliente_id':fields.many2one('res.partner', 'Nombre'),
         'atendido_por':fields.many2one('res.users', 'Atendido por'),
         'telefono':fields.char(u'Teléfono'),
-    }    
+    }
 interesados()
 
 class compartidocolegas(osv.osv):
@@ -813,7 +813,7 @@ class compartidocolegas(osv.osv):
         'cliente_id':fields.many2one('res.partner', 'Nombre'),
         'telefono':fields.char(u'Teléfono'),
         'mail':fields.char('Mail'),
-    }  
+    }
 compartidocolegas()
 
 
@@ -822,5 +822,5 @@ class calefacion(osv.osv):
     _name = "calefacion"
     _columns = {
         'name':fields.char(u'Calefacción'),
-    }  
+    }
 calefacion()

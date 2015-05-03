@@ -6,7 +6,6 @@ from lxml import etree
 import math
 import pytz
 import re
-
 from openerp.addons.base_status.base_stage import base_stage
 import crm
 #from datetime import datetime
@@ -14,13 +13,11 @@ from openerp.osv import fields, osv
 #import time
 from openerp import tools
 from openerp.tools.translate import _
-
 from base.res.res_partner import format_address
 import logging
 _logger = logging.getLogger(__name__)
 
 class crm_lead(base_stage, format_address, osv.osv):
-
     _name = "crm.lead"
     _inherit = ['crm.lead']
 
@@ -37,10 +34,10 @@ class crm_lead(base_stage, format_address, osv.osv):
         obj = self.browse(cr,uid,ids,context)[0]    # Obtener el objeto actual
         ctx = (context or {}).copy()
         objIds = self.pool.get('estate').search(cr,uid,[('ose','=',True),('city','=','Salto')],context=context)
-        objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades 
+        objOport = self.pool.get('estate').read(cr,uid,objIds,fields=caracteristicas,context=context)    # Obtener todas las propiedades
         oportunidades = objIds[:]
         #import pdb; pdb.set_trace()
-        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una 
+        # La idea de este for es de tener las oportunidades en una lista para luego ir sacando una por una
         # las oportnuidades que no cumplen con las características especificadas en la lista de características.
         for unaOP in objOport:    # Recorro las oportunidades
             min_score = 0.0
@@ -54,7 +51,7 @@ class crm_lead(base_stage, format_address, osv.osv):
             # Actualizar score.
             porcent = (machea*100)/min_score
             #unaOP['score'].append("porcent")
-            #unaOP['score'].append("%")      
+            #unaOP['score'].append("%")
             self.pool.get('estate').write(cr,uid,unaOP['id'],{'score': porcent},context=context)
 
             if (machea < ((min_score/2)+1)):    # Si machea
@@ -75,7 +72,6 @@ class crm_lead(base_stage, format_address, osv.osv):
         }
 
     _columns = {
-
         'number': fields.char('Código', size=64, required=True),
         'city': fields.char('Ciudad', size=128),
         'state_id': fields.many2one("res.country.state", 'Departamento'),
@@ -90,7 +86,7 @@ class crm_lead(base_stage, format_address, osv.osv):
         'comodidades': fields.text('Comodidades'),
         'documentacion': fields.text('Documentación'),
         'price': fields.float('Precio', size=240),
-        'conditions': fields.text('Condiciones'),        
+        'conditions': fields.text('Condiciones'),
         'notes': fields.text('Comentarios'),
         'superficie': fields.float('Superficie'),
         'supForestada': fields.float('Sup. Forestada'),
@@ -132,7 +128,7 @@ class crm_lead(base_stage, format_address, osv.osv):
         'comodidades': fields.text('Comodidades'),
         'padron':fields.char('Número de padrón'),
         'year':fields.char('Año de Construcción'),
-        'orientacion':fields.char('Orientación'),        
+        'orientacion':fields.char('Orientación'),
         'ubica':fields.char('Ubicación'),
         'gastos_comun':fields.char('Gastos Comúnes'),
         'contri':fields.char('Contribucción'),
@@ -151,11 +147,11 @@ class crm_lead(base_stage, format_address, osv.osv):
         'placard':fields.boolean('Placard'),
         'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
         'alquiler_hasta':fields.date('Hasta'),
-        
+
         #Descripcion Interior
-        'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
+        'nAmbientes':fields.char('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES
         'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
-        'suite':fields.boolean('Habitación en suite'), 
+        'suite':fields.boolean('Habitación en suite'),
         'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
         'toilet':fields.boolean('Toilets'),
         'bath':fields.boolean('Baño de servicio'),
@@ -173,7 +169,7 @@ class crm_lead(base_stage, format_address, osv.osv):
         'ute': fields.boolean('UTE'),
         'ose': fields.boolean('OSE'),
         'agua_caliente':fields.boolean('Agua caliente'),
-  
+
         #Descripcion Exterior
         'baulera':fields.boolean('Baulera'),
         'fondo':fields.boolean('Fondo'),
@@ -215,7 +211,7 @@ class crm_lead(base_stage, format_address, osv.osv):
             numero=""
             lista=category_id[0][2]
             largo =len(lista)
-            if largo > 0:  
+            if largo > 0:
                 # return {'value':{'number':codigo, 'codigo':codigo},}
                 sql = "INSERT INTO crm_case_categ (id, create_uid,create_date,write_date,write_uid,name,object_id,section_id) "\
                 "SELECT "+str(lista[0])+",1,'2013-03-21 15:03:27.425356','2013-03-21 15:03:27.425356',1,'prueba',160,1 "\
@@ -224,7 +220,7 @@ class crm_lead(base_stage, format_address, osv.osv):
                 " SELECT id FROM crm_case_categ WHERE id = "+str(lista[0])+")"
                 cr.execute(sql)
                 cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
-                    (lista[0],))           
+                    (lista[0],))
                 nomcat = cr.fetchone()[0]+'-OP'
                 numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero == False:
@@ -235,21 +231,21 @@ class crm_lead(base_stage, format_address, osv.osv):
                         'write_uid' : uid,
                         'code' : nomcat,
                         'name' : nomcat,
-                    }) 
+                    })
                     if tiposec:
                         self.pool.get('ir.sequence').create(cr, uid,{
                             'create_uid' : uid,
                             'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'write_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'code' : nomcat,
-                            'name' : nomcat,                            
+                            'name' : nomcat,
                             'number_next' : 1,
                             'implementation' : 'standard',
                             'padding' : '0',
                             'number_increment' : 1,
-                        }) 
-                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)  
-                        
-        return {'value':{'number':numero},}        
+                        })
+                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
+
+        return {'value':{'number':numero},}
 
 crm_lead()

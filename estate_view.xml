@@ -22,14 +22,14 @@
                     <button name="button_estate_match" type="object" string="Buscar pedidos" class="oe_highlight"/>
                 </xpath>
                 <field name="state" widget="statusbar" statusbar_visible="creando,enalquiler,alquilado,enventa,ventAlquiler,vendido" statusbar_colors='{"vendido":"blue"}'/>
-            </header> 
+            </header>
             <sheet>
                	<field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
                 <div class="oe_title">
                     <div>
 		                <div >
-		                    <label for="name" style="color:red" /> 
-		                    <field name="is_rural" invisible="1" class="oe_inline"/> 
+		                    <label for="name" style="color:red" />
+		                    <field name="is_rural" invisible="1" class="oe_inline"/>
 		                    <field name="alquiler" invisible="1" class="oe_inline"/>
 		                </div>
 		            </div>
@@ -43,7 +43,7 @@
                         <field name="categoria" style="width: 40%%" />
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
-                        <!--field name="duplicados" placeholder="Duplicados" /-->  
+                        <!--field name="duplicados" placeholder="Duplicados" /-->
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
                         <!--field name="partner_id" placeholder="Nombre del cliente..."/> TODO VA A UNA PESTAÑA NUEVA-->
@@ -56,16 +56,16 @@
                     <field name="active" attrs="{'invisible': [('state','=', 'vendido')]}"/>
                     <field name="webUrl" widget="url" attrs="{'invisible': [('publicado','=', False)]}"/>
                     <!--<field name="webProp" widget="url"/>-->
-                    
+
                 </div>
                 <div attrs="{'invisible': [('is_rural','=', False)]}" align="right" >
-                
+
                     <a target="_new" href="http://www.prenader.gub.uy/coneat/viewer.htm?Title=CONEAT Digital">www.prenader.gub.uy</a>
                     <br></br>
                     <a target="_new" href="http://www.catastro.gub.uy">www.catastro.gub.uy</a>
                     <br></br>
-                    <a target="_new" href="http://www.sapucai.com/campos/">www.sapucai.com</a>  
-                    <br></br>                    
+                    <a target="_new" href="http://www.sapucai.com/campos/">www.sapucai.com</a>
+                    <br></br>
                 </div>
                 <group attrs="{'invisible': [('is_rural','=', False)]}">
                 	<group col="8">
@@ -79,10 +79,10 @@
                     	<!--<field name="autWeb"  />-->
                     </group>
                 </group>
-	
+
                 <notebook colspan="4">
-                <page string="Dirección">            
-	                <group string="Dirección">	                     
+                <page string="Dirección">
+	                <group string="Dirección">
                             <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
                             <field name="street2" placeholder="y esquina..." style="width: 60%%"/>
                             <field name="barrio" placeholder="Zona" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
@@ -99,7 +99,7 @@
 	                </group>
 	            </page>
 
-	        	<page string="Metraje" attrs="{'invisible': [('is_rural','=', True)]}"> 
+	        	<page string="Metraje" attrs="{'invisible': [('is_rural','=', True)]}">
                     <group col="4">
                         <label for="supTotal" style="color:red" />
                         <field name="supTotal" nolabel="1"/>
@@ -174,7 +174,7 @@
                         <group>
                             <field name="autos2"/>
                             <field name="autos" style="width: 1%%"/>
-                        </group>     
+                        </group>
                         </group>
                         <group>
                             <field name="box"/>
@@ -186,7 +186,7 @@
                         <field name="telefono"/>
                         <field name="cable"/>
                         <field name="internet"/>
-                        <field name="alarma"/>                        
+                        <field name="alarma"/>
                     </group>
                     <group string="Equipamiento">
                         <field name="amueblado"/>
@@ -219,9 +219,9 @@
 	            <page string="Documentación">
 	                <group string="Observaciones">
 	                    <field name="obs_documentacion" nolabel="1"/>
-	                </group>        
+	                </group>
 				</page>
-		        
+
                 <page string="Tasación">
                     <group>
                         <field name="fecha_tasacion" nolabel="0" style="width: 17%%" />
@@ -229,16 +229,16 @@
                         <field name="importe_tasacion" nolabel="0" style="width: 15%% " />
                         <field name="tasado_por" nolabel="0" style="width: 20%% " />
                     </group>
-                    <group string="Observaciones">                        
+                    <group string="Observaciones">
                         <field name="obs_tasacion" nolabel="1"/>
                     </group>
                 </page>
-              
-		        <page string="Precio" >                    
+
+		        <page string="Precio" >
                     <group  attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enalquiler'] ) ] }" >
                         <h3>
                             <label for="currency_venta" style="color:red"/>
-                    	    <field name="currency_venta" class="oe_inline"  style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />                   	
+                    	    <field name="currency_venta" class="oe_inline"  style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />
                             <label for="price_venta"  style="color:red" />
                             <field name="price_venta" class="oe_inline" widget='monetary' nolabel="1"  />
                         </h3>
@@ -263,32 +263,32 @@
 	            </page>
 
                 <page string="Alquiler por temporada" attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enventa' ] ) ] }" >
-                    <field name="temporada_ids" widget="one2many_list" mode="tree">                
-                        <tree string="Alquiler por temporada" editable="bottom">                
+                    <field name="temporada_ids" widget="one2many_list" mode="tree">
+                        <tree string="Alquiler por temporada" editable="bottom">
                             <field name="cliente_1"/>
-                            <field name="usuario_1"/>        
-                            <field name="currency_al" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />        
-                            <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />      
-                            <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />        
+                            <field name="usuario_1"/>
+                            <field name="currency_al" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" />
+                            <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />
+                            <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" />
                             <field name="rent_day"/>
-                            <field name="rent_price"/>    
-                            <field name="result"/>        
-                            <field name="costo_alquiler"/>      
-                            <field name="pago_1"/>                     
+                            <field name="rent_price"/>
+                            <field name="result"/>
+                            <field name="costo_alquiler"/>
+                            <field name="pago_1"/>
                         </tree>
                     </field>
                 </page>
-				
+
 				<page string="Personas relacionadas" >
 	                <field name="personas_ids" >
                         <tree string="Nombre">
-                            <field name="name" />                            
-                            <field name="category_id" />                            
+                            <field name="name" />
+                            <field name="category_id" />
                         </tree>
                     </field>
-				</page>				
+				</page>
 
-				<page string="Comodidades" attrs="{'invisible': [('is_rural','=', False)]}">					
+				<page string="Comodidades" attrs="{'invisible': [('is_rural','=', False)]}">
 	                <group col="4" >
                         <label for="casaPrincipal" style="color:red" />
                 		<field name="casaPrincipal" nolabel="1" />
@@ -315,11 +315,11 @@
 	                    <field name="cepo" nolabel="1" />
 	                    <label for="otras" style="color:red" />
 	                    <field name="otras" nolabel="1" />
-	                </group>  
+	                </group>
 				</page>
-				
+
 				<page string="Mejoras" attrs="{'invisible': [('is_rural','=', False)]}">
-	                <group col="4" >	
+	                <group col="4" >
 	                    <label for="mejoras" style="color:red" />
 	                    <field name="mejoras" nolabel="1" />
 	                    <label for="alambrados" style="color:red" />
@@ -327,18 +327,18 @@
 	                    <label for="aguadas" style="color:red" />
 	                    <field name="aguadas" nolabel="1" />
 	                    <label for="tajamares" style="color:red" />
-	                    <field name="tajamares" nolabel="1" />	                    
-	                    <field name="centros" />	                	    		
-	                </group>  
+	                    <field name="tajamares" nolabel="1" />
+	                    <field name="centros" />
+	                </group>
 				</page>
- 				
+
 				<page string="Encargado" attrs="{'invisible': [('is_rural','=', False)]}">
 	                <group col="4">
 	                    <field name="encargado" string="Nombre" />
                     	<field name="encargadoCelular" />
-	                </group>  
+	                </group>
 				</page>
-				
+
 				<page string="Contribuciones" attrs="{'invisible': [('is_rural','=', False)]}">
                 	<group col="4">
                 		<field name="contInm"  />
@@ -348,9 +348,9 @@
 	                    <field name="deudas" />
 	                    <field name="suc"  />
 	                    <field name="planos"  />
-                    </group>	
+                    </group>
 				</page>
-	    		
+
 	    		<page string="Observaciones">
                     <field name="observations_ids" widget='one2many' mode="tree" >
 						<tree string="Observaciónes" editable="bottom" >
@@ -369,13 +369,13 @@
 							    <field name="price" style="width: 17%%"/>
 						</tree>
 					</field>
-                </page>                
+                </page>
 
 	    		<page string="CONEAT" attrs="{'invisible': [('is_rural','=', False)]}">
 	                <group>
 	                    <field name="suelosConeat" />
 	                </group>
-                 </page>            
+                 </page>
 
 				<page string="Clientes interesados" >
                     <group>
@@ -387,7 +387,7 @@
                             <field name="phone" />
                             <field name="mobile" />
                         </tree>
-                    </field>	                				
+                    </field>
 				</page>
 
                  <!--page string="Clientes interesados a">
@@ -409,7 +409,7 @@
                             <field name="street" />
                             <field name="website" />
                         </tree>
-                    </field>	                				
+                    </field>
 				</page-->
 
                  <page string="Compartido a Colegas">
@@ -430,9 +430,9 @@
                             <field name="partner_id" />
                             <field name="notes" />
                         </tree>
-                    </field>	                
+                    </field>
 				</page>
-                
+
 				<page string="Archivos adjuntos" >
                     <field name="attachments" colspan="4" nolabel="1" mode="tree" >
 				        <form string="Archivo" version="7.0">
@@ -440,15 +440,15 @@
 			                <group col="8">
 								<group col="4">
 				                    <field name="name" string="Nombre del documento adjunto" />
-								</group>			                
+								</group>
 								<group col="4">
 							        <field name="web" string="Web"/>
 							        <field name="email" string="EMail-Ficha"/>
 							        <field name="sequence" string="Secuencia" />
-								</group>			                
+								</group>
 							</group>
 			            </form>
-                        
+
                         <tree string="Archivos" toolbar="0" create="0" delete="0">
                             <field name="name" attrs="{'readonly': True}" />
                             <field name="type" attrs="{'readonly': True}" />
@@ -457,14 +457,14 @@
                             <field name="satelital" />
                             <field name="sequence" />
                         </tree>
-                    </field>	                
-				
+                    </field>
+
 				</page>
                 <page string="EMails" >
                     <field name="emails" readonly="1" >
                         <form string="EMail" version="7.0">
                             <group>
-                                <field name="date" />                         
+                                <field name="date" />
                                 <field name="author_id" />
                                 <label for="partner_ids" string="Destinatarios"/>
                                 <div groups="base.group_user">
@@ -476,9 +476,9 @@
                         </form>
                         <tree string="EMails" create="false" delete="false">
                             <field name="author_id" />
-                            <field name="partner_ids" />  
-                            <field name="subject" />             
-                            <field name="date" />                         
+                            <field name="partner_ids" />
+                            <field name="subject" />
+                            <field name="date" />
                         </tree>
                     </field>
                 </page>
@@ -494,7 +494,7 @@
                     </group>
                      <group string="Observaciones">
                         <field name="message_obs" nolabel="1"/>
-                    </group>              
+                    </group>
                     <field name="message_ids" colspan="4" nolabel="1" mode="tree" readonly="1">
                         <tree string="Historia">
                             <field name="display_text" string="Informacion Historica"/>
@@ -507,10 +507,10 @@
                     <group string="Datos del Propietario">
                         <field name="partner_id" style="width: 40%%"/>
                     </group>
-    
+
                 </page>
 
-            </notebook>	                     
+            </notebook>
             </sheet>
             <label for="texto_rojo" style="color: red; margin-left: 105px;"/>
             <field name="texto_rojo" nolabel="1"/>
@@ -518,9 +518,9 @@
         </field>
     </record>
 
-    
 
-	<record id="view_crm_mach" model="ir.ui.view"> 
+
+	<record id="view_crm_mach" model="ir.ui.view">
 		<field name="name">new.tree</field>
 		<field name="model">crm.lead</field>
 		<field eval="1" name="priority"/>
@@ -598,13 +598,13 @@
                 <field name="state" string="Estado" filter_domain="[('state','ilike', self)]"/>
 
                 <separator/>
-                
+
                 <filter string="En alquiler" name="type_en_alquiler" icon="terp-partner" domain="[('state','=','enalquiler')]"/>
                 <filter string="En venta" name="type_en_venta" icon="terp-partner" domain="[('state','=','enventa')]"/>
                 <filter string="En venta-alquiler" name="type_en_ventAlquiler" icon="terp-partner" domain="[('state','=','ventAlquiler')]"/>
                 <filter string="Alquilados" name="type_alquilado" icon="terp-partner" domain="[('state','=','alquilado')]"/>
-                <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>             
-                <filter string="Publicados en la Web" name="type_publicado" icon="terp-partner" domain="[('publicado','=',True)]"/>                
+                <filter string="Vendidos" name="type_vendido" icon="terp-partner" domain="[('state','=','vendido'),('active','=',False)]"/>
+                <filter string="Publicados en la Web" name="type_publicado" icon="terp-partner" domain="[('publicado','=',True)]"/>
                 <filter string="Desactivados" name="type_desactivado" icon="terp-partner" domain="[('active','=',False)]"/>
 
                 <separator/>
@@ -637,7 +637,7 @@
 			</tree>
         </field>
     </record>
-        
+
     <record id="action_estate_form" model="ir.actions.act_window">
         <field name="name">Propiedades</field>
         <field name="type">ir.actions.act_window</field>
@@ -647,7 +647,7 @@
         <field name="search_view_id" ref="view_estate_filter"/>
         <field name="filter" eval="True"/>
     </record>
-	
+
     <record id="action_estate_form_view1" model="ir.actions.act_window.view">
         <field eval="0" name="sequence"/>
         <field name="view_mode">kanban</field>
@@ -666,50 +666,50 @@
         <field name="view_id" ref="view_estate_tree"/>
         <field name="act_window_id" ref="action_estate_form"/>
     </record>
- 
+
     <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"/>
-    <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->   
+    <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->
 
 
 <!--
 ESTE TROZO IBA EN CONDICIONES DE VENTA>
-            
+
 
                         <field name="currency_al" style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" attrs="{'invisible': [('alquiler','=',False)]}"/>
                         <label for="rent_price" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="rent_price" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
                         <label for="rent_day" style="color:red" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>                        
+                        <field name="rent_day" attrs="{'invisible': [('alquiler','=', False)]}" nolabel="1"/>
                         <field name="fecha_inicio" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="result"  style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
                         <field name="fecha_fin" on_change="get_number_of_days(fecha_inicio,fecha_fin, rent_day)" style="width: 17%%" nolabel="0" attrs="{'invisible': [('alquiler','=', False)]}"/>
-                		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>                        
+                		<field name="precioXHa" attrs="{'invisible': [('is_rural','=', False)]}"/>
                 		<field name="precioTotalLiquido" attrs="{'invisible': [('is_rural','=', False)]}"/>
                 		<label for="precioXHaComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
-	                    <field name="precioXHaComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />        
+	                    <field name="precioXHaComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />
 	                    <label for="precioTotalLiquidoComIncl" style="color:red" attrs="{'invisible': [('is_rural','=', False)]}" />
                     	<field name="precioTotalLiquidoComIncl" attrs="{'invisible': [('is_rural','=', False)]}" nolabel="1" />
-                        <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>                        	            
-                        
+                        <button name="action_calcular_precio_hectarea" type="object" string="Calcular precio hectárea" class="oe_highlight" attrs="{'invisible': [('is_rural','=', False)]}"/>
+
             FILTROS
                         <filter string="Urbanos menor a U$S 50.000" name="type_filtro1" icon="terp-partner" domain="[('price','&lt;','50000')]"/>
                         <filter string="Urbanos entre U$S 50.000 y 100.000" name="type_filtro2" icon="terp-partner" domain="[('price','&gt;=','50000'),('price','&lt;','100000')]"/>
                         <filter string="Urbanos entre U$S 100.000 y U$S 300.000" name="type_filtro3" icon="terp-partner" domain="[('price','&gt;=','100000'),('price','&lt;','300000')]"/>
                         <filter string="Urbanos entre U$S 300.000 y U$S 500.000" name="type_filtro4" icon="terp-partner" domain="[('price','&gt;=','300000'),('price','&lt;','500000')]"/>
-                        <filter string="Urbanos mayor a U$S 500.000" name="type_filtro5" icon="terp-partner" domain="[('price','&gt;=','500000')]"/>                                                                                                                                                                                
+                        <filter string="Urbanos mayor a U$S 500.000" name="type_filtro5" icon="terp-partner" domain="[('price','&gt;=','500000')]"/>
 
                         <filter string="Rurales menor a U$S 50.000" name="type_filtro10" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&lt;','50000')]"/>
                         <filter string="Rurales entre U$S 50.000 y 100.000" name="type_filtro20" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','50000'),('precioTotalLiquidoComIncl','&lt;','100000')]"/>
                         <filter string="Rurales entre U$S 100.000 y U$S 300.000" name="type_filtro30" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','100000'),('precioTotalLiquidoComIncl','&lt;','300000')]"/>
                         <filter string="Rurales entre U$S 300.000 y U$S 500.000" name="type_filtro40" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','300000'),('precioTotalLiquidoComIncl','&lt;','500000')]"/>
-                        <filter string="Rurales mayor a U$S 500.000" name="type_filtro50" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','500000')]"/>                                                                                                                                                                                
-                        
+                        <filter string="Rurales mayor a U$S 500.000" name="type_filtro50" icon="terp-partner" domain="[('precioTotalLiquidoComIncl','&gt;=','500000')]"/>
+
             DETALLES DE LA KANBAN
                         <li t-if="record.city.raw_value !record.state_id.raw_value and and !record.country_id.raw_value"><field name="city"/></li>
                         <li t-if="record.state_id.raw_value and !record.country_id.raw_value"><field name="state_id"/></li>
                         <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
                         <li t-if="record.city.raw_value and record.state_id.raw_value and record.country_id.raw_value"><field name="city"/> <field name="state_id"/>, <field name="country_id"/></li>
-                        
+
             DE LA 561 A LA 566
 
                         <div class="oe_chatter">
