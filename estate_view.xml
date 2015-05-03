@@ -95,6 +95,7 @@
                             <field name="country_id" placeholder="País" class="oe_no_button" options='{"no_open": True}' style="width: 20%%;"/>
                             <field name="ubicacion" placeholder="Como llegar..." />
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
+                            <field name="edificio"/>
 	                </group>
 	            </page>
 
@@ -116,76 +117,104 @@
 	     		</page>
 
 	     		<page string="Descripción General">
-                    <group col="2">
-                        <group string="Descripción General">
-                            <field name="comodidades" nolabel="0"/>
-                            <field name="padron" nolabel="0"/>
-                            <field name="year" nolabel="0"/>
-                            <field name="orientacion" nolabel="0" style="width: 50%%"/>
-                            <field name="ubica" nolabel="0" style="width: 50%%"/>
-                            <field name="gastos_comun" nolabel="0"/>
-                            <field name="contri" nolabel="0"/>
-                            <field name="calor" nolabel="0" style="width: 50%%"/>
-                            <field name="impPrim" nolabel="0"/>
-                            <field name="ac" nolabel="0"/>
-                            <field name="calefaccion" nolabel="0"/>
-                            <field name="gas" nolabel="0"/>
-                            <field name="tel" nolabel="0"/>
-                            <field name="tv" nolabel="0"/>
-                            <field name="oficina" nolabel="0"/>
-                            <field name="garaje" nolabel="0"/>
-                            <field name="equipamiento" nolabel="0"/>
-                            <field name="produccion" nolabel="0"/>
-                            <field name="lavadero" nolabel="0"/>
-                            <field name="placard" nolabel="0"/>
-                        </group>
-                        <group string="Descripción Interior">
-                            <field name="nAmbientes"/>
-                            <field name="cantidadDormitorios" nolabel="0"/>
-                            <field name="suite" nolabel="0"/>
-                            <field name="cantidadBanios" nolabel="0"/>
-                            <field name="toilet" nolabel="0"/>
-                            <field name="bath" nolabel="0"/>
-                            <field name="social" nolabel="0"/>
-                            <field name="hidro" nolabel="0"/>
-                            <field name="jacuzzi" nolabel="0"/>
-                            <field name="escritorio" nolabel="0"/>
-                            <field name="cocina" nolabel="0"/>
-                            <field name="living" nolabel="0"/>
-                            <field name="kit" nolabel="0"/>
-                            <field name="comedor" nolabel="0"/>
-                            <field name="liv_com" nolabel="0"/>
-                            <field name="hall" nolabel="0"/>
-                            <field name="estar" nolabel="0"/>
-                            <field name="ute" nolabel="0"/>
-                            <field name="ose" nolabel="0"/>
-                            <field name="agua_caliente" nolabel="0"/>
-                        </group>
-                        <group string="Edificio o condominio">
-                            <field name="balcon" nolabel="0"/>
-                            <field name="terraza" nolabel="0"/>
-                            <field name="terraza_2" nolabel="0"/>
-                            <field name="azotea" nolabel="0"/>
-                            <field name="porteria_2" nolabel="0"/>
-                            <field name="vigilancia" nolabel="0"/>
-                            <field name="porteria" nolabel="0"/>
-                            <field name="ascensor" nolabel="0"/>
-                            <field name="piso" nolabel="0"/>
-                            <field name="internet" nolabel="0"/>
-                            <field name="sauna" nolabel="0"/>
-                            <field name="gym" nolabel="0"/>
-                            <field name="canchas" nolabel="0"/>
-                            <field name="bbq" nolabel="0"/>
-                        </group>
-                        <group string="Descripción Exterior">
-                            <field name="baulera" nolabel="0"/>
-                            <field name="fondo" nolabel="0"/>
-                            <field name="jardin" nolabel="0"/>
-                            <field name="piscina" nolabel="0"/>
-                            <field name="barbacoa" nolabel="0"/>
-                        </group>
+                    <group string="Descripción General">
+                        <field name="padron" style="width: 14%%"/>
+                        <field name="year" style="width: 14%%"/>
+                        <field name="orientacion" style="width: 14%%"/>
+                        <field name="select_ubicacion" style="width: 14%%"/>
+                        <field name="select_estado" style="width: 25%%"/>
                     </group>
-	            </page>
+                    <group string="Ambientes/Dormitorios">
+                        <field name="cantidadDormitorios" style="width: 14%%"/>
+                        <field name="nAmbientes" style="width: 14%%"/>
+                        <field name="suite" style="width: 14%%"/>
+                        <field name="DormitorioPlacard" style="width: 14%%"/>
+                        <field name="DormitorioServicio" style="width: 25%%"/>
+                    </group>
+                    <group string="Baños">
+                        <field name="cantidadBanios" style="width: 14%%"/>
+                        <field name="toilet" style="width: 14%%"/>
+                        <field name="bath" style="width: 14%%"/>
+                        <field name="hidro" style="width: 25%%"/>
+                    </group>
+                    <group string="Área Social">
+                        <field name="living"/>
+                        <field name="comedor"/>
+                        <field name="liv_com"/>
+                        <field name="estar"/>
+                        <field name="escritorio"/>
+                        <field name="hall"/>
+                        <field name="recibo"/>
+                        <field name="hogar"/>
+                    </group>
+                    <group string="Cocina">
+                        <field name="cocina"/>
+                        <field name="office_cocina"/>
+                        <field name="kit"/>
+                        <field name="comedor_diario"/>
+                    </group>
+                    <group string="Exterior">
+                        <field name="terraza"/>
+                        <field name="balcon"/>
+                        <field name="terraza_2"/>
+                        <field name="lavadero"/>
+                        <field name="azotea"/>
+                        <field name="patio"/>
+                        <field name="fondo"/>
+                        <field name="jardin"/>
+                        <field name="parrillero"/>
+                        <field name="bbq"/>
+                        <field name="deposito"/>
+                    </group>
+                    <group string="Garage">
+                        <group>
+                            <field name="garage" style="width: 1%%"/>
+                            <field name="cochera" style="width: 1%%"/>
+                        </group>
+                        <group>
+                            <field name="autos2"/>
+                            <field name="autos" style="width: 1%%"/>
+                        </group>     
+                        </group>
+                        <group>
+                            <field name="box"/>
+                        </group>
+                    <group string="Calefacción y servicios accesorios">
+                        <field name="calefaccion" style="width: 25%%"/>
+                        <field name="ac"/>
+                        <field name="gas"/>
+                        <field name="telefono"/>
+                        <field name="cable"/>
+                        <field name="internet"/>
+                        <field name="alarma"/>                        
+                    </group>
+                    <group string="Equipamiento">
+                        <field name="amueblado"/>
+                        <field name="linea_blanca"/>
+                    </group>
+                    <group string="Amenities">
+                        <field name="piscinalibre"/>
+                        <field name="piscinacubierta"/>
+                        <field name="sauna"/>
+                        <field name="sala_juegos"/>
+                        <field name="gym"/>
+                        <field name="canchas"/>
+                        <field name="parrillero2"/>
+                        <field name="bbq2"/>
+                        <field name="solarium"/>
+                        <field name="salon_comunal"/>
+                    </group>
+                    <group string="Comodidades del edificio">
+                        <field name="ascensor"/>
+                        <field name="porteria" style="width: 14%%"/>
+                        <field name="porteria_2" style="width: 14%%"/>
+                        <field name="lavanderia" style="width: 14%%"/>
+                        <field name="vigilancia" style="width: 25%%"/>
+                    </group>
+                    <group string="Comentarios">
+                        <field name="comentarios"/>
+                    </group>
+                </page>
 
 	            <page string="Documentación">
 	                <group string="Observaciones">
@@ -205,11 +234,11 @@
                     </group>
                 </page>
               
-		        <page string="Condiciones de Venta" >                    
+		        <page string="Precio" >                    
                     <group  attrs="{ 'invisible' : [ ( 'state', 'in', [ 'enalquiler'] ) ] }" >
                         <h3>
                             <label for="currency_venta" style="color:red"/>
-                    	    <field name="currency_venta" class="oe_inline"  style="width: 7%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />                   	
+                    	    <field name="currency_venta" class="oe_inline"  style="width: 17%%" domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]" nolabel="1" />                   	
                             <label for="price_venta"  style="color:red" />
                             <field name="price_venta" class="oe_inline" widget='monetary' nolabel="1"  />
                         </h3>
@@ -221,6 +250,11 @@
                             <label for="price_alquiler" style="color:red;width: 7%%" />
                             <field name="price_alquiler" class="oe_inline" widget='monetary' nolabel="1" />
                         </h3>
+                    </group>
+                    <group>
+                        <field name="gastos_comun"/>
+                        <field name="contri"/>
+                        <field name="impPrim"/>
                     </group>
                     <group>
                         <field name="conditions"/>
@@ -470,7 +504,7 @@
                 </page>
 
                 <page string="Propietario" >
-                    <group>
+                    <group string="Datos del Propietario">
                         <field name="partner_id" style="width: 40%%"/>
                     </group>
     

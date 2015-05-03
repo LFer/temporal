@@ -8,7 +8,6 @@ import math
 import pytz
 import re
 from openerp.tools.translate import _
-
 from osv import osv
 from osv import fields
 from openerp import SUPERUSER_ID
@@ -171,7 +170,6 @@ class estate(osv.osv):
         'metraje_fondo': fields.integer('Fondo'),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
-
         #Cabezal
         'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('T',u'Tasación')),u'Opereción'),
         'tipo_propiedad':fields.selection((('C','Casa'),('A','Apartamento'),('L','Local'),('O','Oficina'),('G','Garage'),('T','Terreno'),('D',u'Depósito'),('G','Galpón')),'Tipo de propiedad'),
@@ -242,15 +240,10 @@ class estate(osv.osv):
                  "resized as a 64x64px image, with aspect ratio preserved. "\
                  "Use this field anywhere a small image is required."),
         'has_image': fields.function(_has_image, type="boolean"),
-
         #'user_id': fields.many2one('res.users', 'Vendedor', required=True),
-        
         'users_ids':fields.many2many('res.partner', 'users_rel', 'estate_id', 'partner_id', 'Vendedor'),
-        
         'personas_ids':fields.many2many('res.partner', 'personas_rel', 'estate_id', 'partner_id', 'Personas relacionadas'),
-        
         'publicado': fields.boolean('Publicar en la Web'),
-        
         'active': fields.boolean('Activo'),
         'atendido_por':fields.many2one('res.users', 'Atendido por'),
         #Pestaña historico
@@ -262,7 +255,6 @@ class estate(osv.osv):
         'write_uid': fields.many2one('res.users', 'Actualizado por'),
         'date': fields.date('Fecha de Ingreso', select=1, required=True),
         'ingresado_por':fields.many2one('res.users', 'Ingresado por'),
-        
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),
         'state': fields.selection(PROPIEDAD_ESTADOS, 'Estado', size=16, readonly=True),
@@ -289,109 +281,138 @@ class estate(osv.osv):
         #'duplicados': fields.char('Duplicados',50),
         'reservado':fields.boolean('Reservado'),
         'destacados': fields.boolean('Destacado'),
-        'ubicacion': fields.text('Ubicación'),#ya existe
-
-
-        # Descripcion General
+        'ubicacion': fields.text('Ubicación'),
         'comodidades': fields.text('Comodidades'),
-        'padron':fields.integer('Número de padrón'),
-        'year':fields.integer('Año de Construcción'),
         'orientacion':fields.char('Orientación'),        
         'ubica':fields.char('Ubicación'),
-        'gastos_comun':fields.integer('Gastos Comúnes'),
-        'contri':fields.integer('Contribucción'),
         'calor':fields.char('Calefacción'),
-        'impPrim': fields.integer('Imp. Primaria'),#ya existe
-        'ac':fields.boolean('Aire Acondicionado'),
-        'calefaccion': fields.boolean('Calefacción'),#ya existe
-        'gas':fields.boolean('Gás por cañeria'),
         'tel':fields.boolean('Teléfono'),
         'tv':fields.boolean('TV Cable/Internet'),
         'oficina': fields.boolean('Oficina'),#ya existe
-        'garaje': fields.boolean('Garaje'),#ya existe
         'equipamiento': fields.boolean('Equipamiento'), #ya existe
         'produccion': fields.boolean('Producción'), #ya existe
-        'lavadero':fields.boolean('Lavadero'),
         'placard':fields.boolean('Placard'),
         'alquiler_desde':fields.date('Alquiler-Reservado Desde'),
         'alquiler_hasta':fields.date('Hasta'),        
-      
         #Descripcion Interior
-        'nAmbientes':fields.integer('Cantidad de ambientes'),#ESTO VA CONECTADO A UNA FUNCIONA QUE SUMA LOS OTROS AMBIENTES 
-        'cantidadDormitorios': fields.integer('Cantidad de dormitorios'), #ya existe
-        'suite':fields.boolean('Habitación en suite'), 
-        'cantidadBanios': fields.integer('Cantidad de baños'), #ya existe
-        'toilet':fields.boolean('Toilets'),
-        'bath':fields.boolean('Baño de servicio'),
         'social':fields.boolean('Baño social'),
-        'hidro':fields.boolean('Hidromasaje'),
         'jacuzzi':fields.boolean('Jacuzzi'),
-        'escritorio':fields.boolean('Escritorio'),
-        'cocina':fields.boolean('Cocina'),
-        'living':fields.boolean('Living'),
-        'kit':fields.boolean('Kitchenette'),
-        'comedor':fields.boolean('Comedor'),
-        'liv_com':fields.boolean('Living-Comedor'),
-        'hall':fields.boolean('Hall'),
-        'estar':fields.boolean('Estar'),
         'ute': fields.boolean('UTE'),
         'ose': fields.boolean('OSE'),
         'agua_caliente':fields.boolean('Agua caliente'),
-  
         #Descripcion Exterior
         'baulera':fields.boolean('Baulera'),
-        'fondo':fields.boolean('Fondo'),
-        'jardin':fields.boolean('Jardín'),
-        'piscina': fields.boolean('Piscina'),
         'barbacoa': fields.boolean('Barbacoa'),
-
-        #Edificio o condominio
-        'balcon':fields.boolean('Balcón'),
-        'terraza':fields.boolean('Terraza'),
-        'terraza_2':fields.boolean('Terraza de servicio'),
-        'azotea':fields.boolean('Acceso a azotea'),
-        'porteria_2':fields.boolean('Portero eléctrico'),
-        'vigilancia':fields.boolean('Vigilancia'),
-        'porteria':fields.boolean('Porteria'),
-        'ascensor':fields.boolean('Ascensor'),
         'piso':fields.boolean('Piso'),
-        'internet':fields.boolean('Internet'),
-        'sauna':fields.boolean('Sauna'),
-        'gym':fields.boolean('Gimnasio'),
-        'canchas':fields.boolean('Canchas'),
-        'bbq':fields.boolean('Barbacoa común'),
-
         #Tasacion
         'fecha_tasacion':fields.date('Fecha de Tasación'),
         'moneda_tasacion':fields.many2one('res.currency', 'Moneda de Tasación'),
         'importe_tasacion':fields.integer('Importe'),
         'tasado_por':fields.many2one('res.partner','Tasado por'),
         'obs_tasacion':fields.text('Observaciónes'),
-        
-        
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
         'price_venta': fields.float('Precio Venta'),
-
         #Para alquilar
         'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
         'price_alquiler': fields.float('Precio Alquiler'),
-        
         #Condiciones de venta
         'conditions': fields.text('Condiciones'),
         'financiacion':fields.selection((('P','Préstamo bancario'),('B','BHU'),('F','Financia dueño'),('0','Otro')),'Tipo de financiación'),
         'alquiler':fields.boolean('¿Alquiler?', help="Seleccione si la propiedad está para alquilar, de lo contrario a la venta"),
-        
         #Gastos
         'notes': fields.text('Comentario del gasto'),
         'currency': fields.many2one('res.currency',r'Moneda'),
         'price': fields.float('Valor'),
-
-        #wtf
         'satelital':fields.char('Satelital'),
         'interesados_ids':fields.one2many('interesados', 'estate_id','Opit'),
         'compartidocolegas_ids':fields.one2many('compartidocolegas', 'estate_id','Opit'),
-        
+        #NUEVA DESCRIPCION GENERAL
+        #Descripcion General
+        'padron':fields.char(u'N° de padrón'),
+        'year':fields.char('Año de Construcción', size=4),
+        'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),  
+        'select_ubicacion':fields.selection((('F','Frente'),('C','Contrafrente'),('I','Interior'),('L','Lateral'),('P','Penthouse')),u'Ubicación'),
+        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado')),u'Estado'),
+        #Ambientes/Dormitorios
+        'cantidadDormitorios':fields.char('Cantidad de dormitorios'), 
+        'nAmbientes':fields.char('Cantidad de ambientes'),
+        'suite':fields.char('Dormitorios en suite'),
+        'DormitorioPlacard':fields.char('Dormitorios con placard'),
+        'DormitorioServicio':fields.boolean('Dormitorio de servicio'),
+        #Baños
+        'cantidadBanios': fields.char('Cantidad de baños'),
+        'toilet':fields.boolean('Toilets'),
+        'bath':fields.boolean('Baño de servicio'),
+        'hidro':fields.boolean('Hidromasaje'),
+        #Área Social
+        'living':fields.boolean('Living'),
+        'comedor':fields.boolean('Comedor'),
+        'liv_com':fields.boolean('Living-Comedor'),
+        'estar':fields.boolean('Estar'),
+        'escritorio':fields.boolean('Escritorio'),
+        'hall':fields.boolean('Hall'),
+        'recibo':fields.boolean('Recibo'),
+        'hogar':fields.boolean('Hogar'),
+        #Cocina
+        'cocina':fields.boolean('Cocina'),
+        'office_cocina':fields.boolean('Cocina con Office'),
+        'kit':fields.boolean('Kitchenette'),
+        'comedor_diario':fields.boolean('Comedor'),
+        #Exterior
+        'terraza':fields.boolean('Terraza'),
+        'balcon':fields.boolean(u'Balcón'),
+        'terraza_2':fields.boolean('Terraza de servicio'),
+        'lavadero':fields.boolean('Lavadero'),
+        'azotea':fields.boolean('Acceso a azotea'),
+        'patio':fields.boolean('Patio'),
+        'fondo':fields.boolean('Fondo'),
+        'jardin':fields.boolean(u'Jardín'),
+        'parrillero':fields.boolean('Parrillero'),
+        'bbq':fields.boolean('Barbacoa'),
+        'deposito':fields.boolean('Depósito'),
+        #Garage
+        'garage':fields.char('Garage:', readonly=True),
+        'cochera':fields.char('Autos:'),
+        'box':fields.boolean('Box'),
+        'autos':fields.char('Autos'),
+        'autos2':fields.char('Cochera:', readonly=True),
+        #Calefaccion y servicios asesorios
+        'calefaccion': fields.many2one('calefacion', 'Calefacción'), #crear xml para llenar los default
+        'ac':fields.boolean('Aire Acondicionado'),
+        'gas':fields.boolean(u'Gás por cañeria'),
+        'telefono':fields.boolean(u'Teléfono'),
+        'cable':fields.boolean('Cable'),
+        'internet':fields.boolean('Internet'),
+        'alarma':fields.boolean('Alarma'),
+        #Equipamiento
+        'amueblado':fields.boolean('Amueblado'),
+        'linea_blanca':fields.boolean('Linea Blanca'),
+        #Amenities
+        'piscinalibre': fields.boolean('Piscina al aire libre'),
+        'piscinacubierta': fields.boolean('Piscina cubierta'),
+        'sauna':fields.boolean('Sauna'),
+        'sala_juegos':fields.boolean('Sala de Juegos'),
+        'gym':fields.boolean('Gimnasio'),
+        'canchas':fields.boolean('Canchas deportivas'),
+        'parrillero2':fields.boolean('Parrillero'),
+        'bbq2':fields.boolean('Barbacoa'),
+        'solarium':fields.boolean('Solarium'),
+        'salon_comunal':fields.boolean(u'Salón Comunal'),
+        #Comodidades del edificio
+        'ascensor':fields.boolean('Ascensor'),
+        'porteria':fields.boolean('Porteria'), 
+        'porteria_2':fields.boolean('Portero eléctrico'),
+        'lavanderia':fields.boolean(u'Lavandería'),
+        'vigilancia':fields.boolean('Vigilancia'),
+        #Comentarios
+        'comentarios':fields.text('Comentarios'),
+        #Nueva pestaña Precio
+        'gastos_comun':fields.integer(u'Gastos Comúnes'),
+        'contri':fields.integer(u'Contribucción'),
+        'impPrim': fields.integer('Imp. Primaria'),
+        #Pestaña Direccion
+        'edificio':fields.char('Edificio'),
     }
     
     def _attach_email(self, cr, uid, ids, name, args, context=None):
@@ -792,5 +813,14 @@ class compartidocolegas(osv.osv):
         'cliente_id':fields.many2one('res.partner', 'Nombre'),
         'telefono':fields.char(u'Teléfono'),
         'mail':fields.char('Mail'),
-    }    
+    }  
 compartidocolegas()
+
+
+
+class calefacion(osv.osv):
+    _name = "calefacion"
+    _columns = {
+        'name':fields.char(u'Calefacción'),
+    }  
+calefacion()
