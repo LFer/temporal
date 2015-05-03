@@ -389,6 +389,7 @@ class estate(osv.osv):
 
         #wtf
         'satelital':fields.char('Satelital'),
+        'interesados_ids':fields.one2many('interesados', 'estate_id','Opit'),
         
     }
     
@@ -772,3 +773,12 @@ class historial(osv.osv):
 
 historial()
        
+class interesados(osv.osv):
+    _name = "interesados"
+    _columns = {
+        'estate_id':fields.integer('estate_id'),
+        'cliente_id':fields.many2one('res.partner', 'Nombre'),
+        'atendido_por':fields.many2one('res.users', 'Atendido por'),
+        'telefono':fields.char(u'Teléfono'),
+    }    
+interesados()

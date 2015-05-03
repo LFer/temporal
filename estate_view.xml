@@ -356,6 +356,16 @@
                     </field>	                				
 				</page>
 
+                 <page string="Clientes interesados a">
+                    <field name="interesados_ids" widget='one2many' mode="tree" >
+                        <tree string="Clientes interesados" editable="bottom" >
+                            <field name="atendido_por" />
+                            <field name="cliente_id" />
+                            <field name="telefono"/>
+                        </tree>
+                    </field>
+                </page>
+
 				<page string="Compartido" >
 	                <field name="colegas_ids" >
                         <tree string="Nombre">
