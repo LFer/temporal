@@ -390,6 +390,7 @@ class estate(osv.osv):
         #wtf
         'satelital':fields.char('Satelital'),
         'interesados_ids':fields.one2many('interesados', 'estate_id','Opit'),
+        'compartidocolegas_ids':fields.one2many('compartidocolegas', 'estate_id','Opit'),
         
     }
     
@@ -782,3 +783,14 @@ class interesados(osv.osv):
         'telefono':fields.char(u'Teléfono'),
     }    
 interesados()
+
+class compartidocolegas(osv.osv):
+    _name = "compartidocolegas"
+    _columns = {
+        'estate_id':fields.integer('estate_id'),
+        'inm':fields.char('INM'),
+        'cliente_id':fields.many2one('res.partner', 'Nombre'),
+        'telefono':fields.char(u'Teléfono'),
+        'mail':fields.char('Mail'),
+    }    
+compartidocolegas()

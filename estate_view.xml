@@ -343,7 +343,7 @@
 	                </group>
                  </page>            
 
-				<page string="Clientes interesados" > <!--ESTO SE RESUELVE CON UN ONE2MANY A RES.PARTNER Y AHI LE METO LO QUE QUIERO-->
+				<page string="Clientes interesados" >
                     <group>
                         <field name="atendido_por" style="width: 30%%"/>
                     </group>
@@ -356,7 +356,7 @@
                     </field>	                				
 				</page>
 
-                 <page string="Clientes interesados a">
+                 <!--page string="Clientes interesados a">
                     <field name="interesados_ids" widget='one2many' mode="tree" >
                         <tree string="Clientes interesados" editable="bottom" >
                             <field name="atendido_por" />
@@ -364,9 +364,9 @@
                             <field name="telefono"/>
                         </tree>
                     </field>
-                </page>
+                </page-->
 
-				<page string="Compartido" >
+				<!--page string="Compartido" >
 	                <field name="colegas_ids" >
                         <tree string="Nombre">
                             <field name="name" />
@@ -376,7 +376,18 @@
                             <field name="website" />
                         </tree>
                     </field>	                				
-				</page>
+				</page-->
+
+                 <page string="Compartido a Colegas">
+                    <field name="compartidocolegas_ids" widget='one2many' mode="tree" >
+                        <tree string="Clientes interesados" editable="bottom" >
+                            <field name="inm" />
+                            <field name="cliente_id" />
+                            <field name="telefono"/>
+                            <field name="mail"/>
+                        </tree>
+                    </field>
+                </page>
 
 				<page string="Visitas" >
                     <field name="visit_ids" colspan="4" nolabel="1" mode="tree" >
