@@ -166,7 +166,7 @@ class estate(osv.osv):
         'supEdificada': fields.float('Superficie edificada'),
         'largo': fields.integer('Profundidad'),
         'ancho': fields.integer('Frente'),
-        'superficie_terraza': fields.integer('Superficie Terraza'),
+        'superficie_terraza': fields.integer('Terraza'),
         'metraje_fondo': fields.integer('Fondo'),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
@@ -312,7 +312,7 @@ class estate(osv.osv):
         'obs_tasacion':fields.text('Observaciónes'),
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
-        'price_venta': fields.float('Precio Venta'),
+        'price_venta': fields.float('Precio'),
         #Para alquilar
         'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
         'price_alquiler': fields.float('Precio Alquiler'),
@@ -333,7 +333,7 @@ class estate(osv.osv):
         'year':fields.char('Año de Construcción', size=4),
         'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),
         'select_ubicacion':fields.selection((('F','Frente'),('C','Contrafrente'),('I','Interior'),('L','Lateral'),('P','Penthouse')),u'Ubicación'),
-        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado')),u'Estado'),
+        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado'),('Es','En buen estado')),u'Estado'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
         'nAmbientes':fields.char('Cantidad de ambientes'),
@@ -359,6 +359,7 @@ class estate(osv.osv):
         'office_cocina':fields.boolean('Cocina con Office'),
         'kit':fields.boolean('Kitchenette'),
         'comedor_diario':fields.boolean('Comedor'),
+        'diario_diario':fields.boolean('Diario'),        
         #Exterior
         'terraza':fields.boolean('Terraza'),
         'balcon':fields.boolean(u'Balcón'),
@@ -382,7 +383,7 @@ class estate(osv.osv):
         'ac':fields.boolean('Aire Acondicionado'),
         'gas':fields.boolean(u'Gás por cañeria'),
         'telefono':fields.boolean(u'Teléfono'),
-        'cable':fields.boolean('Cable'),
+        'cable':fields.boolean('TV. Cable'),
         'internet':fields.boolean('Internet'),
         'alarma':fields.boolean('Alarma'),
         #Equipamiento
@@ -666,14 +667,17 @@ class estate(osv.osv):
 
         return super(estate, self).write(cr, uid, ids, values, context=context)
 
+    """
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
+        import pdb
+        pdb.set_trace()
         if category_id:
             numero=""
             lista=category_id[0][2]
             largo =len(lista)
             if largo > 0:
                 # return {'value':{'number':codigo, 'codigo':codigo},}
-                cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
+                #cr.execute(SELECT upper(name) AS name FROM res_partner_category WHERE id = %s,
                     (lista[0],))
                 nomcat = cr.fetchone()[0]
                 numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
@@ -710,6 +714,7 @@ class estate(osv.osv):
                     sufix = numero[i:]
                     numero = numaux.zfill(4) + sufix
         return {'value':{'number':numero},}
+    """
 
 estate()
 
