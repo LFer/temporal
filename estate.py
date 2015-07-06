@@ -158,15 +158,16 @@ class estate(osv.osv):
         'zip': fields.char('Código postal', change_default=True, size=24),
         'city': fields.char('Ciudad', size=128),
         'neighborhood': fields.char('Barrio', size=128),
-        'state_id': fields.many2one("res.country.state", 'Departamento'),
-        'country_id': fields.many2one('res.country', 'País'),
+        'state_id': fields.many2one("departmento", 'Departamento'),
+        'country_id': fields.many2one('res.country', u'País'),
+        'pais_id': fields.many2one('pais', u'País'),
         'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),
         'barrio': fields.char('Zona', size=128),
         'supTotal': fields.float('Superficie total'),
         'supEdificada': fields.float('Superficie edificada'),
         'largo': fields.integer('Profundidad'),
         'ancho': fields.integer('Frente'),
-        'superficie_terraza': fields.integer('Superficie Terraza'),
+        'superficie_terraza': fields.integer('Terraza'),
         'metraje_fondo': fields.integer('Fondo'),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
@@ -312,7 +313,7 @@ class estate(osv.osv):
         'obs_tasacion':fields.text('Observaciónes'),
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
-        'price_venta': fields.float('Precio Venta'),
+        'price_venta': fields.float('Precio'),
         #Para alquilar
         'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
         'price_alquiler': fields.float('Precio Alquiler'),
@@ -333,7 +334,7 @@ class estate(osv.osv):
         'year':fields.char('Año de Construcción', size=4),
         'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),
         'select_ubicacion':fields.selection((('F','Frente'),('C','Contrafrente'),('I','Interior'),('L','Lateral'),('P','Penthouse')),u'Ubicación'),
-        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado')),u'Estado'),
+        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado'),('En','En buen estado'),),u'Estado'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
         'nAmbientes':fields.char('Cantidad de ambientes'),
@@ -823,4 +824,27 @@ class calefacion(osv.osv):
     _columns = {
         'name':fields.char(u'Calefacción'),
     }
+
 calefacion()
+
+class departmento(osv.osv):
+    _name="departmento"
+    _description="Departmentos"
+    _columns = {
+    'name':fields.char('Departmento'),
+    'code':fields.char(u'Código del departmento'),
+    'country_id':fields.char('Code')
+    }
+
+departmento()
+
+
+class pais(osv.osv):
+    _name="pais"
+    _description="Pais"
+    _columns = {
+    'name':fields.char(u'País', size=56),
+    'country_code':fields.char('Country code' ,size=33)
+    }
+
+pais()

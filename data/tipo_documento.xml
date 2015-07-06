@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="tipo.documento" id="Pimba">
+            <field name="name">Cédula de Identidad</field>
+        </record>
+
+        <record model="tipo.documento" id="Tacate">
+            <field name="name">Pasaporte</field>
+        </record>
+
+    </data>
+</openerp>
+

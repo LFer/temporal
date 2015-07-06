@@ -17,6 +17,8 @@
                     'pedidos.xml',
                     'security/inmobiliaria_security.xml',
 #                    'security/ir.model.acess.csv'
+                    'data/departamentos_uy.xml',
+                    'data/paises.xml',
                     ],
     "installable": True,
     "active": False,

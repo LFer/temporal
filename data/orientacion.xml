@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="orientacion" id="1">
+            <field name="name">N - Norte</field>
+        </record>
+
+        <record model="orientacion" id="2">
+            <field name="name">NE - Noreste</field>
+        </record>
+
+        <record model="orientacion" id="3">
+            <field name="name">E - Este</field>
+        </record>
+
+        <record model="orientacion" id="4">
+            <field name="name">SE - Sureste</field>
+        </record>
+
+        <record model="orientacion" id="5">
+            <field name="name">S - Sur</field>
+        </record>
+
+        <record model="orientacion" id="6">
+            <field name="name">SO - Suroeste</field>
+        </record>
+
+        <record model="orientacion" id="7">
+            <field name="name">O - Oeste</field>
+        </record>
+
+        <record model="orientacion" id="8">
+            <field name="name">NO - Noreste</field>
+        </record>
+
+
+    </data>
+</openerp>
