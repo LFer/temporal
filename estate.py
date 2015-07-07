@@ -360,6 +360,7 @@ class estate(osv.osv):
         'office_cocina':fields.boolean('Cocina con Office'),
         'kit':fields.boolean('Kitchenette'),
         'comedor_diario':fields.boolean('Comedor'),
+        'diario_diario':fields.boolean('Diario'),        
         #Exterior
         'terraza':fields.boolean('Terraza'),
         'balcon':fields.boolean(u'Balcón'),
@@ -383,7 +384,7 @@ class estate(osv.osv):
         'ac':fields.boolean('Aire Acondicionado'),
         'gas':fields.boolean(u'Gás por cañeria'),
         'telefono':fields.boolean(u'Teléfono'),
-        'cable':fields.boolean('Cable'),
+        'cable':fields.boolean('TV. Cable'),
         'internet':fields.boolean('Internet'),
         'alarma':fields.boolean('Alarma'),
         #Equipamiento
@@ -667,7 +668,10 @@ class estate(osv.osv):
 
         return super(estate, self).write(cr, uid, ids, values, context=context)
 
+    """
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
+        import pdb
+        pdb.set_trace()
         if category_id:
             numero=""
             lista=category_id[0][2]
@@ -711,6 +715,7 @@ class estate(osv.osv):
                     sufix = numero[i:]
                     numero = numaux.zfill(4) + sufix
         return {'value':{'number':numero},}
+    """
 
 estate()
 

@@ -42,12 +42,12 @@
                         <field name="price_venta" style="width: 40%%" />
                         <field name="categoria" style="width: 40%%" />
                   		<label for="number" style="color:red" />
-                  		<field name="number" placeholder="Nro. de propiedad" style="width: 40%%" nolabel="1"/>
+                  		<field name="number" placeholder="Nro. de propiedad" style="width: 43%%" nolabel="1"/>
                         <!--field name="duplicados" placeholder="Duplicados" /-->
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
                         <!--field name="partner_id" placeholder="Nombre del cliente..."/> TODO VA A UNA PESTAÑA NUEVA-->
-                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..."/>
                     </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
@@ -85,6 +85,7 @@
 	                <group string="Dirección">
                             <field name="street" placeholder="Calle..." style="width: 60%%" class="oe_webclient" />
                             <field name="numero_de_puerta" placeholder="Nº de puerta" style="width: 60%%"/>
+<<<<<<< HEAD
                             <field name="numero_de_apto" placeholder="Unidad Piso" style="width: 60%%"/>
                             <field name="edificio" placeholder="Edificio..." style="width: 60%%"/>
                             <field name="street2"  placeholder="Esquina..." style="width: 60%%"/>
@@ -92,12 +93,25 @@
                             <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
 
 
+=======
+                            <field name="numero_de_apto" placeholder="numero_de_apto" style="width: 60%%"/>
+                            <field name="edificio" style="width: 60%%"/>
+                            <field name="street2" placeholder="y esquina..." style="width: 60%%"/>
+                            <field name="barrio" placeholder="Zona" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
+                            <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
+                            
+                            <!--ENTONCES NO SE QUE PASA DESPUES DE ACA-->
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                             <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/>
                             <field name="state_id" class="oe_no_button" placeholder="Departamento" style="width: 20%%;" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
                             <field name="pais_id" placeholder="País" class="oe_no_button" options='{"no_open": True}' style="width: 20%%;"/>
                             <field name="ubicacion" placeholder="Como llegar..." />
                             <field name="googleLocation" placeholder="Localización de Google Maps (Ej. Domingo Pérez 562, Minas, Lavalleja, Uruguay)" style="width: 90%%;"/>
+<<<<<<< HEAD
 
+=======
+                            
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
 	                </group>
 	            </page>
 
@@ -119,27 +133,43 @@
 	     		</page>
 
 	     		<page string="Descripción General">
+<<<<<<< HEAD
                     <group string="Descripción General" style="color:red" >
+=======
+                    <group string="Descripción General" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="padron" style="width: 14%%"/>
                         <field name="year" style="width: 14%%"/>
                         <field name="orientacion" style="width: 14%%"/>
                         <field name="select_ubicacion" style="width: 14%%"/>
                         <field name="select_estado" style="width: 25%%"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Ambientes/Dormitorios" style="color:red" >
+=======
+                    <group string="Ambientes/Dormitorios" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="cantidadDormitorios" style="width: 14%%"/>
                         <field name="nAmbientes" style="width: 14%%"/>
                         <field name="suite" style="width: 14%%"/>
                         <field name="DormitorioPlacard" style="width: 14%%"/>
                         <field name="DormitorioServicio" style="width: 25%%"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Baños" style="color:red" >
+=======
+                    <group string="Baños" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="cantidadBanios" style="width: 14%%"/>
                         <field name="toilet" style="width: 14%%"/>
                         <field name="bath" style="width: 14%%"/>
                         <field name="hidro" style="width: 25%%"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Área Social" style="color:red" >
+=======
+                    <group string="Área Social" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="living"/>
                         <field name="comedor"/>
                         <field name="liv_com"/>
@@ -149,13 +179,22 @@
                         <field name="recibo"/>
                         <field name="hogar"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Cocina" style="color:red" >
+=======
+                    <group string="Cocina" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="cocina"/>
                         <field name="office_cocina"/>
                         <field name="kit"/>
                         <field name="comedor_diario"/>
+                        <field name="diario_diario"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Exterior" style="color:red" >
+=======
+                    <group string="Exterior" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="terraza"/>
                         <field name="balcon"/>
                         <field name="terraza_2"/>
@@ -168,7 +207,11 @@
                         <field name="bbq"/>
                         <field name="deposito"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Garage" style="color:red" >
+=======
+                    <group string="Garage" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <group>
                             <field name="garage" style="width: 1%%"/>
                             <field name="cochera" style="width: 1%%"/>
@@ -178,10 +221,14 @@
                             <field name="autos" style="width: 1%%"/>
                         </group>
                         </group>
-                        <group>
+                        <group style="color:red">
                             <field name="box"/>
                         </group>
+<<<<<<< HEAD
                     <group string="Calefacción y servicios accesorios" style="color:red" >
+=======
+                    <group string="Calefacción y servicios accesorios" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="calefaccion" style="width: 25%%"/>
                         <field name="ac"/>
                         <field name="gas"/>
@@ -190,11 +237,19 @@
                         <field name="internet"/>
                         <field name="alarma"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Equipamiento" style="color:red" >
                         <field name="amueblado"/>
                         <field name="linea_blanca"/>
                     </group>
                     <group string="Amenities" style="color:red" >
+=======
+                    <group string="Equipamiento" style="color:red">
+                        <field name="amueblado"/>
+                        <field name="linea_blanca"/>
+                    </group>
+                    <group string="Amenities" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="piscinalibre"/>
                         <field name="piscinacubierta"/>
                         <field name="sauna"/>
@@ -206,14 +261,22 @@
                         <field name="solarium"/>
                         <field name="salon_comunal"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Comodidades del edificio" style="color:red" >
+=======
+                    <group string="Comodidades del edificio" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="ascensor"/>
                         <field name="porteria" style="width: 14%%"/>
                         <field name="porteria_2" style="width: 14%%"/>
                         <field name="lavanderia" style="width: 14%%"/>
                         <field name="vigilancia" style="width: 25%%"/>
                     </group>
+<<<<<<< HEAD
                     <group string="Comentarios" style="color:red" >
+=======
+                    <group string="Comentarios" style="color:red">
+>>>>>>> 426b42e94d4508551f8416dab6fdac99874ad2c2
                         <field name="comentarios"/>
                     </group>
                 </page>
@@ -436,7 +499,7 @@
 				</page>
 
 				<page string="Archivos adjuntos" >
-                    <field name="attachments" colspan="4" nolabel="1" mode="tree" >
+                    <field name="attachments" colspan="4" nolabel="1" mode="tree" editable="bottom">
 				        <form string="Archivo" version="7.0">
 			                <field name="datas" widget='image' nolabel="1" class="oe_avatar" options='{"preview_image": "datas", "size": [820, 360]}'/>
 			                <group col="8">
@@ -451,7 +514,7 @@
 							</group>
 			            </form>
 
-                        <tree string="Archivos" toolbar="0" create="0" delete="0">
+                        <tree string="Archivos" toolbar="0" create="0" delete="0" editable="bottom">
                             <field name="name" attrs="{'readonly': True}" />
                             <field name="type" attrs="{'readonly': True}" />
                             <field name="web" />
