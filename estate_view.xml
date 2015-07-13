@@ -47,7 +47,7 @@
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
                         <!--field name="partner_id" placeholder="Nombre del cliente..."/> TODO VA A UNA PESTAÑA NUEVA-->
-                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..."/>
+                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
                     </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
@@ -89,7 +89,7 @@
                             <field name="edificio" placeholder="Edificio..." style="width: 60%%"/>
                             <field name="street2"  placeholder="Esquina..." style="width: 60%%"/>
                             <field name="barrio" placeholder="Zona" attrs="{'invisible': [('is_rural','=', True)]}" style="width: 60%%"/>
-                            <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />                            
+                            <field name="city" placeholder="Ciudad o Localidad" style="width: 20%%;" />
                             <!--ENTONCES NO SE QUE PASA DESPUES DE ACA-->
                             <field name="seccional" placeholder="Seccional" attrs="{'invisible': [('is_rural','=', False)]}" style="width: 60%%"/>
                             <field name="state_id" class="oe_no_button" placeholder="Departamento" style="width: 20%%;" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
@@ -436,21 +436,8 @@
 
 				<page string="Archivos adjuntos" >
                     <field name="attachments" colspan="4" nolabel="1" mode="tree" editable="bottom">
-				        <form string="Archivo" version="7.0">
-			                <field name="datas" widget='image' nolabel="1" class="oe_avatar" options='{"preview_image": "datas", "size": [820, 360]}'/>
-			                <group col="8">
-								<group col="4">
-				                    <field name="name" string="Nombre del documento adjunto" />
-								</group>
-								<group col="4">
-							        <field name="web" string="Web"/>
-							        <field name="email" string="EMail-Ficha"/>
-							        <field name="sequence" string="Secuencia" />
-								</group>
-							</group>
-			            </form>
-
                         <tree string="Archivos" toolbar="0" create="0" delete="0" editable="bottom">
+                           <field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
                             <field name="name" attrs="{'readonly': True}" />
                             <field name="type" attrs="{'readonly': True}" />
                             <field name="web" />
@@ -459,7 +446,6 @@
                             <field name="sequence" />
                         </tree>
                     </field>
-
 				</page>
                 <page string="EMails" >
                     <field name="emails" readonly="1" >

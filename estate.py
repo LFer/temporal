@@ -669,18 +669,20 @@ class estate(osv.osv):
         return super(estate, self).write(cr, uid, ids, values, context=context)
 
     def onchange_categoria(self, cr, uid, ids, category_id, context=None):
+#        import pdb
+#        pdb.set_trace()
         if category_id:
             numero=""
             lista=category_id[0][2]
             largo =len(lista)
-            if largo > 0:  
+            if largo > 0:
                 # return {'value':{'number':codigo, 'codigo':codigo},}
                 cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
-                    (lista[0],))           
-                nomcat = cr.fetchone()[0]               
+                    (lista[0],))
+                nomcat = cr.fetchone()[0]
                 numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero == False:
-                
+
                     tiposec = self.pool.get('ir.sequence.type').create(cr, uid,{
                         'create_uid' : uid,
                         'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
@@ -688,25 +690,25 @@ class estate(osv.osv):
                         'write_uid' : uid,
                         'code' : nomcat,
                         'name' : nomcat,
-                    }) 
+                    })
                     if tiposec:
-                        
+
                         nomaux = nomcat[:1]
                         self.pool.get('ir.sequence').create(cr, uid,{
                             'create_uid' : uid,
                             'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'write_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'code' : nomcat,
-                            'name' : nomcat,                            
+                            'name' : nomcat,
                             'number_next' : 1,
                             'implementation' : 'standard',
                             'padding' : '0',
                             'number_increment' : 1,
                             'suffix' : '-'+nomaux+'V',
-                        }) 
-                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)  
+                        })
+                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
                 if numero:
-                    i = string.index(numero, '-')               
+                    i = string.index(numero, '-')
                     numaux = numero[:i]
                     numaux = numaux.strip()
                     sufix = numero[i:]
