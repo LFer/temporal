@@ -206,7 +206,7 @@
       <tr>
         <td>
           <para style="P2">[[ repeatIn(o.attachments,'r') ]]</para>
-          <para style="P7">[[ ( r.datas and r.email ) and setTag('para','image',{'width':'384.0','height':'288.0'}) or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
+          <para style="P7">[[ ( r.datas and r.email ) and setTag('para','image',{'width':'288.0','height':'384.0'}) or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
         </td>
       </tr>
       <tr>
