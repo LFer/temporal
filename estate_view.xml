@@ -255,7 +255,7 @@
                     <group>
                         <field name="gastos_comun"/>
                         <field name="contri"/>
-                        <field name="impPrim"/>
+                        <field name="impuestoprimaria"/>
                     </group>
                     <group>
                         <field name="conditions"/>

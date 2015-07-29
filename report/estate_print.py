@@ -32,21 +32,21 @@ class estate(report_sxw.rml_parse):
         })
     #print 'aca'
 
-        
+
 report_sxw.report_sxw('report.inmobiliaria.estate.urbana','estate','addons/dtm_inmobiliaria/report/estate_urbana.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.rural','estate','addons/dtm_inmobiliaria/report/estate_rural.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.rural','estate','addons/dtm_inmobiliaria/report/estate_rural.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.satelital','estate','addons/dtm_inmobiliaria/report/estate_satelital.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.satelital','estate','addons/dtm_inmobiliaria/report/estate_satelital.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/dtm_inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/dtm_inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
 
-report_sxw.report_sxw('report.inmobiliaria.estate.terreno','estate','addons/dtm_inmobiliaria/report/estate_terreno.rml',parser=estate,header=True)
+#report_sxw.report_sxw('report.inmobiliaria.estate.terreno','estate','addons/dtm_inmobiliaria/report/estate_terreno.rml',parser=estate,header=True)
 
 
 def _get_imagepath(self, ide):
     attach_ids = self.pool.get('ir.attachment').search(self.cr, self.uid, [('res_model','=','estate'), ('res_id', '=',ide)])
     datas = self.pool.get('ir.attachment').read(self.cr, self.uid, attach_ids)
     return datas[0]['datas']
-        
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

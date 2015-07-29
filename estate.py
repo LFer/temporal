@@ -173,7 +173,7 @@ class estate(osv.osv):
         'escribano': fields.many2one('res.partner', 'Escribano'),
         #Cabezal
         'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('T',u'Tasación')),u'Opereción'),
-        'tipo_propiedad':fields.selection((('C','Casa'),('A','Apartamento'),('L','Local'),('O','Oficina'),('G','Garage'),('T','Terreno'),('D',u'Depósito'),('G','Galpón')),'Tipo de propiedad'),
+        'tipo_propiedad':fields.selection((('Casa','Casa'),('Apartamento','Apartamento'),('Local','Local'),('Oficina','Oficina'),('Garage','Garage'),('Terreno','Terreno'),('Depósito',u'Depósito'),('Galpón','Galpón')),'Tipo de propiedad'),
         'categoria':fields.selection((('C','Colega'),('D','Directo'),('E','Exclusivo'),('I','Indirecta'),('N','No exclusivo'),('O','Ofrecido')),'Categoría'),
         #Pestaña Documentacion
         'obs_documentacion':fields.text('Observaciones'),
@@ -332,9 +332,9 @@ class estate(osv.osv):
         #Descripcion General
         'padron':fields.char(u'N° de padrón'),
         'year':fields.char('Año de Construcción', size=4),
-        'orientacion':fields.selection((('No','Norte'),('Ne','Noreste'),('No','Noroeste'),('S','Sur'),('Se','Sudste'),('So','Sudoeste'),('E','Este'),('O','Oeste')),u'Orientación'),
-        'select_ubicacion':fields.selection((('F','Frente'),('C','Contrafrente'),('I','Interior'),('L','Lateral'),('P','Penthouse')),u'Ubicación'),
-        'select_estado':fields.selection((('E',u'En construcción'),('As','A estrenar'),('I','Impecable'),('R','Reparaciones sencillas'),('A','A reciclar'),('R','Reciclado'),('En','En buen estado'),),u'Estado'),
+        'orientacion':fields.selection((('Norte','Norte'),('Noreste','Noreste'),('Noroeste','Noroeste'),('Sur','Sur'),('Sudste','Sudste'),('Sudoeste','Sudoeste'),('Este','Este'),('Oeste','Oeste')),u'Orientación'),
+        'select_ubicacion':fields.selection((('Frente','Frente'),('Contrafrente','Contrafrente'),('Interior','Interior'),('Lateral','Lateral'),('Penthouse','Penthouse')),u'Ubicación'),
+        'select_estado':fields.selection((('En construcción',u'En construcción'),('A estrenar','A estrenar'),('Impecable','Impecable'),('Reparaciones sencillas','Reparaciones sencillas'),('A reciclar','A reciclar'),('Reciclado','Reciclado'),('En buen estado','En buen estado'),),u'Estado'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
         'nAmbientes':fields.char('Cantidad de ambientes'),
@@ -412,7 +412,7 @@ class estate(osv.osv):
         #Nueva pestaña Precio
         'gastos_comun':fields.integer(u'Gastos Comúnes'),
         'contri':fields.integer(u'Contribucción'),
-        'impPrim': fields.integer('Imp. Primaria'),
+        'impuestoprimaria':fields.integer(u'Imp. Primaria'),
         #Pestaña Direccion
         'edificio':fields.char('Edificio'),
     }
