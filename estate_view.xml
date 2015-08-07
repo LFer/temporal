@@ -39,7 +39,8 @@
                     <group col="2" colspan="4" rowspan="2" >
                         <field name="operacion" style="width: 40%%" />
                         <field name="tipo_propiedad" style="width: 40%%" />
-                        <field name="price_venta" style="width: 40%%" />
+                        <!--field name="price_venta" style="width: 40%%" /-->
+                        <field name="precio_cabezal" style="width: 40%%" />
                         <field name="categoria" style="width: 40%%" />
                   		<label for="number" style="color:red" />
                   		<field name="number" placeholder="Nro. de propiedad" style="width: 43%%" nolabel="1"/>
@@ -47,7 +48,7 @@
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
                         <!--field name="partner_id" placeholder="Nombre del cliente..."/> TODO VA A UNA PESTAÑA NUEVA-->
-                        <field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/>
+                        <!--field name="category_id" widget="many2many_tags" placeholder="Categorías..." on_change="onchange_categoria(category_id)"/-->
                     </group>
                     <label for="publicado" string="Publicar en la Web" />
                     <field name="publicado" />
@@ -145,14 +146,15 @@
                         <field name="escritorio"/>
                         <field name="hall"/>
                         <field name="recibo"/>
+                        <field name="despojador"/>
                         <field name="hogar"/>
                     </group>
                     <group string="Cocina" style="color:red" >
                         <field name="cocina"/>
-                        <field name="office_cocina"/>
+                        <!--field name="office_cocina"/-->
                         <field name="kit"/>
                         <field name="comedor_diario"/>
-                        <field name="diario_diario"/>
+                        <!--field name="diario_diario"/-->
                     </group>
                     <group string="Exterior" style="color:red" >
                         <field name="terraza"/>
@@ -165,7 +167,7 @@
                         <field name="jardin"/>
                         <field name="parrillero"/>
                         <field name="bbq"/>
-                        <field name="deposito"/>
+                        <!--field name="deposito"/-->
                     </group>
                     <group string="Garage" style="color:red" >
                         <group>
@@ -203,7 +205,7 @@
                         <field name="parrillero2"/>
                         <field name="bbq2"/>
                         <field name="solarium"/>
-                        <field name="salon_comunal"/>
+                        <!--field name="salon_comunal"/-->
                     </group>
                     <group string="Comodidades del edificio" style="color:red" >
                         <field name="ascensor"/>
@@ -438,7 +440,7 @@
                     <field name="attachments" colspan="4" nolabel="1" mode="tree" editable="bottom">
                         <tree string="Archivos" toolbar="0" create="0" delete="0" editable="bottom">
                            <field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
-                            <field name="name" attrs="{'readonly': True}" />
+                            <field name="name" /> 
                             <field name="type" attrs="{'readonly': True}" />
                             <field name="web" />
                             <field name="email" string="EMail-Ficha"/>

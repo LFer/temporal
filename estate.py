@@ -172,7 +172,7 @@ class estate(osv.osv):
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
         #Cabezal
-        'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('T',u'Tasación')),u'Opereción'),
+        'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('Venta - Alquiler','Venta - Alquiler'),('T',u'Tasación')),u'Opereción'),
         'tipo_propiedad':fields.selection((('Casa','Casa'),('Apartamento','Apartamento'),('Local','Local'),('Oficina','Oficina'),('Garage','Garage'),('Terreno','Terreno'),('Depósito',u'Depósito'),('Galpón','Galpón')),'Tipo de propiedad'),
         'categoria':fields.selection((('C','Colega'),('D','Directo'),('E','Exclusivo'),('I','Indirecta'),('N','No exclusivo'),('O','Ofrecido')),'Categoría'),
         #Pestaña Documentacion
@@ -314,6 +314,7 @@ class estate(osv.osv):
         #Para vender
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
         'price_venta': fields.float('Precio'),
+        'precio_cabezal': fields.char('Precio'),
         #Para alquilar
         'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
         'price_alquiler': fields.float('Precio Alquiler'),
@@ -354,13 +355,14 @@ class estate(osv.osv):
         'escritorio':fields.boolean('Escritorio'),
         'hall':fields.boolean('Hall'),
         'recibo':fields.boolean('Recibo'),
+        'despojador':fields.boolean('Despojador'),
         'hogar':fields.boolean('Hogar'),
         #Cocina
         'cocina':fields.boolean('Cocina'),
         'office_cocina':fields.boolean('Cocina con Office'),
         'kit':fields.boolean('Kitchenette'),
-        'comedor_diario':fields.boolean('Comedor'),
-        'diario_diario':fields.boolean('Diario'),        
+        'comedor_diario':fields.boolean('Comedor - Diario'),
+        'diario_diario':fields.boolean('Diario'),
         #Exterior
         'terraza':fields.boolean('Terraza'),
         'balcon':fields.boolean(u'Balcón'),
@@ -410,8 +412,8 @@ class estate(osv.osv):
         #Comentarios
         'comentarios':fields.text('Comentarios'),
         #Nueva pestaña Precio
-        'gastos_comun':fields.integer(u'Gastos Comúnes'),
-        'contri':fields.integer(u'Contribucción'),
+        'gastos_comun':fields.char(u'Gastos Comúnes'),
+        'contri':fields.integer(u'Contribucción', help="Valor de la cuota"),
         'impuestoprimaria':fields.integer(u'Imp. Primaria'),
         #Pestaña Direccion
         'edificio':fields.char('Edificio'),
