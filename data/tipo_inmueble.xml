@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="tipo.inmueble" id="1">
+            <field name="name">Penthouse</field>
+        </record>
+
+        <record model="tipo.inmueble" id="2">
+            <field name="name">Plantas</field>
+        </record>
+
+        <record model="tipo.inmueble" id="3">
+            <field name="name">Planta baja con patio</field>
+        </record>
+
+        <record model="tipo.inmueble" id="4">
+            <field name="name">1º Piso por escalera</field>
+        </record>
+
+        <record model="tipo.inmueble" id="5">
+            <field name="name">Frente a rambla</field>
+        </record>
+
+        <record model="tipo.inmueble" id="6">
+            <field name="name">Primer piso con patio</field>
+        </record>
+
+        <record model="tipo.inmueble" id="7">
+            <field name="name">Padrón Unico</field>
+        </record>
+
+        <record model="tipo.inmueble" id="8">
+            <field name="name">Propiedad Horizontal</field>
+        </record>
+
+        <record model="tipo.inmueble" id="9">
+            <field name="name">Frente al golf</field>
+        </record>
+
+
+        <record model="tipo.inmueble" id="10">
+            <field name="name">Sobre Avenida</field>
+        </record>
+
+
+
+    </data>
+</openerp>

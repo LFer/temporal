@@ -1,0 +1,57 @@
+<stylesheet>
+
+ </stylesheet>
+ <story>
+ <title>Example 11 - lines and alignment in tables</title>
+ <spacer length="1cm"/>
+ <blockTable style="myBlockTableStyle"
+ rowHeights="2cm,2cm,2cm,2cm,2cm,2cm,2cm"
+ colWidths="4cm,3cm,3cm,4cm"
+ >
+ <tr>
+ <td>(a=LEFT)(VA=TOP)</td>
+ <td>(VA=TOP)</td>
+ <td>(VA="TOP")</td>
+ <td>(a=RIGHT)(VA=TOP)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,1</td>
+ <td>Cell 2,1</td>
+ <td>(a=RIGHT)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,2</td>
+ <td>(VA=MIDDLE)</td>
+ <td>(a=RIGHT)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,3</td>
+ <td>(VA=MIDDLE)</td>
+ <td>(VA=MDL)(a=RIGHT)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,4</td>
+ <td>2,4</td>
+ <td>(a=RIGHT)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,5</td>
+ <td>2,5</td>
+ <td>(a=RIGHT)</td>
+ </tr>
+ <tr>
+ <td>(a=LEFT)</td>
+ <td>1,6</td>
+ <td>2,6</td>
+ <td>(a=RIGHT)</td>
+ </tr>
+ </blockTable>
+ <spacer length="15"/>
+ <para>a=value for <i>blockAlignment</i></para>
+ <para>VA=value for <i>blockValign</i></para>
+ <para><i>MDLE=MIDDLE for VA in cells 3,2 and 3,3</i></para>

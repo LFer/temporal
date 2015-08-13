@@ -153,7 +153,8 @@ class estate(osv.osv):
         'category_id': fields.many2many('res.partner.category', id1='id', id2='category_id', string='Categorías'),
         'street': fields.char('Calle', size=128),
         'numero_de_puerta':fields.char('Nº de puerta'),
-        'numero_de_apto':fields.char('Unidad Piso'),
+        'numero_de_apto':fields.char('Unidad'),
+        'numero_piso':fields.char('Piso'),        
         'street2': fields.char('Esquina', size=128),
         'zip': fields.char('Código postal', change_default=True, size=24),
         'city': fields.char('Ciudad', size=128),
@@ -163,20 +164,25 @@ class estate(osv.osv):
         'pais_id': fields.many2one('pais', u'País'),
         'texto_rojo':fields.char('El texto en rojo implica que será publicado en la web', readonly=True),
         'barrio': fields.char('Zona', size=128),
-        'supTotal': fields.float('Superficie total'),
-        'supEdificada': fields.float('Superficie edificada'),
-        'largo': fields.integer('Profundidad'),
-        'ancho': fields.integer('Frente'),
-        'superficie_terraza': fields.integer('Terraza'),
-        'metraje_fondo': fields.integer('Fondo'),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
+        
         #Cabezal
         'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('Venta - Alquiler','Venta - Alquiler'),('T',u'Tasación')),u'Opereción'),
         'tipo_propiedad':fields.selection((('Casa','Casa'),('Apartamento','Apartamento'),('Local','Local'),('Oficina','Oficina'),('Garage','Garage'),('Terreno','Terreno'),('Depósito',u'Depósito'),('Galpón','Galpón')),'Tipo de propiedad'),
         'categoria':fields.selection((('C','Colega'),('D','Directo'),('E','Exclusivo'),('I','Indirecta'),('N','No exclusivo'),('O','Ofrecido')),'Categoría'),
+        
         #Pestaña Documentacion
         'obs_documentacion':fields.text('Observaciones'),
+        
+        #Pestaña Metraje
+        'supEdificada':fields.float('Superficie edificada'),
+        'supTotal':fields.float('Superficie total'),
+        'superficie_terraza':fields.float('Terraza'),
+        'ancho':fields.float('Frente'),
+        'metraje_fondo':fields.float('Fondo'),
+        'largo':fields.float('Profundidad'),
+
         # Rural
         'padron': fields.boolean('Padrón'),
         'estudioSuelo': fields.boolean('Estudios de Suelo'),
@@ -254,7 +260,7 @@ class estate(osv.osv):
         'write_date': fields.datetime('Fecha de actualización' , readonly=True),
 		'create_uid': fields.many2one('res.users', 'Creado por'),
         'write_uid': fields.many2one('res.users', 'Actualizado por'),
-        'date': fields.date('Fecha de Ingreso', select=1, required=True),
+        'date': fields.date('Fecha de Ingreso', required=True),
         'ingresado_por':fields.many2one('res.users', 'Ingresado por'),
         #'uid': fields.many2one('res.users', 'Usuario'),
         #'write_uid_name': fields.related('write_uid', 'name', type='char', string='Actualizado por'),
@@ -335,6 +341,9 @@ class estate(osv.osv):
         'year':fields.char('Año de Construcción', size=4),
         'orientacion':fields.selection((('Norte','Norte'),('Noreste','Noreste'),('Noroeste','Noroeste'),('Sur','Sur'),('Sudste','Sudste'),('Sudoeste','Sudoeste'),('Este','Este'),('Oeste','Oeste')),u'Orientación'),
         'select_ubicacion':fields.selection((('Frente','Frente'),('Contrafrente','Contrafrente'),('Interior','Interior'),('Lateral','Lateral'),('Penthouse','Penthouse')),u'Ubicación'),
+        'tipo_inmueble_id':fields.many2one('tipo.inmueble', 'Tipo de Inmueble'),
+        'penthouse_category':fields.selection((('Duplex','Duplex'),('Triplex','Triplex')),u'Categoría'),
+        'plantas_category':fields.selection((('Una','Una'),('Dos','Dos'),('Tres','Tres')),u'Categoría'),
         'select_estado':fields.selection((('En construcción',u'En construcción'),('A estrenar','A estrenar'),('Impecable','Impecable'),('Reparaciones sencillas','Reparaciones sencillas'),('A reciclar','A reciclar'),('Reciclado','Reciclado'),('En buen estado','En buen estado'),),u'Estado'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
@@ -455,6 +464,7 @@ class estate(osv.osv):
         'moneda_tasacion': 3,
         'currency_alquiler': 3,
         'currency_venta': 3,
+        'date':time.strftime('%Y-%m-%d %H:%M:%S'),
     }
 
     def action_calcular_precio_hectarea(self, cr, uid, ids, *args):
@@ -850,6 +860,15 @@ class pais(osv.osv):
     _columns = {
     'name':fields.char(u'País', size=56),
     'country_code':fields.char('Country code' ,size=33)
+    }
+
+pais()
+
+class tipo_inmueble(osv.osv):
+    _name="tipo.inmueble"
+    _description="Tipo de Inmueble"
+    _columns = {
+    'name':fields.char('Tipo de Inmueble'),
     }
 
 pais()
