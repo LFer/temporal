@@ -342,8 +342,8 @@ class estate(osv.osv):
         'orientacion':fields.selection((('Norte','Norte'),('Noreste','Noreste'),('Noroeste','Noroeste'),('Sur','Sur'),('Sudste','Sudste'),('Sudoeste','Sudoeste'),('Este','Este'),('Oeste','Oeste')),u'Orientación'),
         'select_ubicacion':fields.selection((('Frente','Frente'),('Contrafrente','Contrafrente'),('Interior','Interior'),('Lateral','Lateral'),('Penthouse','Penthouse')),u'Ubicación'),
         'tipo_inmueble_id':fields.many2one('tipo.inmueble', 'Tipo de Inmueble'),
-        'penthouse_category':fields.selection((('Duplex','Duplex'),('Triplex','Triplex')),u'Categoría'),
-        'plantas_category':fields.selection((('Una','Una'),('Dos','Dos'),('Tres','Tres')),u'Categoría'),
+        'penthouse_category':fields.selection((('Duplex','Duplex'),('Triplex','Triplex')),u'Categoría Penthouse'),
+        'plantas_category':fields.selection((('Una','Una'),('Dos','Dos'),('Tres','Tres')),u'Categoría plantas'),
         'select_estado':fields.selection((('En construcción',u'En construcción'),('A estrenar','A estrenar'),('Impecable','Impecable'),('Reparaciones sencillas','Reparaciones sencillas'),('A reciclar','A reciclar'),('Reciclado','Reciclado'),('En buen estado','En buen estado'),),u'Estado'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),

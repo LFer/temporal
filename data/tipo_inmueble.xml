@@ -3,43 +3,55 @@
     <data noupdate="0">
 
         <record model="tipo.inmueble" id="1">
-            <field name="name">Penthouse</field>
+            <field name="name">Penthouse Duplex</field>  
         </record>
 
         <record model="tipo.inmueble" id="2">
-            <field name="name">Plantas</field>
+            <field name="name">Penthouse Triplex</field>
         </record>
 
         <record model="tipo.inmueble" id="3">
-            <field name="name">Planta baja con patio</field>
+            <field name="name">Una Planta</field>
         </record>
 
         <record model="tipo.inmueble" id="4">
-            <field name="name">1º Piso por escalera</field>
-        </record>
-
+            <field name="name">Dos Plantas</field>
+        </record>        
+        
         <record model="tipo.inmueble" id="5">
-            <field name="name">Frente a rambla</field>
-        </record>
-
+            <field name="name">Tres Plantas</field>
+        </record>                
+        
         <record model="tipo.inmueble" id="6">
-            <field name="name">Primer piso con patio</field>
+            <field name="name">Planta baja con patio</field>
         </record>
 
         <record model="tipo.inmueble" id="7">
-            <field name="name">Padrón Unico</field>
+            <field name="name">1º Piso por escalera</field>
         </record>
 
         <record model="tipo.inmueble" id="8">
-            <field name="name">Propiedad Horizontal</field>
+            <field name="name">Frente a rambla</field>
         </record>
 
         <record model="tipo.inmueble" id="9">
+            <field name="name">Primer piso con patio</field>
+        </record>
+
+        <record model="tipo.inmueble" id="10">
+            <field name="name">Padrón Unico</field>
+        </record>
+
+        <record model="tipo.inmueble" id="11">
+            <field name="name">Propiedad Horizontal</field>
+        </record>
+
+        <record model="tipo.inmueble" id="12">
             <field name="name">Frente al golf</field>
         </record>
 
 
-        <record model="tipo.inmueble" id="10">
+        <record model="tipo.inmueble" id="13">
             <field name="name">Sobre Avenida</field>
         </record>
 

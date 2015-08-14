@@ -16,9 +16,9 @@
                     'crm_lead_view.xml',
                     'pedidos.xml',
                     'security/inmobiliaria_security.xml',
-#                    'security/ir.model.acess.csv'
+                    'security/ir.model.access.csv',
                     'data/departamentos_uy.xml',
-#                    'data/paises.xml',
+                    'data/paises.xml',
                     'data/tipo_inmueble.xml',
                     ],
     "installable": True,
