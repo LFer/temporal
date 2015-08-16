@@ -20,6 +20,7 @@
                     'data/departamentos_uy.xml',
                     'data/paises.xml',
                     'data/tipo_inmueble.xml',
+                    'data/estado_inmueble.xml',
                     ],
     "installable": True,
     "active": False,

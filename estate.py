@@ -154,7 +154,8 @@ class estate(osv.osv):
         'street': fields.char('Calle', size=128),
         'numero_de_puerta':fields.char('Nº de puerta'),
         'numero_de_apto':fields.char('Unidad'),
-        'numero_piso':fields.char('Piso'),        
+        'numero_piso':fields.char('Piso'),
+        'pisos_edi':fields.char('Cantidad de Pisos', help="Indique la cantidad de pisos del edificio"),
         'street2': fields.char('Esquina', size=128),
         'zip': fields.char('Código postal', change_default=True, size=24),
         'city': fields.char('Ciudad', size=128),
@@ -166,15 +167,15 @@ class estate(osv.osv):
         'barrio': fields.char('Zona', size=128),
         'documentacion': fields.text('Documentación'),
         'escribano': fields.many2one('res.partner', 'Escribano'),
-        
+
         #Cabezal
         'operacion':fields.selection((('V','Venta'),('A','Alquiler'),('Venta - Alquiler','Venta - Alquiler'),('T',u'Tasación')),u'Opereción'),
         'tipo_propiedad':fields.selection((('Casa','Casa'),('Apartamento','Apartamento'),('Local','Local'),('Oficina','Oficina'),('Garage','Garage'),('Terreno','Terreno'),('Depósito',u'Depósito'),('Galpón','Galpón')),'Tipo de propiedad'),
         'categoria':fields.selection((('C','Colega'),('D','Directo'),('E','Exclusivo'),('I','Indirecta'),('N','No exclusivo'),('O','Ofrecido')),'Categoría'),
-        
+
         #Pestaña Documentacion
         'obs_documentacion':fields.text('Observaciones'),
-        
+
         #Pestaña Metraje
         'supEdificada':fields.float('Superficie edificada'),
         'supTotal':fields.float('Superficie total'),
@@ -344,7 +345,7 @@ class estate(osv.osv):
         'tipo_inmueble_id':fields.many2one('tipo.inmueble', 'Tipo de Inmueble'),
         'penthouse_category':fields.selection((('Duplex','Duplex'),('Triplex','Triplex')),u'Categoría Penthouse'),
         'plantas_category':fields.selection((('Una','Una'),('Dos','Dos'),('Tres','Tres')),u'Categoría plantas'),
-        'select_estado':fields.selection((('En construcción',u'En construcción'),('A estrenar','A estrenar'),('Impecable','Impecable'),('Reparaciones sencillas','Reparaciones sencillas'),('A reciclar','A reciclar'),('Reciclado','Reciclado'),('En buen estado','En buen estado'),),u'Estado'),
+        'select_estado':fields.many2one('estado.inmueble', 'Estado del Inmueble'),
         #Ambientes/Dormitorios
         'cantidadDormitorios':fields.char('Cantidad de dormitorios'),
         'nAmbientes':fields.char('Cantidad de ambientes'),
@@ -424,6 +425,7 @@ class estate(osv.osv):
         'gastos_comun':fields.char(u'Gastos Comúnes'),
         'contri':fields.integer(u'Contribucción', help="Valor de la cuota"),
         'impuestoprimaria':fields.integer(u'Imp. Primaria'),
+        'precio_obs':fields.text('Observaciónes'),
         #Pestaña Direccion
         'edificio':fields.char('Edificio'),
     }
@@ -725,7 +727,7 @@ class estate(osv.osv):
                     numaux = numaux.strip()
                     sufix = numero[i:]
                     numero = numaux.zfill(4) + sufix
-        return {'value':{'number':numero},}        
+        return {'value':{'number':numero},}
 
 estate()
 
@@ -871,4 +873,14 @@ class tipo_inmueble(osv.osv):
     'name':fields.char('Tipo de Inmueble'),
     }
 
-pais()
+tipo_inmueble()
+
+class estado_inmueble(osv.osv):
+    _name="estado.inmueble"
+    _description="Estado del Inmueble"
+    _columns = {
+    'name':fields.char('Estado del Inmueble'),
+    }
+
+estado_inmueble()
+

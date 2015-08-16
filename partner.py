@@ -35,6 +35,7 @@ class res_partner(osv.osv):
         'estate_ids': fields.one2many('estate', 'partner_id', 'Propiedad'),
         'visit_ids': fields.one2many('visit', 'partner_id', 'Visita'),
         'emails': fields.function(get_emails, string="EMail", relation='mail.message',method=True,type='one2many'),
+        'partner_obs':fields.text('Observaciónes'),
 
     }
 
