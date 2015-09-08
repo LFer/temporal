@@ -128,7 +128,7 @@ class estate(osv.osv):
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas
+        return datas 
     """
 
     def _attach_email(self, cr, uid, ids, name, args, context=None):
@@ -184,7 +184,7 @@ class estate(osv.osv):
         'metraje_fondo':fields.float('Fondo'),
         'largo':fields.float('Profundidad'),
 
-        # Rural
+        # Rural-
         'padron': fields.boolean('Padrón'),
         'estudioSuelo': fields.boolean('Estudios de Suelo'),
         'mapa': fields.boolean('Mapa'),
