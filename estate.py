@@ -14,7 +14,7 @@ from openerp import SUPERUSER_ID
 from openerp import pooler, tools
 import decimal_precision as dp
 import logging
-
+import ipdb as pdb
 _logger = logging.getLogger(__name__)
 PROPIEDAD_ESTADOS = [
     ('creando', 'Creando'),
@@ -128,7 +128,7 @@ class estate(osv.osv):
     def _attach_satelital(self, cr, uid, ids, name, args, context=None):
         attach_ids = self.pool.get('ir.attachment').search(cr, uid, [('satelital','=',True)])
         datas = self.pool.get('ir.attachment').read(cr, uid, attach_ids)
-        return datas 
+        return datas
     """
 
     def _attach_email(self, cr, uid, ids, name, args, context=None):
@@ -322,6 +322,7 @@ class estate(osv.osv):
         'currency_venta': fields.many2one('res.currency', 'Moneda Venta'),
         'price_venta': fields.float('Precio'),
         'precio_cabezal': fields.char('Precio'),
+        'moneda_cabezal': fields.many2one('res.currency', 'Moneda Cabezal'),
         #Para alquilar
         'currency_alquiler': fields.many2one('res.currency', 'Moneda Alquiler'),
         'price_alquiler': fields.float('Precio Alquiler'),
@@ -341,7 +342,7 @@ class estate(osv.osv):
         'padron':fields.char(u'N° de padrón'),
         'year':fields.char('Año de Construcción', size=4),
         'orientacion':fields.selection((('Norte','Norte'),('Noreste','Noreste'),('Noroeste','Noroeste'),('Sur','Sur'),('Sudste','Sudste'),('Sudoeste','Sudoeste'),('Este','Este'),('Oeste','Oeste')),u'Orientación'),
-        'select_ubicacion':fields.selection((('Frente','Frente'),('Contrafrente','Contrafrente'),('Interior','Interior'),('Lateral','Lateral'),('Penthouse','Penthouse')),u'Ubicación'),
+        'ubicacion_id':fields.many2one('select.ubicacion', u'Ubicación'),
         'tipo_inmueble_id':fields.many2one('tipo.inmueble', 'Tipo de Inmueble'),
         'penthouse_category':fields.selection((('Duplex','Duplex'),('Triplex','Triplex')),u'Categoría Penthouse'),
         'plantas_category':fields.selection((('Una','Una'),('Dos','Dos'),('Tres','Tres')),u'Categoría plantas'),
@@ -354,6 +355,7 @@ class estate(osv.osv):
         'DormitorioServicio':fields.boolean('Dormitorio de servicio'),
         #Baños
         'cantidadBanios': fields.char('Cantidad de baños'),
+        'baht_suite': fields.char(u'Baños en Suite'),
         'toilet':fields.boolean('Toilets'),
         'bath':fields.boolean('Baño de servicio'),
         'hidro':fields.boolean('Hidromasaje'),
@@ -373,6 +375,8 @@ class estate(osv.osv):
         'kit':fields.boolean('Kitchenette'),
         'comedor_diario':fields.boolean('Comedor - Diario'),
         'diario_diario':fields.boolean('Diario'),
+        'cocina_integrada':fields.boolean('Cocina Integrada'),
+        'cocina_office':fields.boolean('Office'),
         #Exterior
         'terraza':fields.boolean('Terraza'),
         'balcon':fields.boolean(u'Balcón'),
@@ -467,6 +471,7 @@ class estate(osv.osv):
         'currency_alquiler': 3,
         'currency_venta': 3,
         'date':time.strftime('%Y-%m-%d %H:%M:%S'),
+        'number':0,
     }
 
     def action_calcular_precio_hectarea(self, cr, uid, ids, *args):
@@ -682,51 +687,49 @@ class estate(osv.osv):
 
         return super(estate, self).write(cr, uid, ids, values, context=context)
 
-    def onchange_categoria(self, cr, uid, ids, category_id, context=None):
+    def onchange_categoria(self, cr, uid, ids, name, context=None):
+
 #        import pdb
 #        pdb.set_trace()
-        if category_id:
+        numero=""
+        if name:
             numero=""
-            lista=category_id[0][2]
-            largo =len(lista)
+            nomcat1 = ""
+            largo =len(name)
             if largo > 0:
-                # return {'value':{'number':codigo, 'codigo':codigo},}
-                cr.execute(""" SELECT upper(name) AS name FROM res_partner_category WHERE id = %s """,
-                    (lista[0],))
-                nomcat = cr.fetchone()[0]
-                numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
-                if numero == False:
+                cr.execute(""" SELECT number FROM estate ORDER BY number DESC LIMIT 1 """)
+                if cr.rowcount == 0:
+                    nomcat1 = 1
+                else:
+                    nomcat = cr.fetchone()[0]
+                    nomcat1 = int(nomcat) + 1
 
+                numero = self.pool.get('ir.sequence').get(cr, uid, nomcat1)
+                if numero == False:
                     tiposec = self.pool.get('ir.sequence.type').create(cr, uid,{
                         'create_uid' : uid,
                         'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
                         'write_date' : datetime.date.today().strftime('%Y-%m-%d'),
                         'write_uid' : uid,
-                        'code' : nomcat,
-                        'name' : nomcat,
+                        'code' : nomcat1,
+                        'name' : nomcat1,
                     })
                     if tiposec:
 
-                        nomaux = nomcat[:1]
                         self.pool.get('ir.sequence').create(cr, uid,{
                             'create_uid' : uid,
                             'create_date' : datetime.date.today().strftime('%Y-%m-%d'),
                             'write_date' : datetime.date.today().strftime('%Y-%m-%d'),
-                            'code' : nomcat,
-                            'name' : nomcat,
+                            'code' : str(nomcat1),
+                            'name' : nomcat1,
                             'number_next' : 1,
                             'implementation' : 'standard',
                             'padding' : '0',
                             'number_increment' : 1,
-                            'suffix' : '-'+nomaux+'V',
                         })
-                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat)
+                    numero = self.pool.get('ir.sequence').get(cr, uid, nomcat1)
                 if numero:
-                    i = string.index(numero, '-')
-                    numaux = numero[:i]
-                    numaux = numaux.strip()
-                    sufix = numero[i:]
-                    numero = numaux.zfill(4) + sufix
+                    numero = nomcat1
         return {'value':{'number':numero},}
 
 estate()
@@ -884,3 +887,12 @@ class estado_inmueble(osv.osv):
 
 estado_inmueble()
 
+
+class select_ubicacion(osv.osv):
+    _name='select.ubicacion'
+    _description=u'Ubicación de la Propiedad'
+    _columns = {
+    'name':fields.char(u'Ubicación'),
+    }
+
+select_ubicacion()

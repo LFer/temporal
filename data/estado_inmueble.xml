@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record model="estado.inmueble" id="1">
-            <field name="name">En construcción</field>  
+            <field name="name">En construcción</field>
         </record>
 
         <record model="estado.inmueble" id="2">
@@ -16,12 +16,12 @@
 
         <record model="estado.inmueble" id="4">
             <field name="name">Reparaciones sencillas</field>
-        </record>        
-        
+        </record>
+
         <record model="estado.inmueble" id="5">
             <field name="name">A reciclar</field>
-        </record>                
-        
+        </record>
+
         <record model="estado.inmueble" id="6">
             <field name="name">Reciclado</field>
         </record>

@@ -131,7 +131,7 @@
           <para style="terp_default_8">Embarcadero: <font face="Helvetica-bold">[[ (o.embarcadero) or removeParentNode('tr') ]]</font></para>
         </td>
       </tr>
-      
+
       <tr>
         <td>
           <para style="terp_default_8">Piquetes: <font face="Helvetica-bold">[[ (o.piquetes) or removeParentNode('tr') ]]</font></para>
@@ -177,8 +177,8 @@
         <td>
           <para style="terp_default_8">Tajamares: <font face="Helvetica-bold">[[ (o.tajamares) or removeParentNode('tr') ]]</font></para>
         </td>
-      </tr>      
-      
+      </tr>
+
       <tr>
         <td>
           <para style="terp_default_8">
@@ -228,8 +228,8 @@
     <blockTable colWidths="482.0" style="Tabla1">
       <tr>
         <td>
-          <para style="P2">[[ repeatIn(o.attachments,'r') ]]</para>
-          <para style="P7">[[ ( r.datas and r.email ) and setTag('para','image',{'width':'','height':''}) or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
+          <para>[[ repeatIn(o.attachments,'r') ]]</para>
+          <para>[[ ( r.datas and r.email ) and setTag('para','image',{'width':'','height':''}) or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
         </td>
       </tr>
       <tr>

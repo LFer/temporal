@@ -34,16 +34,23 @@
                         </div>
                     </div>
                     <h1>
-                        <field name="name" default_focus="1" placeholder="Descripción de la propiedad, ah si?" />
+                        <field name="name" default_focus="1" placeholder="Descripción de la propiedad" on_change="onchange_categoria(name)" />
                     </h1>
                     <group col="2" colspan="4" rowspan="2" >
                         <field name="operacion" style="width: 40%%" />
                         <field name="tipo_propiedad" style="width: 40%%" />
                         <!--field name="price_venta" style="width: 40%%" /-->
-                        <field name="precio_cabezal" style="width: 40%%" />
+
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="precio_cabezal"  />
+                            </group>
+                            <field name="moneda_cabezal" nolabel="1"  domain="['|',( 'name','=','USD' ),( 'name','=','UYP' )]"  placeholder="Selecione la moneda"  />
+                        </group>
+
                         <field name="categoria" style="width: 40%%" />
                         <label for="number" style="color:red" />
-                        <field name="number" placeholder="Nro. de propiedad" style="width: 43%%" nolabel="1"/>
+                        <field name="number" placeholder="Nro. de propiedad" style="width: 43%%" nolabel="1" on_change="onchange_categoria(name)"/>
                         <!--field name="duplicados" placeholder="Duplicados" /-->
                         <field name="destacados" placeholder="Destacados"/>
                         <field name="reservado" placeholder="Destacados"/>
@@ -129,107 +136,241 @@
 
                 <page string="Descripción General">
                     <group cols="2" colspan="2">
-                        <group string="Descripción General" style="color:red" rowspan="1" cols="1" colspan="1">
+                        <group string="Descripción General"  rowspan="1" cols="1" colspan="1">
+
                             <field name="padron" style="width: 14%%"/>
-                            <field name="year" style="width: 14%%"/>
-                            <field name="orientacion" style="width: 14%%"/>
-                            <field name="tipo_inmueble_id" style="width: 50%%"/>
+
+                            <label for="year" style="color:red"/>
+                            <field name="year" style="width: 14%%" nolabel="1"/>
+
+                            <label for="orientacion" style="color:red"/>
+                            <field name="orientacion" style="width: 14%%" nolabel="1"/>
+
+                            <label for="tipo_inmueble_id" style="color:red"/>
+                            <field name="tipo_inmueble_id" style="width: 50%%" nolabel="1"/>
+
                             <!--field name="penthouse_category" style="width: 25%%"/-->
+
                             <!--field name="plantas_category" style="width: 25%%"/-->
-                            <field name="select_ubicacion" style="width: 50%%"/>
-                            <field name="select_estado" style="width: 50%%"/>
+
+                            <label for="ubicacion_id" style="color:red"/>
+                            <field name="ubicacion_id" style="width: 50%%" nolabel="1"/>
+
+                            <label for="select_estado" style="color:red"/>
+                            <field name="select_estado" style="width: 50%%" nolabel="1"/>
+
                         </group>
-                        <group string="Área Social" style="color:red" >
-                            <field name="living"/>
-                            <field name="comedor"/>
-                            <field name="liv_com"/>
-                            <field name="estar"/>
-                            <field name="escritorio"/>
-                            <field name="hall"/>
-                            <field name="recibo"/>
-                            <field name="despojador"/>
-                            <field name="hogar"/>
+                        <group string="Área Social">
+                            <label for="living" style="color:red"/>
+                            <field name="living" nolabel="1"/>
+
+                            <label for="comedor" style="color:red"/>
+                            <field name="comedor" nolabel="1"/>
+
+                            <label for="liv_com" style="color:red"/>
+                            <field name="liv_com" nolabel="1"/>
+
+                            <label for="estar" style="color:red"/>
+                            <field name="estar" nolabel="1"/>
+
+                            <label for="escritorio" style="color:red"/>
+                            <field name="escritorio" nolabel="1"/>
+
+                            <label for="hall" style="color:red"/>
+                            <field name="hall" nolabel="1"/>
+
+                            <label for="recibo" style="color:red"/>
+                            <field name="recibo" nolabel="1"/>
+
+                            <label for="despojador" style="color:red"/>
+                            <field name="despojador" nolabel="1"/>
+
+                            <label for="hogar" style="color:red"/>
+                            <field name="hogar" nolabel="1"/>
                         </group>
-                        <group string="Ambientes/Dormitorios" style="color:red">
-                            <field name="cantidadDormitorios" style="width: 14%%"/>
-                            <field name="nAmbientes" style="width: 14%%"/>
-                            <field name="suite" style="width: 14%%"/>
-                            <field name="DormitorioPlacard" style="width: 14%%"/>
-                            <field name="DormitorioServicio" style="width: 25%%"/>
+                        <group string="Ambientes/Dormitorios">
+                            <label for="cantidadDormitorios" style="color:red"/>
+                            <field name="cantidadDormitorios" style="width: 14%%" nolabel="1"/>
+
+                            <label for="nAmbientes" style="color:red"/>
+                            <field name="nAmbientes" style="width: 14%%" nolabel="1"/>
+
+                            <label for="suite" style="color:red"/>
+                            <field name="suite" style="width: 14%%" nolabel="1"/>
+
+                            <label for="DormitorioPlacard" style="color:red"/>
+                            <field name="DormitorioPlacard" style="width: 14%%" nolabel="1"/>
+
+                            <label for="DormitorioServicio" style="color:red"/>
+                            <field name="DormitorioServicio" style="width: 25%%" nolabel="1"/>
                         </group>
-                        <group string="Baños" style="color:red" >
-                            <field name="cantidadBanios" style="width: 14%%"/>
-                            <field name="toilet" style="width: 14%%"/>
-                            <field name="bath" style="width: 14%%"/>
-                            <field name="hidro" style="width: 25%%"/>
+                        <group string="Baños">
+                            <label for="cantidadBanios" style="color:red"/>
+                            <field name="cantidadBanios" style="width: 14%%" nolabel="1"/>
+
+                            <label for="baht_suite" style="color:red"/>
+                            <field name="baht_suite" style="width: 14%%" nolabel="1"/>
+
+                            <label for="toilet" style="color:red"/>
+                            <field name="toilet" style="width: 14%%" nolabel="1"/>
+
+                            <label for="bath" style="color:red"/>
+                            <field name="bath" style="width: 14%%" nolabel="1"/>
+
+                            <label for="hidro" style="color:red"/>
+                            <field name="hidro" style="width: 25%%" nolabel="1"/>
                         </group>
-                        <group string="Cocina" style="color:red" >
-                            <field name="cocina"/>
-                            <!--field name="office_cocina"/-->
-                            <field name="kit"/>
-                            <field name="comedor_diario"/>
-                            <!--field name="diario_diario"/-->
-                        </group>
-                        <group string="Exterior" style="color:red" >
-                            <field name="terraza"/>
-                            <field name="balcon"/>
-                            <field name="terraza_2"/>
-                            <field name="lavadero"/>
-                            <field name="azotea"/>
-                            <field name="patio"/>
-                            <field name="fondo"/>
-                            <field name="jardin"/>
-                            <field name="parrillero"/>
-                            <field name="bbq"/>
+                        <group string="Exterior">
+                            <label for="terraza" style="color:red"/>
+                            <field name="terraza" nolabel="1"/>
+
+                            <label for="balcon" style="color:red"/>
+                            <field name="balcon" nolabel="1"/>
+
+                            <label for="terraza_2" style="color:red"/>
+                            <field name="terraza_2" nolabel="1"/>
+
+                            <label for="lavadero" style="color:red"/>
+                            <field name="lavadero" nolabel="1"/>
+
+                            <label for="azotea" style="color:red"/>
+                            <field name="azotea" nolabel="1"/>
+
+                            <label for="patio" style="color:red"/>
+                            <field name="patio" nolabel="1"/>
+
+                            <label for="fondo" style="color:red"/>
+                            <field name="fondo" nolabel="1"/>
+
+                            <label for="jardin" style="color:red"/>
+                            <field name="jardin" nolabel="1"/>
+
+                            <label for="parrillero" style="color:red"/>
+                            <field name="parrillero" nolabel="1"/>
+
+                            <label for="bbq" style="color:red"/>
+                            <field name="bbq" nolabel="1"/>
                             <!--field name="deposito"/-->
                         </group>
-                        <group string="Garage" style="color:red" >
-                            <group>
-                                <field name="garage" style="width: 1%%"/>
-                                <field name="cochera" style="width: 1%%"/>
-                            </group>
-                            <group>
-                                <field name="autos2"/>
-                                <field name="autos" style="width: 1%%"/>
-                            </group>
-                            </group>
-                            <group style="color:red">
-                                <field name="box"/>
-                            </group>
-                        <group string="Calefacción y servicios accesorios" style="color:red">
-                            <field name="calefaccion" style="width: 50%%"/>
-                            <field name="ac"/>
-                            <field name="gas"/>
-                            <field name="telefono"/>
-                            <field name="cable"/>
-                            <field name="internet"/>
-                            <field name="alarma"/>
+                        <group string="Cocina" >
+                            <label for="cocina" style="color:red"/>
+                            <field name="cocina" nolabel="1"/>
+                            <!--field name="office_cocina"/-->
+                            <label for="kit" style="color:red"/>
+                            <field name="kit" nolabel="1"/>
+
+                            <label for="comedor_diario" style="color:red"/>
+                            <field name="comedor_diario" nolabel="1"/>
+
+                            <label for="cocina_integrada" style="color:red"/>
+                            <field name="cocina_integrada" nolabel="1"/>
+
+                            <label for="cocina_office" style="color:red"/>
+                            <field name="cocina_office" nolabel="1"/>
+
+                            <!--field name="diario_diario"/-->
                         </group>
-                        <group string="Equipamiento" style="color:red">
-                            <field name="amueblado"/>
-                            <field name="linea_blanca"/>
+
+                        <group string="Calefacción y servicios accesorios" >
+                            <label for="" style="color:red"/>
+                            <field name="calefaccion" style="width: 50%%" nolabel="1"/>
+
+                            <label for="ac" style="color:red"/>
+                            <field name="ac" nolabel="1"/>
+
+                            <label for="gas" style="color:red"/>
+                            <field name="gas" nolabel="1"/>
+
+                            <label for="telefono" style="color:red"/>
+                            <field name="telefono" nolabel="1"/>
+
+                            <label for="cable" style="color:red"/>
+                            <field name="cable" nolabel="1"/>
+
+                            <label for="internet" style="color:red"/>
+                            <field name="internet" nolabel="1"/>
+
+                            <label for="alarma" style="color:red"/>
+                            <field name="alarma" nolabel="1"/>
                         </group>
-                        <group string="Amenities" style="color:red">
-                            <field name="piscinalibre"/>
-                            <field name="piscinacubierta"/>
-                            <field name="sauna"/>
-                            <field name="sala_juegos"/>
-                            <field name="gym"/>
-                            <field name="canchas"/>
-                            <field name="parrillero2"/>
-                            <field name="bbq2"/>
-                            <field name="solarium"/>
+                        <group string='Garage'>
+                            <group>
+                                <label for="garage" style="color:red"/>
+                                <field name="garage" style="width: 1%%" nolabel="1"/>
+
+                                <label for="cochera" style="color:red"/>
+                                <field name="cochera" style="width: 1%%" nolabel="1"/>
+
+                                <label for="box" style="color:red"/>
+                                <field name="box" nolabel="1"/>
+                            </group>
+                            <group>
+                                <label for="autos2" style="color:red"/>
+                                <field name="autos2"  nolabel="1"/>
+
+                                <label for="autos" style="color:red"/>
+                                <field name="autos" nolabel="1"/>
+                            </group>
+
+                        </group>
+                        <group string="Amenities">
+                            <label for="piscinalibre" style="color:red"/>
+                            <field name="piscinalibre" nolabel="1"/>
+
+                            <label for="piscinacubierta" style="color:red"/>
+                            <field name="piscinacubierta" nolabel="1"/>
+
+                            <label for="sauna" style="color:red"/>
+                            <field name="sauna" nolabel="1"/>
+
+                            <label for="sala_juegos" style="color:red"/>
+                            <field name="sala_juegos" nolabel="1"/>
+
+                            <label for="gym" style="color:red"/>
+                            <field name="gym" nolabel="1"/>
+
+                            <label for="canchas" style="color:red"/>
+                            <field name="canchas" nolabel="1"/>
+
+                            <label for="parrillero2" style="color:red"/>
+                            <field name="parrillero2" nolabel="1"/>
+
+                            <label for="bbq2" style="color:red"/>
+                            <field name="bbq2" nolabel="1"/>
+
+                            <label for="solarium" style="color:red"/>
+                            <field name="solarium" nolabel="1"/>
                             <!--field name="salon_comunal"/-->
                         </group>
-                        <group string="Comodidades del edificio" style="color:red" >
-                            <field name="ascensor"/>
-                            <field name="porteria" style="width: 14%%"/>
-                            <field name="porteria_2" style="width: 14%%"/>
-                            <field name="lavanderia" style="width: 14%%"/>
-                            <field name="vigilancia" style="width: 25%%"/>
+                        <group string="Equipamiento">
+                            <label for="amueblado" style="color:red"/>
+                            <field name="amueblado" nolabel="1"/>
+
+                            <label for="linea_blanca" style="color:red"/>
+                            <field name="linea_blanca" nolabel="1"/>
                         </group>
-                        <group string="Comentarios" style="color:red" >
-                            <field name="comentarios"/>
+                        <group string="Comodidades del edificio">
+                            <label for="ascensor" style="color:red"/>
+                            <field name="ascensor" nolabel="1"/>
+
+                            <label for="porteria" style="color:red"/>
+                            <field name="porteria" style="width: 14%%" nolabel="1"/>
+
+                            <label for="porteria_2" style="color:red"/>
+                            <field name="porteria_2" style="width: 14%%" nolabel="1"/>
+
+                            <label for="lavanderia" style="color:red"/>
+                            <field name="lavanderia" style="width: 14%%" nolabel="1"/>
+
+                            <label for="vigilancia" style="color:red"/>
+                            <field name="vigilancia" style="width: 25%%" nolabel="1"/>
+                        </group>
+
+
+                    </group>
+                    <group string="Comentarios">
+                        <group>
+                            <field name="comentarios" nolabel="1"/>
                         </group>
                     </group>
                 </page>
@@ -665,7 +806,7 @@
         <field name="act_window_id" ref="action_estate_form"/>
     </record>
 
-    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"/>
+    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"  name="Prop"/>
     <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->
 
 

@@ -151,7 +151,7 @@
   <td>
     <para style="terp_default_8">Año de Construcción: <font face="Helvetica"> [[ (o.year) or removeParentNode('para') ]]</font></para>
     <para style="terp_default_8">Orientación: <font face="Helvetica"> [[ (o.orientacion) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Ubicación: <font face="Helvetica"> [[ (o.select_ubicacion) or removeParentNode('para') ]]</font></para>
+    <para style="terp_default_8">Ubicación: <font face="Helvetica"> [[ (o.select_ubicacion) or removeParentNode('para') ]]</font></para><!--TODO-->
     <para style="terp_default_8">Estado: <font face="Helvetica"> [[ (o.select_estado.name) or removeParentNode('para') ]]</font></para>
   </td>
 </tr>
@@ -190,6 +190,7 @@
     <!--Baños-->
     <td>
       <para style="terp_default_8">Cantidad de baños: <font face="Helvetica-bold" >[[ (o.cantidadBanios) or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Cantidad de baños: <font face="Helvetica-bold" >[[ (o.baht_suite) or removeParentNode('para') ]]</font></para>
       <para style="terp_default_8">Toilets: <font face="Helvetica-bold" >[[ (o.toilet) and 'Si' or removeParentNode('para') ]]</font></para>
       <para style="terp_default_8">Baño de servicio: <font face="Helvetica-bold" >[[ (o.bath) and 'Si' or removeParentNode('para') ]]</font></para>
       <para style="terp_default_8">Hidromasaje: <font face="Helvetica-bold" >[[ (o.hidro) and 'Si' or removeParentNode('para') ]]</font></para>
@@ -202,6 +203,8 @@
       <para style="terp_default_8">Kitchenette: <font face="Helvetica-bold" >[[ (o.kit) and 'Si' or removeParentNode('para') ]]</font></para>
       <para style="terp_default_8">Comedor: <font face="Helvetica-bold" >[[ (o.comedor_diario) and 'Si' or removeParentNode('para') ]]</font></para>
       <para style="terp_default_8">Diario: <font face="Helvetica-bold" >[[ (o.diario_diario) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Cocina Integrada: <font face="Helvetica-bold" >[[ (o.cocina_integrada) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Office: <font face="Helvetica-bold" >[[ (o.cocina_office) and 'Si' or removeParentNode('para') ]]</font></para>
   </td>
 </tr>
  <tr>

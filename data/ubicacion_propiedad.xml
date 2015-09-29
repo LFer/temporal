@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record model="select.ubicacion" id="1">
+            <field name="name">Frente</field>
+        </record>
+
+        <record model="select.ubicacion" id="2">
+            <field name="name">Contrafrente</field>
+        </record>
+
+        <record model="select.ubicacion" id="3">
+            <field name="name">Interior</field>
+        </record>
+
+        <record model="select.ubicacion" id="4">
+            <field name="name">Lateral</field>
+        </record>
+
+        <record model="select.ubicacion" id="5">
+            <field name="name">Penthouse</field>
+        </record>
+    </data>
+</openerp>
