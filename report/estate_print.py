@@ -45,8 +45,20 @@ report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/dtm_i
 
 
 def _get_imagepath(self, ide):
+    import pdb; pdb.set_trace()
     attach_ids = self.pool.get('ir.attachment').search(self.cr, self.uid, [('res_model','=','estate'), ('res_id', '=',ide)])
     datas = self.pool.get('ir.attachment').read(self.cr, self.uid, attach_ids)
-    return datas[0]['datas']
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    if len(datas):
+        # if there are several, pick first
+        try:
+            if datas[0]['link']:
+                try:
+                    img_data =  base64.encodestring(urllib.urlopen(datas[0]['link']).read())
+                    return img_data
+                except Exception,innerEx:
+                    print innerEx
+            elif datas[0]['datas']:
+                return datas[0]['datas']
+        except Exception,e:
+            print e
+    return None

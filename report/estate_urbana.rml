@@ -25,27 +25,27 @@
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
-    <paraStyle name="P1" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#606060"/>
-    <paraStyle name="P2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P3" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#ff0000"/>
-    <paraStyle name="PP" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="COM" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="COM1" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="16.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P4" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P5" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT"/>
-    <paraStyle name="P6" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P7" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="Standard" fontName="Helvetica-bold"/>
-    <paraStyle name="Heading" fontName="Helvetica-bold" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="Text body" fontName="Helvetica-bold" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="List" fontName="Helvetica-bold" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="Caption" fontName="Helvetica-bold" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="Index" fontName="Helvetica-bold"/>
-    <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-bold" fontSize="8.0" textColor="#606060" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="Table Contents" fontName="Helvetica-bold"/>
-    <paraStyle name="Header" fontName="Helvetica-bold"/>
-    <paraStyle name="Table Heading" fontName="Helvetica-bold" alignment="CENTER"/>
+    <paraStyle name="P1" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#606060"/>
+    <paraStyle name="P2" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" rightIndent="0.0" leftIndent="0.0"  fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0" textColor="#ff0000"/>
+    <paraStyle name="PP" rightIndent="0.0" leftIndent="0.0"  fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="COM" rightIndent="0.0" leftIndent="0.0"  fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="COM1" rightIndent="0.0" leftIndent="0.0"  fontSize="16.0" leading="15" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5"  fontSize="8.0" leading="10" alignment="LEFT"/>
+    <paraStyle name="P6" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P7" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="Standard" />
+    <paraStyle name="Heading"  fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body"  spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List"  spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption"  fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" />
+    <paraStyle name="terp_header"  fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0"  fontSize="8.0" textColor="#606060" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="Table Contents" />
+    <paraStyle name="Header" />
+    <paraStyle name="Table Heading"  alignment="CENTER"/>
     <images/>
   </stylesheet>
   <story>
@@ -53,13 +53,13 @@
     <blockTable colWidths="482.0" style="Tabla5">
       <tr>
         <td>
-          <para style="COM1"><font face="Helvetica"> [[ (o.name) or '' ]]</font></para>
+          <para style="COM1"> [[ (o.name) or '' ]]</para>
         </td>
       </tr>
       <tr>
         <td>
           <para style="terp_default_8">
-            <font color="white"> </font>
+
           </para>
         </td>
       </tr>
@@ -71,62 +71,62 @@
 
       <tr>
         <td>
-          <para style="P3">Precio Alquiler: <font face="Helvetica">[[ (o.currency_alquiler.name) or removeParentNode('tr')]] [[ ("{:,.0f}".format(o.price_alquiler).replace(',','.'))]]</font></para>
+          <para style="P3">Precio Alquiler: [[ (o.currency_alquiler.name) or removeParentNode('para')]] [[ ("{:,.0f}".format(o.price_alquiler).replace(',','.'))]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P3">Precio Venta: <font face="Helvetica">[[ (o.currency_venta.name) or '' ]] [[ ("{:,.0f}".format(o.price_venta).replace(',','.'))]]</font></para>
+          <para style="P3">Precio Venta: [[ (o.currency_venta.name) or removeParentNode('para')]] [[ ("{:,.0f}".format(o.price_venta).replace(',','.'))]] </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="PP">Tipo de Inmueble: <font face="Helvetica"> [[ (o.tipo_propiedad) or '' ]]</font></para>
+          <para style="PP">Tipo de Inmueble:  [[ (o.tipo_propiedad) or '' ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="PP">Piso: <font face="Helvetica"> [[ (o.numero_piso) or removeParentNode('tr') ]] </font></para>
+          <para style="PP">Piso:  [[ (o.numero_piso) or removeParentNode('tr') ]] </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="PP">Gastos Comúnes: <font face="Helvetica">[[ (o.gastos_comun) or removeParentNode('tr')]] </font></para>
+          <para style="PP">Gastos Comúnes: [[ (o.gastos_comun) or removeParentNode('tr')]] </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="PP">Contribucción: <font face="Helvetica">[[ (o.currency.symbol) or removeParentNode('tr')]] [[ (o.contri) or removeParentNode('tr')]] </font></para>
+          <para style="PP">Contribucción: [[ (o.currency.symbol) or removeParentNode('tr')]] [[ (o.contri) or removeParentNode('tr')]] </para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="PP">Imp. Primaria:: <font face="Helvetica">[[ (o.currency.symbol) or removeParentNode('tr')]] [[ (o.impuestoprimaria) or removeParentNode('tr')]] </font></para>
+          <para style="PP">Imp. Primaria:: [[ (o.currency.symbol) or removeParentNode('tr')]] [[ (o.impuestoprimaria) or removeParentNode('tr')]] </para>
         </td>
       </tr>
       <tr>
         <td>
           <para style="terp_default_8">
-            <font color="white"> </font>
+
           </para>
         </td>
       </tr>
       <!--tr>
         <td>
-          <para style="COM">Descripción: <font face="Helvetica"> [[ (o.name) or '' ]]</font></para>
+          <para style="COM">Descripción:  [[ (o.name) or '' ]]</para>
         </td>
       </tr-->
       <tr>
         <td>
           <para style="terp_default_8">
-            <font color="white"> </font>
+
           </para>
         </td>
       </tr>
       <tr>
         <td>
           <para style="P4">
-            <font color="white"> </font>
+
           </para>
         </td>
       </tr>
@@ -134,182 +134,183 @@
 <title>Información Adicional</title>
  <blockTable>
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Metraje']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Descripción General']]</font></para></td>
+ <td><para style="P3">Metraje [[ ((o.supTotal) or (o.supEdificada) or (o.largo) or (o.ancho) or (o.superficie_terraza) or (o.metraje_fondo)) and " " or removeParentNode('td') ]]</para></td>
+
+ <!--[[ (() or () or () or () or () or () or () or () or () or () or ()) and " " or removeParentNode('para') ]]-->
+
+ <td><para style="P3">Descripción General[[ ((o.year) or (o.orientacion) or  (o.ubicacion_id.name) or (o.select_estado.name)) and " " or removeParentNode('para') ]]</para></td>
  </tr>
 <tr>
+
   <!--Metraje-->
   <td>
-    <para style="terp_default_8">Superficie total: <font face="Helvetica-bold" >[[ ("{:,.0f}".format(o.supTotal).replace(',','.')) or removeParentNode('para') ]] m2</font></para>
-    <para style="terp_default_8">Superficie edificada: <font face="Helvetica-bold" >[[ ("{:,.0f}".format(o.supEdificada).replace(',','.')) or removeParentNode('para') ]] m2</font></para>
-    <para style="terp_default_8">Profundidad: <font face="Helvetica-bold" >[[(o.largo) or removeParentNode('para') ]] m</font></para>
-    <para style="terp_default_8">Frente: <font face="Helvetica-bold" >[[(o.ancho) or removeParentNode('para') ]] m</font></para>
-    <para style="terp_default_8">Terraza: <font face="Helvetica-bold" >[[ ("{:,.0f}".format(o.superficie_terraza).replace(',','.')) or removeParentNode('para') ]] m2</font></para>
-    <para style="terp_default_8">Fondo: <font face="Helvetica-bold" >[[(o.metraje_fondo) or removeParentNode('para') ]] m2</font></para>
+    <para style="terp_default_8">Superficie total: [[ (o.supTotal) or removeParentNode('para') ]]m2</para>
+    <para style="terp_default_8">Superficie edificada: [[ (o.supEdificada) or removeParentNode('para') ]]m2</para>
+    <para style="terp_default_8">Profundidad: [[(o.largo) or removeParentNode('para') ]] </para>
+    <para style="terp_default_8">Frente: [[(o.ancho) or removeParentNode('para') ]] m</para>
+    <para style="terp_default_8">Terraza: [[ (o.superficie_terraza) or removeParentNode('para') ]] m2</para>
+    <para style="terp_default_8">Fondo: [[(o.metraje_fondo) or removeParentNode('para') ]] m2</para>
   </td>
   <!--Descripción General-->
   <td>
-    <para style="terp_default_8">Año de Construcción: <font face="Helvetica"> [[ (o.year) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Orientación: <font face="Helvetica"> [[ (o.orientacion) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Ubicación: <font face="Helvetica"> [[ (o.select_ubicacion) or removeParentNode('para') ]]</font></para><!--TODO-->
-    <para style="terp_default_8">Estado: <font face="Helvetica"> [[ (o.select_estado.name) or removeParentNode('para') ]]</font></para>
+    <para style="terp_default_8">Año de Construcción:  [[ (o.year) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Orientación:  [[ (o.orientacion) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Ubicación:  [[ (o.ubicacion_id.name) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Estado:  [[ (o.select_estado.name) or removeParentNode('para') ]]</para>
   </td>
 </tr>
 
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Área Social']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Ambientes/Dormitorios']]</font></para></td>
+ <td><para style="P3">Área Social [[ ((o.living) or (o.comedor) or (o.liv_com) or (o.estar) or (o.escritorio) or (o.hall) or (o.recibo) or (o.hogar) ) and " " or removeParentNode('para') ]]</para></td>
+ <td><para style="P3">Ambientes/Dormitorios[[ ((o.cantidadDormitorios) or (o.nAmbientes) or (o.suite) or (o.DormitorioPlacard) or (o.DormitorioServicio) ) and " " or removeParentNode('para') ]]</para></td>
  </tr>
  <tr>
   <!--Área Social-->
   <td>
-    <para style="terp_default_8">Living: <font face="Helvetica-bold" >[[ (o.living) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Comedor: <font face="Helvetica-bold" >[[ (o.comedor) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Living-Comedor: <font face="Helvetica-bold" >[[ (o.liv_com) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Estar: <font face="Helvetica-bold" >[[ (o.estar) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Escritorio: <font face="Helvetica-bold" >[[ (o.escritorio) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Hall: <font face="Helvetica-bold" >[[ (o.hall) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Recibo: <font face="Helvetica-bold" >[[ (o.recibo) and 'Si' or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Hogar: <font face="Helvetica-bold" >[[ (o.hogar) and 'Si' or removeParentNode('para') ]]</font></para>
+    <para style="terp_default_8">Living: [[ (o.living) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Comedor: [[ (o.comedor) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Living-Comedor: [[ (o.liv_com) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Estar: [[ (o.estar) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Escritorio: [[ (o.escritorio) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Hall: [[ (o.hall) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Recibo: [[ (o.recibo) and 'Si' or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Hogar: [[ (o.hogar) and 'Si' or removeParentNode('para') ]]</para>
   </td>
   <!--Ambientes/Dormitorios-->
   <td>
-    <para style="terp_default_8">Cantidad de dormitorios: <font face="Helvetica-bold" >[[ (o.cantidadDormitorios) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Cantidad de ambientes: <font face="Helvetica-bold" >[[ (o.nAmbientes) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Dormitorios en suite: <font face="Helvetica-bold" >[[ (o.suite) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Dormitorios con placard: <font face="Helvetica-bold" >[[ (o.DormitorioPlacard) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Dormitorios con placard: <font face="Helvetica-bold" >[[ (o.DormitorioPlacard) or removeParentNode('para') ]]</font></para>
-    <para style="terp_default_8">Dormitorio de servicio: <font face="Helvetica-bold" >[[ (o.DormitorioServicio) and 'Si' or removeParentNode('para') ]]</font></para>
+    <para style="terp_default_8">Cantidad de dormitorios: [[ (o.cantidadDormitorios) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Cantidad de ambientes: [[ (o.nAmbientes) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Dormitorios en suite: [[ (o.suite) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Dormitorios con placard: [[ (o.DormitorioPlacard) or removeParentNode('para') ]]</para>
+    <para style="terp_default_8">Dormitorio de servicio: [[ (o.DormitorioServicio) and 'Si' or removeParentNode('para') ]]</para>
   </td>
 </tr>
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Baños']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Cocina']]</font></para></td>
+ <td><para style="P3">Baños[[ ((o.cantidadBanios) or (o.baht_suite) or (o.toilet) or (o.bath) or (o.hidro) ) and " " or removeParentNode('para') ]]</para></td>
+ <td><para style="P3">Cocina[[ ((o.cocina) or (o.office_cocina) or (o.kit) or (o.comedor_diario) or (o.cocina_integrada) or (o.cocina_office)) and " " or removeParentNode('para') ]]</para></td>
  </tr>
  <tr>
     <!--Baños-->
     <td>
-      <para style="terp_default_8">Cantidad de baños: <font face="Helvetica-bold" >[[ (o.cantidadBanios) or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Cantidad de baños: <font face="Helvetica-bold" >[[ (o.baht_suite) or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Toilets: <font face="Helvetica-bold" >[[ (o.toilet) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Baño de servicio: <font face="Helvetica-bold" >[[ (o.bath) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Hidromasaje: <font face="Helvetica-bold" >[[ (o.hidro) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Cantidad de baños: [[ (o.cantidadBanios) or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Cantidad de baños: [[ (o.baht_suite) or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Toilets: [[ (o.toilet) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Baño de servicio: [[ (o.bath) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Hidromasaje: [[ (o.hidro) and 'Si' or removeParentNode('para') ]]</para>
     </td>
 
     <!--Cocina-->
     <td>
-      <para style="terp_default_8">Cocina: <font face="Helvetica-bold" >[[ (o.cocina) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Cocina con Office: <font face="Helvetica-bold" >[[ (o.office_cocina) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Kitchenette: <font face="Helvetica-bold" >[[ (o.kit) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Comedor: <font face="Helvetica-bold" >[[ (o.comedor_diario) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Diario: <font face="Helvetica-bold" >[[ (o.diario_diario) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Cocina Integrada: <font face="Helvetica-bold" >[[ (o.cocina_integrada) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Office: <font face="Helvetica-bold" >[[ (o.cocina_office) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Cocina: [[ (o.cocina) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Cocina con Office: [[ (o.office_cocina) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Kitchenette: [[ (o.kit) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Comedor: [[ (o.comedor_diario) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Diario: [[ (o.diario_diario) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Cocina Integrada: [[ (o.cocina_integrada) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Office: [[ (o.cocina_office) and 'Si' or removeParentNode('para') ]]</para>
   </td>
 </tr>
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Exterior']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Garage']]</font></para></td>
+ <td><para style="P3">Exterior[[ ((o.terraza) or (o.balcon) or (o.terraza_2) or (o.lavadero) or (o.azotea) or (o.patio) or (o.fondo) or (o.jardin) or (o.parrillero) or (o.bbq) ) and " " or removeParentNode('para') ]]</para></td>
+ <td><para style="P3">Garage[[ ((o.cochera) or (o.autos) or (o.box)) and " " or removeParentNode('para') ]]</para></td>
  </tr>
   <tr>
     <!--Exterior-->
     <td>
-      <para style="terp_default_8">Terraza: <font face="Helvetica-bold" >[[ (o.terraza) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Balcón: <font face="Helvetica-bold" >[[ (o.balcon) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Terraza de servicio: <font face="Helvetica-bold" >[[ (o.terraza_2) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Lavadero: <font face="Helvetica-bold" >[[ (o.lavadero) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Acceso a azotea: <font face="Helvetica-bold" >[[ (o.azotea) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Patio: <font face="Helvetica-bold" >[[ (o.patio) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Fondo: <font face="Helvetica-bold" >[[ (o.fondo) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Jardín: <font face="Helvetica-bold" >[[ (o.jardin) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Parrillero: <font face="Helvetica-bold" >[[ (o.parrillero) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Barbacoa: <font face="Helvetica-bold" >[[ (o.bbq) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Terraza: [[ (o.terraza) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Balcón: [[ (o.balcon) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Terraza de servicio: [[ (o.terraza_2) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Lavadero: [[ (o.lavadero) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Acceso a azotea: [[ (o.azotea) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Patio: [[ (o.patio) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Fondo: [[ (o.fondo) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Jardín: [[ (o.jardin) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Parrillero: [[ (o.parrillero) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Barbacoa: [[ (o.bbq) and 'Si' or removeParentNode('para') ]]</para>
     </td>
 
     <!--Garage-->
     <td>
-      <para style="terp_default_8">Garage: <font face="Helvetica-bold" >[[ (o.cochera) or removeParentNode('para')]] autos</font></para>
-      <para style="terp_default_8">Cochera: <font face="Helvetica-bold" >[[ (o.autos) or removeParentNode('para') ]] autos</font></para>
-      <para style="terp_default_8">Box: <font face="Helvetica-bold" >[[ (o.box) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Garage: [[ (o.cochera) or removeParentNode('para')]] autos</para>
+      <para style="terp_default_8">Cochera: [[ (o.autos) or removeParentNode('para') ]] autos</para>
+      <para style="terp_default_8">Box: [[ (o.box) and 'Si' or removeParentNode('para') ]]</para>
   </td>
 </tr>
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Calefacción y servicios accesorios']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Equipamiento']]</font></para></td>
+ <td><para style="P3">Calefacción y servicios accesorios[[ ((o.calefaccion.name) or (o.ac) or (o.gas) or (o.telefono) or (o.cable) or (o.internet) or (o.alarma)) and " " or removeParentNode('para') ]]</para></td>
+ <td><para style="P3">Equipamiento[[ ((o.amueblado) or (o.linea_blanca)) and " " or removeParentNode('para') ]]</para></td>
  </tr>
    <tr>
     <!--Calefacción y servicios accesorios-->
     <td>
-      <para style="terp_default_8">Calefacción: <font face="Helvetica"> [[ (o.calefaccion.name) or '' ]]</font></para>
-      <para style="terp_default_8">Aire Acondicionado: <font face="Helvetica-bold" >[[ (o.ac) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Gás por cañeria: <font face="Helvetica-bold" >[[ (o.gas) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Teléfono: <font face="Helvetica-bold" >[[ (o.telefono) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">TV. Cable: <font face="Helvetica-bold" >[[ (o.cable) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Internet: <font face="Helvetica-bold" >[[ (o.internet) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Alarma: <font face="Helvetica-bold" >[[ (o.alarma) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Calefacción:  [[ (o.calefaccion.name) or '' ]]</para>
+      <para style="terp_default_8">Aire Acondicionado: [[ (o.ac) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Gás por cañeria: [[ (o.gas) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Teléfono: [[ (o.telefono) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">TV. Cable: [[ (o.cable) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Internet: [[ (o.internet) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Alarma: [[ (o.alarma) and 'Si' or removeParentNode('para') ]]</para>
     </td>
 
     <!--Equipamiento-->
     <td>
-      <para style="terp_default_8">Amueblado: <font face="Helvetica-bold" >[[ (o.amueblado) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Linea Blanca: <font face="Helvetica-bold" >[[ (o.linea_blanca) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Amueblado: [[ (o.amueblado) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Linea Blanca: [[ (o.linea_blanca) and 'Si' or removeParentNode('para') ]]</para>
   </td>
 </tr>
  <tr>
- <td><para style="P3"><font face="Helvetica-bold">[['Amenities']]</font></para></td>
- <td><para style="P3"><font face="Helvetica-bold">[['Comodidades del edificio']]</font></para></td>
+ <td><para style="P3">Amenities [[ ((o.piscinalibre) or (o.piscinacubierta) or (o.amueblado) or (o.sauna) or (o.sala_juegos) or (o.gym) or (o.canchas) or (o.parrillero2) or (o.parrillero2) or (o.bbq2) or (o.solarium)) and " " or removeParentNode('para') ]]</para></td>
+
+ <td><para style="P3">Comodidades del edificio [[ ((o.ascensor) or (o.porteria) or (o.porteria_2) or (o.lavanderia) or (o.vigilancia)) and " " or removeParentNode('para') ]]</para></td>
  </tr>
   <tr>
     <!--Amenities-->
     <td>
-      <para style="terp_default_8">Piscina al aire libre: <font face="Helvetica-bold" >[[ (o.piscinalibre) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Piscina cubierta: <font face="Helvetica-bold" >[[ (o.piscinacubierta) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Amueblado: <font face="Helvetica-bold" >[[ (o.amueblado) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Sauna: <font face="Helvetica-bold" >[[ (o.sauna) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Sala de Juegos: <font face="Helvetica-bold" >[[ (o.sala_juegos) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Gimnasio: <font face="Helvetica-bold" >[[ (o.gym) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Canchas deportivas: <font face="Helvetica-bold" >[[ (o.canchas) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Parrillero: <font face="Helvetica-bold" >[[ (o.parrillero2) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Barbacoa: <font face="Helvetica-bold" >[[ (o.bbq2) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Solarium: <font face="Helvetica-bold" >[[ (o.solarium) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Salón Comunal: <font face="Helvetica-bold" >[[ (o.salon_comunal) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Piscina al aire libre: [[ (o.piscinalibre) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Piscina cubierta: [[ (o.piscinacubierta) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Amueblado: [[ (o.amueblado) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Sauna: [[ (o.sauna) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Sala de Juegos: [[ (o.sala_juegos) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Gimnasio: [[ (o.gym) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Canchas deportivas: [[ (o.canchas) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Parrillero: [[ (o.parrillero2) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Barbacoa: [[ (o.bbq2) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Solarium: [[ (o.solarium) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Salón Comunal: [[ (o.salon_comunal) and 'Si' or removeParentNode('para') ]]</para>
     </td>
-
     <!--Comodidades del edificio-->
     <td>
-      <para style="terp_default_8">Ascensor: <font face="Helvetica-bold" >[[ (o.ascensor) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Porteria: <font face="Helvetica-bold" >[[ (o.porteria) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Portero elécparaico: <font face="Helvetica-bold" >[[ (o.porteria_2) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Lavandería: <font face="Helvetica-bold" >[[ (o.lavanderia) and 'Si' or removeParentNode('para') ]]</font></para>
-      <para style="terp_default_8">Vigilancia: <font face="Helvetica-bold" >[[ (o.vigilancia) and 'Si' or removeParentNode('para') ]]</font></para>
+      <para style="terp_default_8">Ascensor: [[ (o.ascensor) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Porteria: [[ (o.porteria) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Porteros Eléctrico: [[ (o.porteria_2) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Lavandería: [[ (o.lavanderia) and 'Si' or removeParentNode('para') ]]</para>
+      <para style="terp_default_8">Vigilancia: [[ (o.vigilancia) and 'Si' or removeParentNode('para') ]]</para>
   </td>
 </tr>
  </blockTable>
  <spacer length="1cm"/>
     <para style="terp_default_8">
-      <font color="white"> </font>
+
     </para>
-    <para style="COM"><b>Comentarios:</b> <font face="Helvetica"> [[ (o.comentarios) or '' ]]</font></para>
-    <!--para style="terp_default_8">Comisión de intermediación: 3% (tres por ciento) más IVA </para-->
+    <para style="COM"><b>Comentarios:</b>  [[ (o.comentarios) or '']]</para>
     <para style="P1">
-      <font color="white"> </font>
+
     </para>
     <para style="terp_default_8">
-      <font color="white"> </font>
+
     </para>
     <spacer length="1cm"/>
-    <para style="terp_default_8"><font face="Helvetica-bold">Nota</font>: La información y valores fueron informados en su oportunidad por su propietario. Por consiguiente, los datos proporcionados en este material, pueden estar sujetas a modificaciones sin previo aviso. </para>
     <para style="P1">
-      <font color="white"> </font>
+
     </para>
     <para style="P1">
-      <font color="white"> </font>
+
     </para>
     <blockTable colWidths="482.0" style="Tabla1">
       <tr>
         <td>
           <para style="P2">[[ repeatIn(o.attachments,'r') ]]</para>
-          <para style="P7">[[ ( r.datas and r.email ) and setTag('para','image',{'width':'384.0','height':'288.0'}) or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
+          <para style="P7">[[ ( r.datas and r.email ) and setTag('para','image') or removeParentNode('para') ]][[ ( r.datas and r.email ) and r.datas ]]</para>
         </td>
       </tr>
       <tr>
@@ -318,9 +319,5 @@
         </td>
       </tr>
     </blockTable>
-
-
-
-
 </story>
 </document>
