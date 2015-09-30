@@ -14,7 +14,6 @@ from openerp import SUPERUSER_ID
 from openerp import pooler, tools
 import decimal_precision as dp
 import logging
-import ipdb as pdb
 _logger = logging.getLogger(__name__)
 PROPIEDAD_ESTADOS = [
     ('creando', 'Creando'),

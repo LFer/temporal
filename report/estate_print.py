@@ -39,7 +39,7 @@ report_sxw.report_sxw('report.inmobiliaria.estate.urbana','estate','addons/dtm_i
 
 #report_sxw.report_sxw('report.inmobiliaria.estate.satelital','estate','addons/dtm_inmobiliaria/report/estate_satelital.rml',parser=estate,header=True)
 
-#report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/dtm_inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
+report_sxw.report_sxw('report.inmobiliaria.estate.simple','estate','addons/dtm_inmobiliaria/report/estate_simple.rml',parser=estate,header=True)
 
 #report_sxw.report_sxw('report.inmobiliaria.estate.terreno','estate','addons/dtm_inmobiliaria/report/estate_terreno.rml',parser=estate,header=True)
 
