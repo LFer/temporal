@@ -806,7 +806,7 @@
         <field name="act_window_id" ref="action_estate_form"/>
     </record>
 
-    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"  name="Prop"/>
+    <menuitem id="menu_partner_form" parent="base.menu_sales" action="action_estate_form" sequence="1" groups="group_adm_inm"  name="Propiedades"/>
     <!--menuitem name="Opportunities" id="menu_crm_opportunitiesDatamatic" parent="menu_partner_form" action="action_estate_form" sequence="3" /-->
 
 
